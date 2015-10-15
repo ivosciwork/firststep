@@ -26,6 +26,7 @@ namespace ivosciwork
         int[] array = new int[4];
         int[] array1 = new int[4];
         int y = 0;
+        bool Estop = false;
         
 
 
@@ -38,6 +39,11 @@ namespace ivosciwork
             label7.Font = new Font("Arial", 30);
             label6.Text = Convert.ToString(Math.Round(E, 1));
             label7.Text = Convert.ToString(Math.Round(E0, 1));
+            this.pictureBox12.BringToFront();
+            this.pictureBox13.BringToFront();
+            this.pictureBox14.BringToFront();
+            this.pictureBox15.BringToFront();
+            
         }
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка */
@@ -103,6 +109,14 @@ namespace ivosciwork
                 pictureBox23.BackColor = Color.Green;
                 pictureBox24.BackColor = Color.Green;
                 pictureBox25.BackColor = Color.Green;
+                pictureBox18.Width = 0;
+                pictureBox19.Width = 0;
+                pictureBox20.Width = 0;
+                pictureBox21.Width = 0;
+                pictureBox22.Width = 0;
+                pictureBox23.Width = 0;
+                pictureBox24.Width = 0;
+                pictureBox25.Width = 0;
             }
         }
         
@@ -186,6 +200,28 @@ namespace ivosciwork
         {
             pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
         }
+       
+        private void pictureBox26_MouseDown(object sender, MouseEventArgs e) /*красная кнопка*/
+        {
+            pictureBox26.Image = Properties.Resources.red_button_down;
+            Estop = true;
+        }
+
+        private void pictureBox26_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBox26.Image = Properties.Resources.red_button;
+        }
+
+        private void pictureBox27_MouseDown(object sender, MouseEventArgs e) /*зеленая кнопка*/
+        {
+            pictureBox27.Image = Properties.Resources.GREEN_BUTTON_DOWN;
+            Estop = false;
+        }
+
+        private void pictureBox27_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
+        }
 
         private void label1_Click(object sender, EventArgs e) /* 1*105НП */
         {
@@ -202,8 +238,12 @@ namespace ivosciwork
             timer2.Enabled = false;
             pictureBox18.BackColor = Color.MidnightBlue;
             pictureBox19.BackColor = Color.MidnightBlue;
-            pictureBox18.Left = 150;
-            pictureBox19.Left = 150;
+            pictureBox20.BackColor = Color.MidnightBlue;
+            pictureBox21.BackColor = Color.MidnightBlue;
+            pictureBox22.BackColor = Color.MidnightBlue;
+            pictureBox23.BackColor = Color.MidnightBlue;
+            pictureBox24.BackColor = Color.MidnightBlue;
+            pictureBox25.BackColor = Color.MidnightBlue;
          }
         
         private void label2_Click(object sender, EventArgs e) /* 1*105 */
@@ -219,8 +259,12 @@ namespace ivosciwork
             timer2.Enabled = false;
             pictureBox18.BackColor = Color.MidnightBlue;
             pictureBox19.BackColor = Color.MidnightBlue;
-            pictureBox18.Left = 150;
-            pictureBox19.Left = 150;
+            pictureBox20.BackColor = Color.MidnightBlue;
+            pictureBox21.BackColor = Color.MidnightBlue;
+            pictureBox22.BackColor = Color.MidnightBlue;
+            pictureBox23.BackColor = Color.MidnightBlue;
+            pictureBox24.BackColor = Color.MidnightBlue;
+            pictureBox25.BackColor = Color.MidnightBlue;
         }
 
         private void label3_Click(object sender, EventArgs e) /* 4*12 */
@@ -236,8 +280,12 @@ namespace ivosciwork
             timer2.Enabled = false;
             pictureBox18.BackColor = Color.MidnightBlue;
             pictureBox19.BackColor = Color.MidnightBlue;
-            pictureBox18.Left = 255;
-            pictureBox19.Left = 255;
+            pictureBox20.BackColor = Color.MidnightBlue;
+            pictureBox21.BackColor = Color.MidnightBlue;
+            pictureBox22.BackColor = Color.MidnightBlue;
+            pictureBox23.BackColor = Color.MidnightBlue;
+            pictureBox24.BackColor = Color.MidnightBlue;
+            pictureBox25.BackColor = Color.MidnightBlue;
         }
        
         private void label4_Click(object sender, EventArgs e) /* ВЫКЛ */
@@ -258,6 +306,14 @@ namespace ivosciwork
             r0 = 5;
             timer1.Enabled = false;
             timer2.Enabled = false;
+            pictureBox18.BackColor = Color.MidnightBlue;
+            pictureBox19.BackColor = Color.MidnightBlue;
+            pictureBox20.BackColor = Color.MidnightBlue;
+            pictureBox21.BackColor = Color.MidnightBlue;
+            pictureBox22.BackColor = Color.MidnightBlue;
+            pictureBox23.BackColor = Color.MidnightBlue;
+            pictureBox24.BackColor = Color.MidnightBlue;
+            pictureBox25.BackColor = Color.MidnightBlue;
 
         }
         
@@ -393,7 +449,7 @@ namespace ivosciwork
             }
 
 
-            if ((f == 0 & y == 2) | f == 3)
+            if (((f == 0 & y == 2) | f == 3) & n != 1)
             {
                 if (array[y] < 105 & (q[y] == 0 | q[y] == 2))
                 {
@@ -738,22 +794,29 @@ namespace ivosciwork
             }
             if (y < 3) y += 1;
             else y = 0;
-            if (f != 0)
+            if (Estop == false)
             {
-                if (m[f - 1] == 336 | l[f - 1] == 336)
+                if (f != 0)
+                {
+                    if (m[f - 1] == 335 | l[f - 1] == 335)
+                    {
+                        if (E - E0 > 3.8) E = E0;
+                        else E += 0.33/4;
+                        label6.Text = Convert.ToString(Math.Round(E, 1));
+                    }
+                }
+                if (f == 0 & (m[3] == 335 | l[3] == 335) & y==3)
                 {
                     if (E - E0 > 3.8) E = E0;
                     else E += 0.33;
                     label6.Text = Convert.ToString(Math.Round(E, 1));
                 }
             }
-            if (f == 0 & (m[3] == 336 | l[3] == 336))
-            {
-                if (E - E0 > 3.8) E = E0;
-                else E += 0.33;
-                label6.Text = Convert.ToString(Math.Round(E, 1));
-            }
        }
+
+        
+
+        
    
     }
 }
