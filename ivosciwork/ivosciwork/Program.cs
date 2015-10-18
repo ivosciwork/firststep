@@ -15,7 +15,11 @@ namespace ivosciwork
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            RPNWorkVisualisation rpn = new RPNWorkVisualisation();
+            Form1 control = new Form1();
+            control.setRPN(rpn);
+            rpn.Show();
+            Application.Run( control );
         }
     }
 }

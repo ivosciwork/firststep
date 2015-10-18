@@ -27,8 +27,6 @@ namespace ivosciwork
         int[] array1 = new int[4];
         int y = 0;
         bool Estop = false;
-        
-
 
         public Form1()
         {
@@ -43,7 +41,21 @@ namespace ivosciwork
             this.pictureBox13.BringToFront();
             this.pictureBox14.BringToFront();
             this.pictureBox15.BringToFront();
-            
+            this.pictureBox18.LocationChanged += beamDirectionChangingHandler;
+            this.pictureBox18.SizeChanged += beamDirectionChangingHandler;
+            this.pictureBox25.LocationChanged += beamDirectionChangingHandler;
+            this.pictureBox25.SizeChanged += beamDirectionChangingHandler;
+        }
+
+        private RPNWorkVisualisation rpn = null;
+
+        public void setRPN( RPNWorkVisualisation rpn ) {
+
+            if (this.rpn == null)
+            {
+                this.rpn = rpn;
+            }
+            else throw new InvalidOperationException("Duplicate RPN connection");
         }
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка */
@@ -814,7 +826,15 @@ namespace ivosciwork
             }
        }
 
-        
+        private void beamDirectionChangingHandler(Object sender, EventArgs args) {
+            if (this.rpn != null)
+            {
+                double newDirection = ( ((PictureBox)sender).Right - 150 ) / 315.0;
+
+                rpn.changeScanningDirection(newDirection);
+            }
+            else throw new MissingFieldException("You must initialize RPN field; we can't fight without our war machines");
+        }
 
         
    

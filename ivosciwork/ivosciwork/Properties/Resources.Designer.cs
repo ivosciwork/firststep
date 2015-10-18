@@ -63,6 +63,16 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Beam {
+            get {
+                object obj = ResourceManager.GetObject("Beam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap center_tmp {
             get {
                 object obj = ResourceManager.GetObject("center_tmp", resourceCulture);
