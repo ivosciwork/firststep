@@ -19,8 +19,11 @@ namespace ivosciwork
 
         public void changeScanningDirection(double x)
         {
-            this.Beam.Left = matrixArea.Left + (int) (matrixArea.Width * x);
-            this.Beam.Width = this.RPN.Left - this.Beam.Left;
+            int newPosition = matrixArea.Left + (int)(matrixArea.Width * x);
+            if ( (newPosition - this.Beam.Left) < matrixArea.Width / 100.0 ) {
+                this.Beam.Left = matrixArea.Left + (int)(matrixArea.Width * x);
+                this.Beam.Width = this.RPN.Left - this.Beam.Left;
+            }
         }
     }
 }
