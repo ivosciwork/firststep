@@ -357,7 +357,7 @@ namespace ivosciwork
                 if ( Math.Abs(x0-x) > 10)  flag = 1;
             }
 
-
+            rpn.changeScanningAngle(E0);
         }
 
         private void pictureBox17_MouseDown(object sender, MouseEventArgs e) /* передвижение метки */
@@ -607,6 +607,8 @@ namespace ivosciwork
             }
             if (y < 3) y += 1;
             else y = 0;
+            rpn.changeScanningAngle(E0);
+
         }
 
         private void timer2_Tick(object sender, EventArgs e)

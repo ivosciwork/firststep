@@ -61,7 +61,7 @@
             // 
             this.matrixArea.Location = new System.Drawing.Point(34, 40);
             this.matrixArea.Name = "matrixArea";
-            this.matrixArea.Size = new System.Drawing.Size(431, 187);
+            this.matrixArea.Size = new System.Drawing.Size(431, 417);
             this.matrixArea.TabIndex = 2;
             this.matrixArea.TabStop = false;
             // 
