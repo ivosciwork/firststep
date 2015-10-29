@@ -6,9 +6,13 @@ namespace ivosciwork
     {
         public enum Mode { IX105NP, IX105, HX12, off };
         private Mode currentMode;
+        private bool running = false;
 
         public void changeMode(Mode m) {
             currentMode = m;
+            if (m == Mode.off) {
+                running = false;
+            }
         }
 
         private double azimut = 0;
@@ -16,7 +20,6 @@ namespace ivosciwork
         public enum Frequency { F1, F2, F3, F4 };
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
         private int delay = 1;
-        private bool running = false;
         private bool stopPressed = false;
 
         public void changeEpsilon( double e ) {
