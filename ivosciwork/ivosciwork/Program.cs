@@ -15,16 +15,17 @@ namespace ivosciwork
         static void Main()
         {
             RPN rpn = new RPN();
+            Form2 tim = new Form2(rpn);
             Thread rpnThread = new Thread( new ThreadStart( rpn.on ));
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            //Application.SetCompatibleTextRenderingDefault(true);
             RPNWorkVisualisation rpnv = new RPNWorkVisualisation();
-            Form1 control = new Form1();
+            Form1 control = new Form1(rpn, tim);
             control.setRPN(rpnv);
             rpnv.Show();
-            Application.Run( control );
             rpnThread.Start();
+            Application.Run( control );
         }
     }
 }

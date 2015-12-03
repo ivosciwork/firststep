@@ -54,6 +54,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include=".Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RPN.cs" />
     <Compile Include="RPNWorkVisualisation.cs">
       <SubType>Form</SubType>
@@ -66,19 +78,17 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RPNWorkVisualisation.resx">
       <DependentUpon>RPNWorkVisualisation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,6 +124,61 @@
     <None Include="Resources\right.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\GREENyes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\koleso.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\shrift.ttf" />
+    <None Include="Resources\tabl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Beam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pusto.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tochka.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chet.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dev.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dva.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nol.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\odin.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pyt.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sem.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shest.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tri.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vos.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\sector1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -126,19 +191,22 @@
     <None Include="Resources\sector4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GREENyes.png" />
+    <None Include="Resources\fon.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\koleso.png" />
+    <None Include="Resources\polosa12.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tabl.png" />
+    <None Include="Resources\polosa105.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Beam.png" />
+    <None Include="Resources\initial_face.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\circle.png" />
+    <None Include="Resources\GREEN_BUTTON_ON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red_button_on.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
