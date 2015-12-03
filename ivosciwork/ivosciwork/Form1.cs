@@ -55,18 +55,6 @@ namespace ivosciwork
         
         }
 
-         
-        private RPNWorkVisualisation rpnv = null;
-
-        public void setRPN(RPNWorkVisualisation rpn)
-        {
-
-            if (this.rpnv == null)
-            {
-                this.rpnv = rpn;
-            }
-            else throw new InvalidOperationException("Duplicate RPN connection");
-        }
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {
           //  mytim.Show();
@@ -86,8 +74,6 @@ namespace ivosciwork
             pictureBox13.BackColor = Color.Cyan;
             pictureBox14.BackColor = Color.Cyan;
             pictureBox15.BackColor = Color.Cyan;
-            if (myRpn.currentMode == RPN.Mode.IX105NP) myRpn.changeFrequency(RPN.Frequency.F1, RPN.Frequency.F2, RPN.Frequency.F4);
-            else myRpn.changeFrequency(RPN.Frequency.F1, RPN.Frequency.F2, RPN.Frequency.F3, RPN.Frequency.F4);
             myRpn.turnOff();
             myRpn.turnOn();
             timer1.Enabled = true;
@@ -206,7 +192,7 @@ namespace ivosciwork
 
         private void pictureBox16_MouseDown(object sender, MouseEventArgs e) /* задание Е0 */
         {
-            if ((myRpn.currentMode != RPN.Mode.IX105NP) && (myRpn.currentMode != RPN.Mode.off))
+            if ((myRpn.getCurrentMode() != RPN.Mode.IX105NP) && (myRpn.getCurrentMode() != RPN.Mode.off))
             {
                 flag = 1;
             }
@@ -241,8 +227,6 @@ namespace ivosciwork
             Segment((int)(Epsilon0 * 10), pictureBox28);
             Segment((int)(Epsilon0 * 10), pictureBox29);
             myRpn.changeEpsilon(Epsilon);
-
-            rpnv.changeScanningAngle(Epsilon);
         }
 
 
@@ -258,11 +242,11 @@ namespace ivosciwork
                 foreach (int f in frequencies)
                 {
                
-                if (myRpn.change == true) break;
+                //if (myRpn.change == true) break;
               // mytim.drem(schet, f);
                 schet++;
                 if (schet == 18) schet = 1;
-                if (myRpn.currentMode == RPN.Mode.HX12)
+                if (myRpn.getCurrentMode() == RPN.Mode.HX12)
                 {
                     Lines1[f].Image = Properties.Resources.polosa12;
                     Lines2[f].Image = Properties.Resources.polosa12;
@@ -348,7 +332,7 @@ namespace ivosciwork
         private void pictureBox5_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F3 */
         {
             pictureBox5.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            if (myRpn.currentMode != RPN.Mode.IX105NP) myRpn.changeFrequency(RPN.Frequency.F3);
+            if (myRpn.getCurrentMode() != RPN.Mode.IX105NP) myRpn.changeFrequency(RPN.Frequency.F3);
         }
 
         private void pictureBox5_MouseUp(object sender, MouseEventArgs e)
@@ -429,7 +413,7 @@ namespace ivosciwork
         {
             int del = 100;
             Graphics g1 = pic.CreateGraphics();
-            if (myRpn.currentMode == RPN.Mode.off)
+            if (myRpn.getCurrentMode() == RPN.Mode.off)
             {
                 for (int i = 0; i < 4; i++) g1.DrawImage(Properties.Resources.pusto, new Point(1 + 28 * i, 1));
             }
@@ -454,21 +438,6 @@ namespace ivosciwork
                 g1.DrawImage(Properties.Resources.tochka, new Point(81, 35));
             }
         }
-
-       
-          
-
-        private void beamDirectionChangingHandler(Object sender, EventArgs args)
-        {
-            if (this.rpnv != null)
-            {
-                double newDirection = (((PictureBox)sender).Right - 150) / 315.0;
-
-                rpnv.changeScanningDirection(newDirection);
-            }
-            else throw new MissingFieldException("You must initialize RPN field; we can't fight without our war machines");
-        }
-
     }
 }
 

@@ -130,7 +130,6 @@
     <None Include="Resources\koleso.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\shrift.ttf" />
     <None Include="Resources\tabl.png" />
   </ItemGroup>
   <ItemGroup>

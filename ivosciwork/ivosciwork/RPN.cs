@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ivosciwork
 {
     public class RPN
     {
         public enum Mode { IX105NP, IX105, HX12, off };
-        public Mode currentMode;
-        public bool running = false;
-        public bool change = false;
+        private Mode currentMode;
+        private bool running = false;
+        private bool change = false;
 
         public void changeMode(Mode m)
         {
@@ -24,7 +25,7 @@ namespace ivosciwork
         private double epsilon = 0;
         public enum Frequency { F1, F2, F3, F4 };
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
-        public int delay = 25;
+        public int delay = 5;
         private bool stopPressed = false;
 
         public void changeEpsilon(double e)
@@ -156,7 +157,12 @@ namespace ivosciwork
              }
                    
            }
-       }
+
+        internal Mode getCurrentMode()
+        {
+            return currentMode;
+        }
+    }
    }
   
 
