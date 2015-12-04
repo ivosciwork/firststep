@@ -1,8 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using System.Threading;
-using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace ivosciwork
 {
@@ -40,8 +39,11 @@ namespace ivosciwork
                 if (isWorking)
                 {
                     updateVisibility(true);
-                    BeamPosition currentPosition = calcCurrentPosition();
-                    updatePosition( currentPosition );
+                    HashSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
+                    foreach (RPN.Frequency f in frequencySet) {
+                        BeamPosition currentPosition = calcCurrentPosition(f);
+                        updatePosition(currentPosition);
+                    }
                 }
                 else
                 {
@@ -80,8 +82,8 @@ namespace ivosciwork
             }
         }
 
-        private BeamPosition calcCurrentPosition() {
-            double currentAzimut = rpn.getAzimut();
+        private BeamPosition calcCurrentPosition( RPN.Frequency f ) {
+            double currentAzimut = rpn.getAzimut().get(f);
             double currentEpsilon = rpn.getEpsilon();
             BeamPosition currentPosition = new BeamPosition();
             currentPosition.spotLight = mapPosition( new Point((int)currentAzimut, (int)currentEpsilon) );
