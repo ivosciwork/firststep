@@ -12,7 +12,7 @@ using System.Drawing.Text;
 
 namespace ivosciwork
 {
-    public partial class Form1 : Form
+    public partial class ControlForm : Form
     {
        private RPN myRpn;
         private Form2 mytim;  
@@ -31,7 +31,7 @@ namespace ivosciwork
         int schet;
 
 
-        public Form1(RPN rpn, Form2 tim)
+        public ControlForm(RPN rpn, Form2 tim)
         {
             InitializeComponent();
            

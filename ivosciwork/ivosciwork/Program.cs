@@ -14,20 +14,22 @@ namespace ivosciwork
         [STAThread]
         static void Main()
         {
-            RPN rpn = new RPN();
-            BeamForm myBeamForm = new BeamForm(rpn);
-            Form2 tim = new Form2(rpn);
-            Form1 control = new Form1(rpn, tim);
-
-            Thread rpnThread = new Thread( new ThreadStart( rpn.on ));
-
-            //Application.SetCompatibleTextRenderingDefault(true);
-
-            rpnThread.Start();
-
+            //This method's call enables all graphic in the application
             Application.EnableVisualStyles();
-            myBeamForm.Show();
-            Application.Run( control );
+
+            //Make RPN works
+            RPN rpn = new RPN(); //Create an instance
+            Thread rpnThread = new Thread(new ThreadStart(rpn.eventLoop)); //Create a thread for RPN
+            rpnThread.Start(); //Turn it on; now we can call all methods of RPN
+
+            //Create beamForm and make it visible
+            BeamForm beamForm = new BeamForm(rpn);
+            beamForm.Show();
+
+            Form2 tim = new Form2(rpn);
+            ControlForm controlForm = new ControlForm(rpn, tim);
+
+            Application.Run( controlForm );
         }
     }
 }

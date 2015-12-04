@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SpotLight = new System.Windows.Forms.PictureBox();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lowerBeamBorder = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.upperBeamBorder = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.BeamTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.SpotLight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -48,6 +50,7 @@
             this.SpotLight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SpotLight.TabIndex = 3;
             this.SpotLight.TabStop = false;
+            this.SpotLight.Visible = false;
             // 
             // shapeContainer1
             // 
@@ -64,6 +67,7 @@
             // lowerBeamBorder
             // 
             this.lowerBeamBorder.Name = "lowerBeamBorder";
+            this.lowerBeamBorder.Visible = false;
             this.lowerBeamBorder.X1 = 46;
             this.lowerBeamBorder.X2 = 800;
             this.lowerBeamBorder.Y1 = 68;
@@ -72,6 +76,7 @@
             // upperBeamBorder
             // 
             this.upperBeamBorder.Name = "upperBeamBorder";
+            this.upperBeamBorder.Visible = false;
             this.upperBeamBorder.X1 = 60;
             this.upperBeamBorder.X2 = 800;
             this.upperBeamBorder.Y1 = 46;
@@ -86,6 +91,11 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // BeamTimer
+            // 
+            this.BeamTimer.Enabled = true;
+            this.BeamTimer.Interval = 1;
+            // 
             // BeamForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -95,7 +105,7 @@
             this.Controls.Add(this.SpotLight);
             this.Controls.Add(this.shapeContainer1);
             this.Name = "BeamForm";
-            this.Text = "RPN";
+            this.Text = "Beam";
             ((System.ComponentModel.ISupportInitialize)(this.SpotLight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -108,5 +118,6 @@
         private Microsoft.VisualBasic.PowerPacks.LineShape upperBeamBorder;
         private Microsoft.VisualBasic.PowerPacks.LineShape lowerBeamBorder;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Timer BeamTimer;
     }
 }

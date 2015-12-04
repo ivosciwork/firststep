@@ -6,7 +6,7 @@ namespace ivosciwork
     public class RPN
     {
         public enum Mode { IX105NP, IX105, HX12, off };
-        private Mode currentMode;
+        private Mode currentMode = Mode.off;
         private bool running = false;
         private bool change = false;
 
@@ -25,7 +25,7 @@ namespace ivosciwork
         private double epsilon = 0;
         public enum Frequency { F1, F2, F3, F4 };
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
-        public int delay = 5;
+        public int delay = 1;
         private bool stopPressed = false;
 
         public void changeEpsilon(double e)
@@ -91,7 +91,7 @@ namespace ivosciwork
             running = false;
         }
 
-        public void on()
+        public void eventLoop()
         {
             while (true)
             {
@@ -103,21 +103,21 @@ namespace ivosciwork
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F4);
-                                eventLoop(1.0 / 3.0, 0, 0, 0.3, 315, 1);
+                                turnOn(1.0 / 3.0, 0, 0, 0.3, 315, 1);
                                 break;
                             }
                         case Mode.IX105:
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
-                                eventLoop(1.0 / 3.0, 0, 0, epsilon, 315, 1);
+                                turnOn(1.0 / 3.0, 0, 0, epsilon, 315, 1);
                                 break;
                             }
                         case Mode.HX12:
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
-                                eventLoop(1.0 / 3.0, 1.0 / 3.0, 0, epsilon, 36, 12);
+                                turnOn(1.0 / 3.0, 1.0 / 3.0, 0, epsilon, 36, 12);
                                 break;
                             }
                         case Mode.off:
@@ -130,7 +130,7 @@ namespace ivosciwork
             }
         }
 
-        private void eventLoop(double stepX, double stepY, double X0, double Y0, int NX, int NY) {
+        private void turnOn(double stepX, double stepY, double X0, double Y0, int NX, int NY) {
             epsilon = Y0;
             int y = 1;
             int x = 1;
