@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Drawing.Text;
 
 
+
 namespace ivosciwork
 {
     public partial class ControlForm : Form
@@ -233,17 +234,18 @@ namespace ivosciwork
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-                double azimutgrad = myRpn.getAzimut();
-                int azimut = (int)(azimutgrad * pictureBox8.Width / 105);
+            
                 HashSet<RPN.Frequency> frequencies = myRpn.getFreqSet();
                 Epsilon = myRpn.getEpsilon();
                 Segment((int)(Epsilon * 10), pictureBox28);
                 Poloski(frequencies);
-                foreach (int f in frequencies)
+                foreach (RPN.Frequency q in frequencies)
                 {
-               
+                double azimutgrad = myRpn.getAzimut().get(q);
+                int azimut = (int)(azimutgrad);
+                int f = (int)q;
                 //if (myRpn.change == true) break;
-              // mytim.drem(schet, f);
+                // mytim.drem(schet, f);
                 schet++;
                 if (schet == 18) schet = 1;
                 if (myRpn.getCurrentMode() == RPN.Mode.HX12)
