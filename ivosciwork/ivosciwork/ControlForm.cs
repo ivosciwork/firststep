@@ -16,7 +16,7 @@ namespace ivosciwork
     public partial class ControlForm : Form
     {
        private RPN myRpn;
-        private diagramm mytime;  
+     
         PictureBox[] Lines1 = new PictureBox[4];
         PictureBox[] Lines2 = new PictureBox[4];
         double Epsilon = 0;
@@ -32,13 +32,11 @@ namespace ivosciwork
         int schet;
         private RPN rpn;
 
-        public ControlForm(RPN rpn, diagramm time)
+        public ControlForm(RPN rpn)
         {
             InitializeComponent();
            
             myRpn = rpn;
-            mytime = time; 
-
             this.pictureBox12.BringToFront();
             this.pictureBox13.BringToFront();
             this.pictureBox14.BringToFront();
