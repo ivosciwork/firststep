@@ -7,7 +7,7 @@ namespace ivosciwork
     {
         public enum Mode { IX105NP, IX105, HX12, off };
         public enum Frequency { F1, F2, F3, F4 };
-
+        public int n;
         private Mode currentMode = Mode.off;
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
 
@@ -181,11 +181,14 @@ namespace ivosciwork
             epsilon = Y0;
             int y = 1;
             int x = 1;
+            n = 1;
             azimut = X0;
             while ((running == true) & (change == false))
             {
                 foreach (Frequency f in frequencySet) {
-                    azimut.set(f, azimut.get(f) + 1);
+                    azimut.set(f, azimut.get(f) + 1); 
+                    if (n == 18) { n = 1; }
+                    else { n++; }
                 }
                 x++;
                 if (x == NX + 1)

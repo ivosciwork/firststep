@@ -53,13 +53,13 @@ namespace ivosciwork
             }
         }
 
-        delegate void updatePositionCallBack( BeamPosition currentPosition );
+        delegate void updatePositionCallBack( BeamPosition currentPosition );//
 
         private void updatePosition(BeamPosition currentPosition) {
             if (this.InvokeRequired) {
                 updatePositionCallBack d = new updatePositionCallBack(updatePosition);
                 this.Invoke(d, new object[] { currentPosition });
-            } else {
+            } else {//иначе напрямую вызываем
                 this.SpotLight.Location = currentPosition.spotLight;
                 this.upperBeamBorder.StartPoint = currentPosition.upperBorder;
                 this.lowerBeamBorder.StartPoint = currentPosition.lowerBorder;

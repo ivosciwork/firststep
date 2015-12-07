@@ -16,7 +16,7 @@ namespace ivosciwork
     public partial class ControlForm : Form
     {
        private RPN myRpn;
-        private Form2 mytim;  
+        private diagramm mytime;  
         PictureBox[] Lines1 = new PictureBox[4];
         PictureBox[] Lines2 = new PictureBox[4];
         double Epsilon = 0;
@@ -30,14 +30,14 @@ namespace ivosciwork
         int[] n = new int[4];
         int raz;
         int schet;
+        private RPN rpn;
 
-
-        public ControlForm(RPN rpn, Form2 tim)
+        public ControlForm(RPN rpn, diagramm time)
         {
             InitializeComponent();
            
             myRpn = rpn;
-            mytim = tim; 
+            mytime = time; 
 
             this.pictureBox12.BringToFront();
             this.pictureBox13.BringToFront();
@@ -56,9 +56,14 @@ namespace ivosciwork
         
         }
 
+        public ControlForm(RPN rpn)
+        {
+            this.rpn = rpn;
+        }
+
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {
-          //  mytim.Show();
+           
             Epsilon = Epsilon0;
             myRpn.changeEpsilon(Epsilon);
             Segment((int)(Epsilon0 * 10), pictureBox29);
@@ -78,8 +83,7 @@ namespace ivosciwork
             myRpn.turnOff();
             myRpn.turnOn();
             timer1.Enabled = true;
-           // mytim.timer1.Enabled = true;
-
+           
         }
         private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
         {
@@ -244,8 +248,7 @@ namespace ivosciwork
                 double azimutgrad = myRpn.getAzimut().get(q);
                 int azimut = (int)(azimutgrad);
                 int f = (int)q;
-                //if (myRpn.change == true) break;
-                // mytim.drem(schet, f);
+                
                 schet++;
                 if (schet == 18) schet = 1;
                 if (myRpn.getCurrentMode() == RPN.Mode.HX12)

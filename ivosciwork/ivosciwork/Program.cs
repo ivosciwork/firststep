@@ -25,9 +25,11 @@ namespace ivosciwork
             //Create beamForm and make it visible
             BeamForm beamForm = new BeamForm(rpn);
             beamForm.Show();
+            diagramm timediagramm = new diagramm(rpn);
+           timediagramm.Show();
 
-            Form2 tim = new Form2(rpn);
-            ControlForm controlForm = new ControlForm(rpn, tim);
+            diagramm time = new diagramm(rpn);
+            ControlForm controlForm = new ControlForm(rpn);
 
             Application.Run( controlForm );
         }
