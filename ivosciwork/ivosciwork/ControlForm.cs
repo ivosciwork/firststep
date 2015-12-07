@@ -15,8 +15,7 @@ namespace ivosciwork
 {
     public partial class ControlForm : Form
     {
-       private RPN myRpn;
-     
+        private RPN myRpn;
         PictureBox[] Lines1 = new PictureBox[4];
         PictureBox[] Lines2 = new PictureBox[4];
         double Epsilon = 0;
@@ -54,10 +53,7 @@ namespace ivosciwork
         
         }
 
-        public ControlForm(RPN rpn)
-        {
-            this.rpn = rpn;
-        }
+       
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {

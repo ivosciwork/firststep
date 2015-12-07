@@ -8,7 +8,7 @@ namespace ivosciwork
     public partial class BeamForm : Form
     {
         private RPN rpn;
-        private int delay = 25; //ms
+        private int delay = 100; //ms
         private Thread myThread;
         private volatile bool running = true;
 

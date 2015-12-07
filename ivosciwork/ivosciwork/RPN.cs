@@ -18,7 +18,7 @@ namespace ivosciwork
         private Vector4D azimut = 0;
         private double epsilon = 0;
 
-        public int delay = 1;
+        public int delay = 100;
         public int freqDelay = 1;
 
         public struct Vector4D

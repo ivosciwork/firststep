@@ -48,6 +48,7 @@ namespace ivosciwork
                     foreach (RPN.Frequency f in frequencySet)
                     {
                         PicturePosition currentposition = calcPosition(f);
+                        updatePosition(currentposition);
 
                     }
                 }
