@@ -30,7 +30,6 @@ namespace ivosciwork
         int[] n = new int[4];
         int raz;
         int schet;
-        private RPN rpn;
 
         public ControlForm(RPN rpn)
         {
@@ -52,11 +51,6 @@ namespace ivosciwork
             for (int i = 0; i < 4; i++) n[i] = 1;
             timer1.Interval = myRpn.delay;
         
-        }
-
-        public ControlForm(RPN rpn)
-        {
-            this.rpn = rpn;
         }
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/

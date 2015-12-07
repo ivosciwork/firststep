@@ -7,15 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using System.Collections.Generic;
-
 
 
 namespace ivosciwork
 {
 
 
-    public partial class diagramm : Form
+    public partial class Diagramm : Form
     {
 
         private RPN rpn;
@@ -27,7 +25,7 @@ namespace ivosciwork
             public Point xyi;
 
         }
-        public diagramm(RPN rpn)
+        public Diagramm(RPN rpn)
         {
             InitializeComponent();
             this.rpn = rpn;
@@ -69,7 +67,8 @@ namespace ivosciwork
             if ((int)f == 1) pictureBox1.BackColor = Color.Green;
             if ((int)f == 2) pictureBox1.BackColor = Color.Blue;
             if ((int)f == 3) pictureBox1.BackColor = Color.Yellow;
-            return currentposition;
+            return currentposition; //Hey, it is the last instruction in this function!
+            //So, that's the next?
             pictureBox1.Width = 0;
             timer();
 
