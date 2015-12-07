@@ -59,7 +59,7 @@ namespace ivosciwork
             if (this.InvokeRequired) {
                 updatePositionCallBack d = new updatePositionCallBack(updatePosition);
                 this.Invoke(d, new object[] { currentPosition });
-            } else {//иначе напрямую вызываем
+            } else {
                 this.SpotLight.Location = currentPosition.spotLight;
                 this.upperBeamBorder.StartPoint = currentPosition.upperBorder;
                 this.lowerBeamBorder.StartPoint = currentPosition.lowerBorder;

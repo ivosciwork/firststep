@@ -15,7 +15,8 @@ namespace ivosciwork
 {
     public partial class ControlForm : Form
     {
-        private RPN myRpn;
+       private RPN myRpn;
+     
         PictureBox[] Lines1 = new PictureBox[4];
         PictureBox[] Lines2 = new PictureBox[4];
         double Epsilon = 0;
@@ -29,7 +30,6 @@ namespace ivosciwork
         int[] n = new int[4];
         int raz;
         int schet;
-        private RPN rpn;
 
         public ControlForm(RPN rpn)
         {
@@ -52,8 +52,6 @@ namespace ivosciwork
             timer1.Interval = myRpn.delay;
         
         }
-
-       
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {

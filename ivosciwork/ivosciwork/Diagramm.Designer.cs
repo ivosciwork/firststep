@@ -1,6 +1,6 @@
 ﻿namespace ivosciwork
 {
-    partial class diagramm
+    partial class Diagramm
     {
         /// <summary>
         /// Required designer variable.
