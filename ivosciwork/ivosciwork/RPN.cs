@@ -94,7 +94,10 @@ namespace ivosciwork
 
         public HashSet<Frequency> getFreqSet()
         {
-            return frequencySet;
+            HashSet<Frequency> toReturn = new HashSet<Frequency>();
+            foreach (Frequency f in frequencySet)
+                toReturn.Add(f);
+            return toReturn;
         }
 
         public bool OnStopButtonState()
