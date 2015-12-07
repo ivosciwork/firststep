@@ -21,7 +21,7 @@ namespace ivosciwork
         private Thread myThread;
         private volatile bool running = true;
         private struct PicturePosition
-        {//элементы отображения
+        {
             public Point xyi;
 
         }
@@ -47,6 +47,8 @@ namespace ivosciwork
                     {
                         PicturePosition currentposition = calcPosition(f);
                         updatePosition(currentposition);
+                        //label1.Text = f.ToString();
+
 
                     }
                 }
@@ -68,13 +70,12 @@ namespace ivosciwork
             if ((int)f == 1) pictureBox1.BackColor = Color.Green;
             if ((int)f == 2) pictureBox1.BackColor = Color.Blue;
             if ((int)f == 3) pictureBox1.BackColor = Color.Yellow;
+           // timer();
+            
             return currentposition; //Hey, it is the last instruction in this function!
             //So, that's the next?
-            pictureBox1.Width = 0;
-            timer();
-
-
-            label1.Text = f.ToString();
+           
+           
         }
         delegate void update(PicturePosition currentPosition);
         private void updatePosition(PicturePosition currentPosition)
@@ -87,19 +88,28 @@ namespace ivosciwork
             else
             {
                 this.pictureBox1.Location = currentPosition.xyi;
+                this.pictureBox1.Width = 0;
+                int l = 1;
+                while (l != rpn.delay)
+                {
+                    this.pictureBox1.Width = (int)(l * 142 / rpn.delay);
+                    l++;
+                } 
                 this.label1.Location = currentPosition.xyi;
+                
             }
         }
 
-        private void timer()
+      /*  private void timer()
         {
+         
             int l = 1;
             while (l != rpn.delay)
             {
                 pictureBox1.Width = (int)(l * 142 / rpn.delay);
                 l++;
             }
-        }
+        }*/
     }
 }
 
