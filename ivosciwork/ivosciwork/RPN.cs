@@ -19,7 +19,7 @@ namespace ivosciwork
         private double epsilon = 0;
 
         public int delay = 100;
-        public int freqDelay = 1;
+        public int freqDelay = 100;
 
         public struct Vector4D
         {

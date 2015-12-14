@@ -17,12 +17,14 @@ namespace ivosciwork
     {
 
         private RPN rpn;
-        private int delay = 25; //ms
+        public int l = 1;
+        private int delay = 1000; //ms
         private Thread myThread;
         private volatile bool running = true;
         private struct PicturePosition
         {
             public Point xyi;
+            public int windth;
 
         }
         public Diagramm(RPN rpn)
@@ -45,9 +47,13 @@ namespace ivosciwork
                     HashSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
                     foreach (RPN.Frequency f in frequencySet)
                     {
-                        PicturePosition currentposition = calcPosition(f);
-                        updatePosition(currentposition);
-                        //label1.Text = f.ToString();
+                        l = 1;
+                        while (l != rpn.delay)
+                        {
+                            PicturePosition currentposition = calcPosition(f,l);
+                            updatePosition(currentposition);
+                            l++;
+                        }
 
 
                     }
@@ -59,9 +65,9 @@ namespace ivosciwork
 
 
 
-        private PicturePosition calcPosition(RPN.Frequency f)
+        private PicturePosition calcPosition(RPN.Frequency f,int l)
         {
-            int y0 = 2; int x0 = 2;
+            int y0 = 2; int x0 = 2; int width = 0;
             int x = x0 + (rpn.n % 3) * 142;
             int y = y0 + (rpn.n % 6) * 36;
             PicturePosition currentposition = new PicturePosition();
@@ -70,9 +76,14 @@ namespace ivosciwork
             if ((int)f == 1) pictureBox1.BackColor = Color.Green;
             if ((int)f == 2) pictureBox1.BackColor = Color.Blue;
             if ((int)f == 3) pictureBox1.BackColor = Color.Yellow;
-           // timer();
             
-            return currentposition; //Hey, it is the last instruction in this function!
+            width = (int)(l * 142 / rpn.delay);
+               
+            
+            currentposition.windth = width;
+            return currentposition; 
+            
+                //Hey, it is the last instruction in this function!
             //So, that's the next?
            
            
@@ -88,28 +99,12 @@ namespace ivosciwork
             else
             {
                 this.pictureBox1.Location = currentPosition.xyi;
-                this.pictureBox1.Width = 0;
-                int l = 1;
-                while (l != rpn.delay)
-                {
-                    this.pictureBox1.Width = (int)(l * 142 / rpn.delay);
-                    l++;
-                } 
+                this.pictureBox1.Width = currentPosition.windth;
                 this.label1.Location = currentPosition.xyi;
                 
             }
         }
 
-      /*  private void timer()
-        {
-         
-            int l = 1;
-            while (l != rpn.delay)
-            {
-                pictureBox1.Width = (int)(l * 142 / rpn.delay);
-                l++;
-            }
-        }*/
     }
 }
 
