@@ -14,6 +14,7 @@ namespace ivosciwork
         private bool running = false;
         private bool change = false;
         private bool stopPressed = false;
+        public bool on = false;
 
         private Vector4D azimut = 0;
         private double epsilon = 0;

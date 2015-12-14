@@ -55,7 +55,7 @@ namespace ivosciwork
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {
-           
+            myRpn.on = true;
             Epsilon = Epsilon0;
             myRpn.changeEpsilon(Epsilon);
             Segment((int)(Epsilon0 * 10), pictureBox29);

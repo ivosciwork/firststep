@@ -18,6 +18,7 @@ namespace ivosciwork
 
         private RPN rpn;
         public int l = 1;
+        public int n = 1;
         private int delay = 1000; //ms
         private Thread myThread;
         private volatile bool running = true;
@@ -42,11 +43,12 @@ namespace ivosciwork
             {
                 bool isWorking = (rpn.getCurrentMode() != RPN.Mode.off);
                 if (isWorking)
-                {
-
+                { if (rpn.on) { updateVisibility(true); }
                     HashSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
                     foreach (RPN.Frequency f in frequencySet)
                     {
+                        if (n == 18) { n = 1; }
+                        else { n++; }
                         l = 1;
                         while (l != rpn.delay)
                         {
@@ -58,6 +60,10 @@ namespace ivosciwork
 
                     }
                 }
+                else
+                {
+                    updateVisibility(false);
+                }
 
                 System.Threading.Thread.Sleep(delay);
             }
@@ -68,8 +74,8 @@ namespace ivosciwork
         private PicturePosition calcPosition(RPN.Frequency f,int l)
         {
             int y0 = 2; int x0 = 2; int width = 0;
-            int x = x0 + (rpn.n % 3) * 142;
-            int y = y0 + (rpn.n % 6) * 36;
+            int x = x0 + (n % 3) * 142;
+            int y = y0 + (n % 6) * 36;
             PicturePosition currentposition = new PicturePosition();
             currentposition.xyi = new Point(x, y);
             if ((int)f == 0) pictureBox1.BackColor = Color.Red;
@@ -104,7 +110,20 @@ namespace ivosciwork
                 
             }
         }
+        delegate void updateVisibilityCallBack(bool visible);
 
+        private void updateVisibility(bool visible)
+        {
+            if (this.InvokeRequired)
+            {
+                updateVisibilityCallBack d = new updateVisibilityCallBack(updateVisibility);
+                this.Invoke(d, new object[] { visible });
+            }
+            else
+            {
+                this.pictureBox1.Visible= visible;
+               }
+        }
     }
 }
 
