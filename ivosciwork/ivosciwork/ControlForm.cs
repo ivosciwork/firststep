@@ -230,8 +230,8 @@ namespace ivosciwork
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
-                HashSet<RPN.Frequency> frequencies = myRpn.getFreqSet();
+
+                SortedSet<RPN.Frequency> frequencies = myRpn.getFreqSet();
                 Epsilon = myRpn.getEpsilon();
                 Segment((int)(Epsilon * 10), pictureBox28);
                 Poloski(frequencies);
@@ -393,7 +393,7 @@ namespace ivosciwork
             pictureBox26.Image = Properties.Resources.red_button;
         }
 
-        private void Poloski(HashSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
+        private void Poloski(SortedSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
         {
             for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
             for (int i = 0; i < 4; i++) Lines2[i].Visible = false;

@@ -19,7 +19,7 @@ namespace ivosciwork
         private RPN rpn;
         public int l = 1;
         public int n = 1;
-        private int delay = 1000; //ms
+        private int delay = 1; //ms
         private Thread myThread;
         private volatile bool running = true;
         private struct PicturePosition
@@ -44,7 +44,7 @@ namespace ivosciwork
                 bool isWorking = (rpn.getCurrentMode() != RPN.Mode.off);
                 if (isWorking)
                 { if (rpn.on) { updateVisibility(true); }
-                    HashSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
+                    SortedSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
                     foreach (RPN.Frequency f in frequencySet)
                     {
                         if (n == 18) { n = 1; }
@@ -78,11 +78,8 @@ namespace ivosciwork
             int y = y0 + (n % 6) * 36;
             PicturePosition currentposition = new PicturePosition();
             currentposition.xyi = new Point(x, y);
-            if ((int)f == 0) pictureBox1.BackColor = Color.Red;
-            if ((int)f == 1) pictureBox1.BackColor = Color.Green;
-            if ((int)f == 2) pictureBox1.BackColor = Color.Blue;
-            if ((int)f == 3) pictureBox1.BackColor = Color.Yellow;
-            
+            pictureBox1.BackColor = Constants.getFreqColor(f);
+ 
             width = (int)(l * 142 / rpn.delay);
                
             

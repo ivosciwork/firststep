@@ -8,11 +8,13 @@ namespace ivosciwork
     public partial class BeamForm : Form
     {
         private RPN rpn;
-        private int delay = 100; //ms
+        private int delay = Constants.BEAM_DELAY; //ms
         private Thread myThread;
         private volatile bool running = true;
+        private bool visible = false;
 
         private struct BeamPosition {
+            public Color color; 
             public Point spotLight;
             public Point upperBorder;
             public Point lowerBorder;
@@ -38,29 +40,38 @@ namespace ivosciwork
                 bool isWorking = (rpn.getCurrentMode() != RPN.Mode.off);
                 if (isWorking)
                 {
-                    updateVisibility(true);
-                    HashSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
+                    if (visible == false)
+                    {
+                        updateVisibility(true);
+                        visible = true;
+                    }
+                    SortedSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
                     foreach (RPN.Frequency f in frequencySet) {
                         BeamPosition currentPosition = calcCurrentPosition(f);
                         updatePosition(currentPosition);
+                        System.Threading.Thread.Sleep(delay);
                     }
                 }
                 else
                 {
-                    updateVisibility(false);
+                    if (visible == true)
+                    {
+                        updateVisibility(false);
+                        visible = false;
+                    }
                 }
-                System.Threading.Thread.Sleep(delay);
             }
         }
 
-        delegate void updatePositionCallBack( BeamPosition currentPosition );//
+        delegate void updatePositionCallBack( BeamPosition currentPosition);//
 
         private void updatePosition(BeamPosition currentPosition) {
-            if (this.InvokeRequired) {
+            if (this.shapeContainer1.InvokeRequired) {
                 updatePositionCallBack d = new updatePositionCallBack(updatePosition);
                 this.Invoke(d, new object[] { currentPosition });
             } else {
                 this.SpotLight.Location = currentPosition.spotLight;
+                this.SpotLight.FillColor = currentPosition.color;
                 this.upperBeamBorder.StartPoint = currentPosition.upperBorder;
                 this.lowerBeamBorder.StartPoint = currentPosition.lowerBorder;
             }
@@ -89,6 +100,7 @@ namespace ivosciwork
             currentPosition.spotLight = mapPosition( new Point((int)currentAzimut, (int)currentEpsilon) );
             currentPosition.upperBorder = calcUpperBeamBorderPosition();
             currentPosition.lowerBorder = calcLowerBeamBorderPosition();
+            currentPosition.color = Constants.getFreqColor(f);
             return currentPosition;
         }
 

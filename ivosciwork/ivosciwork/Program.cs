@@ -26,7 +26,7 @@ namespace ivosciwork
             BeamForm beamForm = new BeamForm(rpn);
             beamForm.Show();
             Diagramm timediagramm = new Diagramm(rpn);
-           timediagramm.Show();
+            timediagramm.Show();
 
             
             ControlForm controlForm = new ControlForm(rpn);

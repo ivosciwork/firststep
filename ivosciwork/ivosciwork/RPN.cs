@@ -9,6 +9,7 @@ namespace ivosciwork
         public enum Frequency { F1, F2, F3, F4 };
         public int n;
         private Mode currentMode = Mode.off;
+        private Frequency currentFreq;
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
 
         private bool running = false;
@@ -19,8 +20,7 @@ namespace ivosciwork
         private Vector4D azimut = 0;
         private double epsilon = 0;
 
-        public int delay = 100;
-        public int freqDelay = 100;
+        public int delay = Constants.RPN_DELAY;
 
         public struct Vector4D
         {
@@ -93,9 +93,9 @@ namespace ivosciwork
             return azimut;
         }
 
-        public HashSet<Frequency> getFreqSet()
+        public SortedSet<Frequency> getFreqSet()
         {
-            HashSet<Frequency> toReturn = new HashSet<Frequency>();
+            SortedSet<Frequency> toReturn = new SortedSet<Frequency>();
             foreach (Frequency f in frequencySet)
                 toReturn.Add(f);
             return toReturn;
@@ -184,21 +184,25 @@ namespace ivosciwork
         {
             epsilon = Y0;
             int y = 1;
-            int x = 1;
+            Vector4D x = 1;
             n = 1;
             azimut = X0;
             while ((running == true) & (change == false))
             {
-                foreach (Frequency f in frequencySet) {
-                    azimut.set(f, azimut.get(f) + 1); 
+                SortedSet<Frequency> currentSet = getFreqSet();
+                foreach (Frequency f in currentSet) {
+                    currentFreq = f;
                     if (n == 18) { n = 1; }
                     else { n++; }
-                }
-                x++;
-                if (x == NX + 1)
-                {
-                    x = 1;
-                    azimut = X0;
+
+                    x.set(f, x.get(f) + 1);
+                    azimut.set(f, azimut.get(f) + stepX);
+                    if (x.get(f) == NX + 1)
+                    {
+                        x.set(f, 1);
+                        azimut.set(f, X0);
+                    }
+
                     if (!stopPressed)
                     {
                         epsilon += stepY;
@@ -209,14 +213,22 @@ namespace ivosciwork
                             epsilon = Y0;
                         }
                     }
+
+                    System.Threading.Thread.Sleep(delay);
                 }
-                System.Threading.Thread.Sleep(delay * frequencySet.Count);
             }
         }
 
         internal Mode getCurrentMode()
         {
-            return currentMode;
+            Mode toRet = currentMode;
+            return toRet;
+        }
+
+        internal Frequency getCurrentFreq()
+        {
+            Frequency toRet = currentFreq;
+            return toRet;
         }
     }
 }
