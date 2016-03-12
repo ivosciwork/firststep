@@ -83,16 +83,6 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap circle {
-            get {
-                object obj = ResourceManager.GetObject("circle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap dev {
             get {
                 object obj = ResourceManager.GetObject("dev", resourceCulture);
@@ -306,16 +296,6 @@ namespace ivosciwork.Properties {
         public static System.Drawing.Bitmap right {
             get {
                 object obj = ResourceManager.GetObject("right", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap S300 {
-            get {
-                object obj = ResourceManager.GetObject("S300", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -136,9 +136,6 @@
   <data name="pusto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pusto.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="sector4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sector4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -174,9 +171,6 @@
   </data>
   <data name="GREEN_BUTTON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GREEN_BUTTON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="S300" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\S300.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="polosa12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\polosa12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
