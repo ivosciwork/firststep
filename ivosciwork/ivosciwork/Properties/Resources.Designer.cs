@@ -163,6 +163,16 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap initial_face {
+            get {
+                object obj = ResourceManager.GetObject("initial_face", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap koleso {
             get {
                 object obj = ResourceManager.GetObject("koleso", resourceCulture);
@@ -366,16 +376,6 @@ namespace ivosciwork.Properties {
         public static System.Drawing.Bitmap tabl {
             get {
                 object obj = ResourceManager.GetObject("tabl", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap tablonach {
-            get {
-                object obj = ResourceManager.GetObject("tablonach", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

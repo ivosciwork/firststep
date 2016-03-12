@@ -111,7 +111,7 @@
             // 
             // pictureBox29
             // 
-            this.pictureBox29.Image = global::ivosciwork.Properties.Resources.tablonach;
+            this.pictureBox29.Image = global::ivosciwork.Properties.Resources.initial_face;
             this.pictureBox29.Location = new System.Drawing.Point(664, 74);
             this.pictureBox29.Name = "pictureBox29";
             this.pictureBox29.Size = new System.Drawing.Size(112, 40);
@@ -120,7 +120,7 @@
             // 
             // pictureBox28
             // 
-            this.pictureBox28.Image = global::ivosciwork.Properties.Resources.tablonach;
+            this.pictureBox28.Image = global::ivosciwork.Properties.Resources.initial_face;
             this.pictureBox28.Location = new System.Drawing.Point(664, 27);
             this.pictureBox28.Name = "pictureBox28";
             this.pictureBox28.Size = new System.Drawing.Size(112, 40);
@@ -226,21 +226,20 @@
             // pictureBox17
             // 
             this.pictureBox17.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pictureBox17.Location = new System.Drawing.Point(243, 348);
+            this.pictureBox17.Location = new System.Drawing.Point(233, 348);
             this.pictureBox17.Name = "pictureBox17";
-            this.pictureBox17.Size = new System.Drawing.Size(120, 22);
+            this.pictureBox17.Size = new System.Drawing.Size(105, 22);
             this.pictureBox17.TabIndex = 19;
             this.pictureBox17.TabStop = false;
             this.pictureBox17.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox17_MouseDown);
             this.pictureBox17.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox17_MouseMove);
-            this.pictureBox17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox17_MouseUp);
             // 
             // pictureBox16
             // 
             this.pictureBox16.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pictureBox16.Location = new System.Drawing.Point(50, 348);
+            this.pictureBox16.Location = new System.Drawing.Point(94, 348);
             this.pictureBox16.Name = "pictureBox16";
-            this.pictureBox16.Size = new System.Drawing.Size(22, 120);
+            this.pictureBox16.Size = new System.Drawing.Size(22, 105);
             this.pictureBox16.TabIndex = 18;
             this.pictureBox16.TabStop = false;
             this.pictureBox16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox16_MouseDown);
@@ -443,7 +442,7 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // Form1
+            // ControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -482,7 +481,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Form1";
+            this.Name = "ControlForm";
             this.Text = "радар1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();

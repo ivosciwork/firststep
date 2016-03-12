@@ -19,19 +19,22 @@ namespace ivosciwork
 
             //Make RPN works
             RPN rpn = new RPN(); //Create an instance
-            Thread rpnThread = new Thread(new ThreadStart(rpn.eventLoop)); //Create a thread for RPN
+            Thread rpnThread = new Thread(new ThreadStart(rpn.eventLoop));
+            rpnThread.IsBackground = true;//Create a thread for RPN
             rpnThread.Start(); //Turn it on; now we can call all methods of RPN
-
-            //Create beamForm and make it visible
+ 
+           //Create beamForm and make it visible
             BeamForm beamForm = new BeamForm(rpn);
             beamForm.Show();
+            
             Diagramm timediagramm = new Diagramm(rpn);
             timediagramm.Show();
-
             
+
+
             ControlForm controlForm = new ControlForm(rpn);
 
-            Application.Run( controlForm );
+            Application.Run(controlForm);
         }
     }
 }
