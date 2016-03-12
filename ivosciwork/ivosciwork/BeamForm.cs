@@ -8,7 +8,6 @@ namespace ivosciwork
     public partial class BeamForm : Form
     {
         private RPN rpn;
-        private int delay = Constants.BEAM_DELAY; //ms
         private Thread myThread;
         private volatile bool running = true;
         private bool visible = false;
@@ -37,8 +36,7 @@ namespace ivosciwork
         public void eventLoop() {
             while (running)
             {
-                bool isWorking = (rpn.getCurrentMode() != RPN.Mode.off);
-                if (isWorking)
+                if (rpn.on)
                 {
                     if (visible == false)
                     {
@@ -47,9 +45,16 @@ namespace ivosciwork
                     }
                     SortedSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
                     foreach (RPN.Frequency f in frequencySet) {
+                        if (!rpn.on) { break; }
                         BeamPosition currentPosition = calcCurrentPosition(f);
                         updatePosition(currentPosition);
-                        System.Threading.Thread.Sleep(delay);
+                        int l = 1;
+                        while (l != Constants.RPN_DELAY)
+                        {
+                            if (!rpn.on) { break; }
+                            l++;
+                            System.Threading.Thread.Sleep(1);
+                        }
                     }
                 }
                 else

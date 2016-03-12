@@ -20,8 +20,6 @@ namespace ivosciwork
         private Vector4D azimut = 0;
         private double epsilon = 0;
 
-        public int delay = Constants.RPN_DELAY;
-
         public struct Vector4D
         {
             private double F1;
@@ -219,7 +217,7 @@ namespace ivosciwork
                             epsilon = Y0;
                         }
                     }
-                    System.Threading.Thread.Sleep(delay);
+                    System.Threading.Thread.Sleep(Constants.RPN_DELAY);
                 }
             }
         }

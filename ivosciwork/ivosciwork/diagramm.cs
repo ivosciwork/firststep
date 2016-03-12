@@ -63,7 +63,7 @@ namespace ivosciwork
                             PictureLocation loc = calcLocation(x, y);
                             updateLocation(loc);
                             l = 1;
-                            while (l != rpn.delay)
+                            while (l != Constants.RPN_DELAY)
                             {   
                                 if (!rpn.on) { break;}
                                 PictureWight wight = calcWight(l);
@@ -118,7 +118,7 @@ namespace ivosciwork
         private PictureWight calcWight(int l)
         {
             PictureWight wight = new PictureWight();
-            wight.wight = (int)(l * 142 / rpn.delay);
+            wight.wight = (int)(l * 142 / Constants.RPN_DELAY);
             return wight;
         }
         delegate void update1(PictureWight wight);

@@ -51,7 +51,7 @@ namespace ivosciwork
             Lines2[1] = pictureBox23;
             Lines2[0] = pictureBox25;
             for (int i = 0; i < 4; i++) n[i] = 0;
-            timer1.Interval = myRpn.delay;
+            timer1.Interval = Constants.RPN_DELAY;
         
         }
 
