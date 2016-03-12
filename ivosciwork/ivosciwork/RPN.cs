@@ -34,8 +34,10 @@ namespace ivosciwork
                 return new Vector4D() { F1 = v, F2 = v, F3 = v, F4 = v };
             }
 
-            internal void set( Frequency f, double v ) {
-                switch (f) {
+            internal void set(Frequency f, double v)
+            {
+                switch (f)
+                {
                     case Frequency.F1:
                         F1 = v; break;
                     case Frequency.F2:
@@ -63,7 +65,7 @@ namespace ivosciwork
                 return Double.NaN;
             }
         }
-
+        
         public void changeMode(Mode m)
         {
 
@@ -71,6 +73,7 @@ namespace ivosciwork
             if (m == Mode.off)
             {
                 running = false;
+                on = false;
             }
             change = true;
         }
@@ -134,11 +137,13 @@ namespace ivosciwork
         public void turnOn()
         {
             running = true;
+            on = true;
             change = true;
         }
         public void turnOff()
         {
             running = false;
+            on = false;
         }
 
         public void eventLoop()
@@ -190,7 +195,8 @@ namespace ivosciwork
             while ((running == true) & (change == false))
             {
                 SortedSet<Frequency> currentSet = getFreqSet();
-                foreach (Frequency f in currentSet) {
+                foreach (Frequency f in currentSet)
+                {
                     currentFreq = f;
                     if (n == 18) { n = 1; }
                     else { n++; }
@@ -213,7 +219,6 @@ namespace ivosciwork
                             epsilon = Y0;
                         }
                     }
-
                     System.Threading.Thread.Sleep(delay);
                 }
             }

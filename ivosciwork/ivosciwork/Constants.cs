@@ -8,7 +8,7 @@ namespace ivosciwork
 {
     static class Constants
     {
-        internal static int RPN_DELAY = 1000;//ms
+        internal static int RPN_DELAY = 30000;//ms
         internal static int BEAM_DELAY = 1;
         internal static int DIAGRAMM_DELAY = 1;
 
