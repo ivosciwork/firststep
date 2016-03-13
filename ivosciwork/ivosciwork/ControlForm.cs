@@ -57,9 +57,9 @@ namespace ivosciwork
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {
-            myRpn.on = true;
             Epsilon = Epsilon0;
             myRpn.changeEpsilon(Epsilon);
+            myRpn.on = true;
             Segment((int)(Epsilon0 * 10), pictureBox29);
 
             if (timer1.Enabled == false) 
@@ -325,7 +325,7 @@ namespace ivosciwork
         private void pictureBox4_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F4 */
         {
             pictureBox4.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            myRpn.changeFrequency(RPN.Frequency.F4);
+            myRpn.setFrequencies(RPN.Frequency.F4);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
             freq = 0;
@@ -345,7 +345,7 @@ namespace ivosciwork
         private void pictureBox5_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F3 */
         {
             pictureBox5.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            if (myRpn.getCurrentMode() != RPN.Mode.IX105NP) myRpn.changeFrequency(RPN.Frequency.F3);
+            if (myRpn.getCurrentMode() != RPN.Mode.IX105NP) myRpn.setFrequencies(RPN.Frequency.F3);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
             freq = 0;
@@ -364,7 +364,7 @@ namespace ivosciwork
         private void pictureBox6_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F2 */
         {
             pictureBox6.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            myRpn.changeFrequency(RPN.Frequency.F2);
+            myRpn.setFrequencies(RPN.Frequency.F2);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
             freq = 0;
@@ -383,7 +383,7 @@ namespace ivosciwork
         private void pictureBox7_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F1 */
         {
             pictureBox7.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            myRpn.changeFrequency(RPN.Frequency.F1);
+            myRpn.setFrequencies(RPN.Frequency.F1);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
             freq = 0;

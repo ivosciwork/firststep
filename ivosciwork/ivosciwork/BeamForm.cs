@@ -2,15 +2,14 @@
 using System.Drawing;
 using System.Threading;
 using System.Collections.Generic;
+using System;
 
 namespace ivosciwork
 {
     public partial class BeamForm : Form
     {
-        private RPN rpn;
         private Thread myThread;
         private volatile bool running = true;
-        private bool visible = false;
 
         private struct BeamPosition {
             public Color color; 
@@ -22,48 +21,62 @@ namespace ivosciwork
         public BeamForm(RPN rpn)
         {
             InitializeComponent();
-            this.rpn = rpn;
+            rpn.directionChanged += this.directionChangedHandler;
+            rpn.stateChanged += this.stateChangedHandler;
+            rpn.frequencyChanged += this.frequencyChangedHandler;
             this.myThread = new Thread(new ThreadStart( this.eventLoop ));
+            myThread.IsBackground = true;
             myThread.Start();
-            //this.Disposed += BeamForm_Disposed;
         }
 
-        //private void BeamForm_Disposed(object sender, EventArgs e)
-        //{
-        //    running = false;
-        //}
+        private bool isFrequencyChanged = false;
+        private RPN.Frequency frequency = RPN.Frequency.F1; 
+        private void frequencyChangedHandler(RPN.CompleteRPNState currentState)
+        {
+            isFrequencyChanged = true;
+            frequency = currentState.currentFrequency;
+        }
 
+        private bool isStateChanged = false;
+        private bool isRpnOn = false;
+        private void stateChangedHandler(RPN.CompleteRPNState currentState)
+        {
+            isStateChanged = true;
+            isRpnOn = currentState.isActive;
+        }
+
+        private bool isDirectionChanged = false;
+        private RPN.ScanningDirection beamDirection = new RPN.ScanningDirection(0,0);
+        private void directionChangedHandler(RPN.CompleteRPNState currentState)
+        {
+            isDirectionChanged = true;
+            beamDirection = currentState.currentDirection;
+        }
+
+        private BeamPosition currentPosition = new BeamPosition();
         public void eventLoop() {
             while (running)
             {
-                if (rpn.on)
-                {
-                    if (visible == false)
-                    {
-                        updateVisibility(true);
-                        visible = true;
-                    }
-                    SortedSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
-                    foreach (RPN.Frequency f in frequencySet) {
-                        if (!rpn.on) { break; }
-                        BeamPosition currentPosition = calcCurrentPosition(f);
-                        updatePosition(currentPosition);
-                        int l = 1;
-                        while (l != Constants.RPN_DELAY)
-                        {
-                            if (!rpn.on) { break; }
-                            l++;
-                            System.Threading.Thread.Sleep(1);
-                        }
-                    }
+                if (isStateChanged) {
+                    isStateChanged = false;
+                    updateVisibility(isRpnOn);
                 }
-                else
+
+                if (isDirectionChanged || isFrequencyChanged)
                 {
-                    if (visible == true)
+                    if (isDirectionChanged)
                     {
-                        updateVisibility(false);
-                        visible = false;
+                        isDirectionChanged = false;
+                        isFrequencyChanged = false;
+                        currentPosition = calcCurrentPosition();
                     }
+                    else
+                    {
+                        isFrequencyChanged = false;
+                        currentPosition.color = Constants.getFreqColor(frequency);
+                    }
+
+                    updatePosition(currentPosition);
                 }
             }
         }
@@ -98,14 +111,14 @@ namespace ivosciwork
             }
         }
 
-        private BeamPosition calcCurrentPosition( RPN.Frequency f ) {
-            double currentAzimut = rpn.getAzimut().get(f);
-            double currentEpsilon = rpn.getEpsilon();
+        private BeamPosition calcCurrentPosition() {
+            double currentAzimut = beamDirection.azimut;
+            double currentEpsilon = beamDirection.epsilon;
             BeamPosition currentPosition = new BeamPosition();
             currentPosition.spotLight = mapPosition( new Point((int)currentAzimut, (int)currentEpsilon) );
             currentPosition.upperBorder = calcUpperBeamBorderPosition();
             currentPosition.lowerBorder = calcLowerBeamBorderPosition();
-            currentPosition.color = Constants.getFreqColor(f);
+            currentPosition.color = Constants.getFreqColor( frequency );
             return currentPosition;
         }
 

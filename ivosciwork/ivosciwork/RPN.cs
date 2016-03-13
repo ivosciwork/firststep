@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Timers;
 
 namespace ivosciwork
 {
@@ -7,7 +9,6 @@ namespace ivosciwork
     {
         public enum Mode { IX105NP, IX105, HX12, off };
         public enum Frequency { F1, F2, F3, F4 };
-        public int n;
         private Mode currentMode = Mode.off;
         private Frequency currentFreq;
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
@@ -63,15 +64,18 @@ namespace ivosciwork
                 return Double.NaN;
             }
         }
-        
+
         public void changeMode(Mode m)
         {
-
             currentMode = m;
             if (m == Mode.off)
             {
                 running = false;
                 on = false;
+                currentState.isActive = false;
+                //currentState.currentTick = 0;
+                stateChanged(currentState);
+                //tick(currentState);
             }
             change = true;
         }
@@ -81,6 +85,8 @@ namespace ivosciwork
             if (currentMode != Mode.IX105NP)
             {
                 epsilon = e;
+                currentState.currentDirection.epsilon = e;
+                directionChanged(currentState);
             }
         }
 
@@ -97,9 +103,12 @@ namespace ivosciwork
         public SortedSet<Frequency> getFreqSet()
         {
             SortedSet<Frequency> toReturn = new SortedSet<Frequency>();
-            foreach (Frequency f in frequencySet)
-                toReturn.Add(f);
-            return toReturn;
+            lock(frequencySet)
+            {
+                foreach (Frequency f in frequencySet)
+                    toReturn.Add(f);
+                return toReturn;
+            }
         }
 
         public bool OnStopButtonState()
@@ -118,18 +127,16 @@ namespace ivosciwork
             setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
         }
 
-        private void setFrequencies(params Frequency[] f)
+        public void setFrequencies(params Frequency[] f)
         {
-            frequencySet.Clear();
-            foreach (Frequency fr in f)
+            lock (frequencySet)
             {
-                frequencySet.Add(fr);
+                frequencySet.Clear();
+                foreach (Frequency fr in f)
+                {
+                    frequencySet.Add(fr);
+                }
             }
-        }
-
-        public void changeFrequency(params Frequency[] f)
-        {
-            setFrequencies(f);
         }
 
         public void turnOn()
@@ -137,6 +144,8 @@ namespace ivosciwork
             running = true;
             on = true;
             change = true;
+            currentState.isActive = true;
+            stateChanged(currentState);
         }
         public void turnOff()
         {
@@ -183,28 +192,65 @@ namespace ivosciwork
             }
         }
 
+        private CompleteRPNState currentState = new CompleteRPNState(false, Frequency.F1, new ScanningDirection(0, 0), 0);
+
+        public struct CompleteRPNState {
+            internal bool isActive;
+            internal Frequency currentFrequency;
+            internal ScanningDirection currentDirection;
+            internal int currentTick;
+
+            public CompleteRPNState(bool state, Frequency f, ScanningDirection d, int tick) {
+                this.isActive = state;
+                this.currentFrequency = f;
+                this.currentDirection = d;
+                this.currentTick = tick;
+            }
+
+        }
+
+        public struct ScanningDirection {
+            internal double azimut;
+            internal double epsilon;
+
+            public ScanningDirection(double azimut, double epsilon) {
+                this.azimut = azimut;
+                this.epsilon = epsilon;
+            }
+        }
+
+        public delegate void RPNEvent(CompleteRPNState currentState);
+
+        public event RPNEvent stateChanged;
+        public event RPNEvent frequencyChanged;
+        public event RPNEvent directionChanged;
+        public event RPNEvent tick;
+
         private void turnOn(double stepX, double stepY, double X0, double Y0, int NX, int NY)
         {
             epsilon = Y0;
             int y = 1;
             Vector4D x = 1;
-            n = 1;
             azimut = X0;
             while ((running == true) & (change == false))
             {
                 SortedSet<Frequency> currentSet = getFreqSet();
                 foreach (Frequency f in currentSet)
                 {
+                    var watch = Stopwatch.StartNew(); //it's for control precision of time measure
+
                     currentFreq = f;
-                    if (n == 18) { n = 1; }
-                    else { n++; }
+                    currentState.currentFrequency = f;
+                    frequencyChanged(currentState);
 
                     x.set(f, x.get(f) + 1);
                     azimut.set(f, azimut.get(f) + stepX);
+                    currentState.currentDirection.azimut = azimut.get(f) + stepX;
                     if (x.get(f) == NX + 1)
                     {
                         x.set(f, 1);
                         azimut.set(f, X0);
+                        currentState.currentDirection.azimut = X0;
                     }
 
                     if (!stopPressed)
@@ -215,9 +261,27 @@ namespace ivosciwork
                         {
                             y = 1;
                             epsilon = Y0;
+                            currentState.currentDirection.epsilon = Y0;
                         }
                     }
+
+                    directionChanged(currentState);
+
+                    //for (int count = 0; count < Constants.AMT; count++) {
+                    //    currentState.currentTick++;
+                    //    tick(currentState);
+                    //    System.Threading.Thread.Sleep(Constants.TICK);
+                    //}
+
                     System.Threading.Thread.Sleep(Constants.RPN_DELAY);
+
+                    watch.Stop();
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    var delta = Math.Abs(elapsedMs - Constants.RPN_DELAY);
+                    if (delta > Constants.RPN_DELAY * Constants.PRECISION)
+                    {
+                        Console.Beep();
+                    }
                 }
             }
         }
