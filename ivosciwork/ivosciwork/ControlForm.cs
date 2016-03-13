@@ -15,8 +15,8 @@ namespace ivosciwork
 {
     public partial class ControlForm : Form
     {
-       private RPN myRpn;
-     
+        private RPN myRpn;
+
         PictureBox[] Lines1 = new PictureBox[4];
         PictureBox[] Lines2 = new PictureBox[4];
         double Epsilon = 0;

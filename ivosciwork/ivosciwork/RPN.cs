@@ -73,9 +73,7 @@ namespace ivosciwork
                 running = false;
                 on = false;
                 currentState.isActive = false;
-                //currentState.currentTick = 0;
                 stateChanged(currentState);
-                //tick(currentState);
             }
             change = true;
         }
@@ -192,19 +190,17 @@ namespace ivosciwork
             }
         }
 
-        private CompleteRPNState currentState = new CompleteRPNState(false, Frequency.F1, new ScanningDirection(0, 0), 0);
+        private CompleteRPNState currentState = new CompleteRPNState(false, Frequency.F1, new ScanningDirection(0, 0));
 
         public struct CompleteRPNState {
             internal bool isActive;
             internal Frequency currentFrequency;
             internal ScanningDirection currentDirection;
-            internal int currentTick;
 
-            public CompleteRPNState(bool state, Frequency f, ScanningDirection d, int tick) {
+            public CompleteRPNState(bool state, Frequency f, ScanningDirection d) {
                 this.isActive = state;
                 this.currentFrequency = f;
                 this.currentDirection = d;
-                this.currentTick = tick;
             }
 
         }
@@ -266,12 +262,6 @@ namespace ivosciwork
                     }
 
                     directionChanged(currentState);
-
-                    //for (int count = 0; count < Constants.AMT; count++) {
-                    //    currentState.currentTick++;
-                    //    tick(currentState);
-                    //    System.Threading.Thread.Sleep(Constants.TICK);
-                    //}
 
                     System.Threading.Thread.Sleep(Constants.RPN_DELAY);
 

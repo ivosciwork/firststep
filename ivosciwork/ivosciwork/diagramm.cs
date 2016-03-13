@@ -36,18 +36,9 @@ namespace ivosciwork
             InitializeComponent();
             rpn.frequencyChanged += frequencyChangedHandler;
             rpn.stateChanged += stateChangedHandler;
-            //rpn.tick += tickHandler;
             this.myThread = new Thread(new ThreadStart(this.eventZaloop));
             myThread.IsBackground = true;
             myThread.Start();
-        }
-
-        bool tickHappened = false;
-        long currentTick = 0;
-        private void tickHandler(RPN.CompleteRPNState currentState)
-        {
-            tickHappened = true;
-            currentTick = currentState.currentTick;
         }
 
         private bool isStateChanged = false;
