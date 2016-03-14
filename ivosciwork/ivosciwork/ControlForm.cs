@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Drawing.Text;
 
 
@@ -16,7 +17,7 @@ namespace ivosciwork
     public partial class ControlForm : Form
     {
         private RPN myRpn;
-
+        private Thread myThread;
         PictureBox[] Lines1 = new PictureBox[4];
         PictureBox[] Lines2 = new PictureBox[4];
         double Epsilon = 0;
@@ -33,11 +34,21 @@ namespace ivosciwork
         int freq;
         SortedSet<RPN.Frequency> frequencies;
 
+        private struct CurrentState {
+            public PictureBox currentLine;
+            public int leftZone;
+            public int wight;
+        }
+        private CurrentState current1 = new CurrentState();
+        private CurrentState current2 = new CurrentState();
         public ControlForm(RPN rpn)
         {
             InitializeComponent();
-           
+
             myRpn = rpn;
+            rpn.directionChanged += this.directionChangedHandler;
+            rpn.stateChanged += this.stateChangedHandler;
+            rpn.frequencyChanged += this.frequencyChangedHandler;
             this.pictureBox12.BringToFront();
             this.pictureBox13.BringToFront();
             this.pictureBox14.BringToFront();
@@ -51,23 +62,48 @@ namespace ivosciwork
             Lines2[1] = pictureBox23;
             Lines2[0] = pictureBox25;
             for (int i = 0; i < 4; i++) n[i] = 0;
-            timer1.Interval = Constants.RPN_DELAY;
-        
+            //timer1.Interval = Constants.RPN_DELAY;
+            this.myThread = new Thread(new ThreadStart(this.EventZaloop));
+            myThread.IsBackground = true;
+            myThread.Start();
+
+        }
+        private bool isFrequencyChanged = false;
+        private RPN.Frequency frequency = RPN.Frequency.F1;
+        private void frequencyChangedHandler(RPN.CompleteRPNState currentState)
+        {
+            isFrequencyChanged = true;
+            frequency = currentState.currentFrequency;
         }
 
+        private bool isStateChanged = false;
+        private bool isRpnOn = false;
+        private void stateChangedHandler(RPN.CompleteRPNState currentState)
+        {
+            isStateChanged = true;
+            isRpnOn = currentState.isActive;
+        }
+
+        private bool isDirectionChanged = false;
+        private RPN.ScanningDirection beamDirection = new RPN.ScanningDirection(0, 0);
+        private void directionChangedHandler(RPN.CompleteRPNState currentState)
+        {
+            isDirectionChanged = true;
+            beamDirection = currentState.currentDirection;
+        }
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {
             Epsilon = Epsilon0;
             myRpn.changeEpsilon(Epsilon);
-            myRpn.on = true;
             Segment((int)(Epsilon0 * 10), pictureBox29);
 
-            if (timer1.Enabled == false) 
+            if (myRpn.on == false)
             {
-                Segment((int)(Epsilon * 10), pictureBox29); 
+                Segment((int)(Epsilon * 10), pictureBox29);
                 Segment((int)(Epsilon * 10), pictureBox28);
                 schet = 1;
             }
+            myRpn.on = true;
             pictureBox3.Image = Properties.Resources.GREEN_BUTTON_DOWN;
             Epsilon = myRpn.getEpsilon();
             pictureBox12.BackColor = Color.Cyan;
@@ -79,8 +115,8 @@ namespace ivosciwork
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
             freq = 0;
-            timer1.Enabled = true;
-           
+            // timer1.Enabled = true;
+
         }
         private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
         {
@@ -90,14 +126,14 @@ namespace ivosciwork
             pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
-             pictureBox26.Image = Properties.Resources.red_button;
+            pictureBox26.Image = Properties.Resources.red_button;
         }
 
 
         private void label1_Click(object sender, EventArgs e) /* 1*105НП */
         {
             pictureBox2.Image = Properties.Resources.sector1;
-            maxWidth = (int)(pictureBox8.Width *4/5-1);
+            maxWidth = (int)(pictureBox8.Width * 4 / 5 - 1);
             LeftZone = pictureBox8.Left;
             RightZone = LeftZone + pictureBox8.Width;
             for (int i = 0; i < 4; i++) n[i] = 1;
@@ -107,7 +143,7 @@ namespace ivosciwork
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
-            if (timer1.Enabled == true)
+            if (myRpn.on == true)
             {
                 frequencies = myRpn.getFreqSet();
                 freq = 0;
@@ -130,7 +166,7 @@ namespace ivosciwork
         private void label2_Click(object sender, EventArgs e) /* 1*105 */
         {
             pictureBox2.Image = Properties.Resources.sector2;
-            maxWidth = (int)(pictureBox8.Width *4/5-1);
+            maxWidth = (int)(pictureBox8.Width * 4 / 5 - 1);
             LeftZone = pictureBox8.Left;
             RightZone = LeftZone + pictureBox8.Width;
             for (int i = 0; i < 4; i++) n[i] = 1;
@@ -138,7 +174,7 @@ namespace ivosciwork
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
-            if (timer1.Enabled == true)
+            if (myRpn.on == true)
             {
                 frequencies = myRpn.getFreqSet();
                 freq = 0;
@@ -162,13 +198,13 @@ namespace ivosciwork
             pictureBox2.Image = Properties.Resources.sector3;
             maxWidth = (int)(pictureBox8.Width * 10 / 105);
             LeftZone = pictureBox8.Left + (int)(pictureBox8.Width * 31 / 70);
-            RightZone = LeftZone + (int)(maxWidth*6/5);
+            RightZone = LeftZone + (int)(maxWidth * 6 / 5);
             for (int i = 0; i < 4; i++) n[i] = 1;
             myRpn.changeMode(RPN.Mode.HX12);
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
-            if (timer1.Enabled == true)
+            if (myRpn.on == true)
             {
                 frequencies = myRpn.getFreqSet();
                 freq = 0;
@@ -192,7 +228,7 @@ namespace ivosciwork
         {
             pictureBox2.Image = Properties.Resources.sector4;
             myRpn.changeMode(RPN.Mode.off);
-            timer1.Enabled = false;
+            //timer1.Enabled = false;
             for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
             for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
             Epsilon = 0;
@@ -219,7 +255,7 @@ namespace ivosciwork
         private void pictureBox16_MouseUp(object sender, MouseEventArgs e)
         {
             flag = 0;
-           
+
         }
 
         private void pictureBox16_MouseMove(object sender, MouseEventArgs e)
@@ -236,9 +272,9 @@ namespace ivosciwork
                 {
                     Epsilon0 = Epsilon0 + ((double)(x0 - x) / 100);
                     Epsilon = Epsilon0;
-                    
+
                 }
-                
+
                 if (Math.Abs(x0 - x) > 10) flag = 1;
             }
             System.Threading.Thread.Sleep(1);
@@ -247,9 +283,10 @@ namespace ivosciwork
             myRpn.changeEpsilon(Epsilon);
         }
 
+        
 
         
-        private void timer1_Tick(object sender, EventArgs e)
+     /*   private void timer1_Tick(object sender, EventArgs e)
         {
             
                
@@ -299,6 +336,7 @@ namespace ivosciwork
                 }
                 while (n[freq] == 0);
         }
+        */
         private void pictureBox17_MouseDown(object sender, MouseEventArgs e) /* передвижение метки */
         {
             x0 = Cursor.Position.X;
@@ -469,8 +507,86 @@ namespace ivosciwork
                 g1.DrawImage(Properties.Resources.tochka, new Point(81, 35));
             }
         }
+        private void EventZaloop()
+        {
+            while (true)
+            { 
+                double azimutgrad;
+                int azimut;
+                if (isStateChanged)
+                {
+                    isStateChanged = false;
+                
+                }
+
+                if (isDirectionChanged || isFrequencyChanged)
+                {
+                    isDirectionChanged = false;
+                    isFrequencyChanged = false;
+
+                    Epsilon = beamDirection.epsilon;
+                    Segment((int)(Epsilon * 10), pictureBox28);
+                    azimutgrad = beamDirection.azimut;
+                    azimut = (int)(3*azimutgrad);
+                    int f = (int)frequency;
+                    if (raz == 2) Lines2[f].Visible = true;
+
+
+                    if (schet == 18) schet = 1;
+                    if (myRpn.getCurrentMode() == RPN.Mode.HX12)
+                    {
+                        Lines1[f].Image = Properties.Resources.polosa12;
+                        Lines2[f].Image = Properties.Resources.polosa12;
+                    }
+                    else
+                    {
+                        Lines1[f].Image = Properties.Resources.polosa105;
+                        Lines2[f].Image = Properties.Resources.polosa105;
+                    }
+                    current1.currentLine = Lines1[f];
+                    current2.currentLine = Lines2[f];
+                    Lines1[f].SizeMode = PictureBoxSizeMode.CenterImage;
+                    if (azimut < maxWidth)
+                    {
+                        
+                        current1.leftZone = LeftZone;
+                        current1.wight = azimut;
+                        current2.wight = maxWidth - azimut;
+                        current2.leftZone = RightZone - current2.wight;
+                        
+                    }
+                    else
+                    {
+                        raz = 2;
+                        current1.wight= maxWidth;
+                        current1.leftZone = LeftZone + azimut - maxWidth;
+                        current2.wight = 0;
+                    }
+                    updateState(current1, current2);
+                }
+            }
+        }
+
+        delegate void updateStateCallBack(CurrentState currentPosition1, CurrentState currentPosition2);//
+        private void updateState(CurrentState current1, CurrentState current2)
+        {
+            if (this.InvokeRequired)
+            {
+                updateStateCallBack d = new updateStateCallBack(updateState);
+                this.Invoke(d, new object[] { current1,current2 });
+            }
+            else
+            {
+                current1.currentLine.Width = current1.wight;
+                current1.currentLine.Left = current1.leftZone;
+                current2.currentLine.Width = current2.wight;
+                current2.currentLine.Left = current2.leftZone;
+            }
+            
+        }
     }
 }
+
 
 
 
