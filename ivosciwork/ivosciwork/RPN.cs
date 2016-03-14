@@ -18,6 +18,8 @@ namespace ivosciwork
         private bool stopPressed = false;
         public bool on = false;
 
+        private bool changefreq = false;
+
         private Vector4D azimut = 0;
         private double epsilon = 0;
 
@@ -100,6 +102,7 @@ namespace ivosciwork
 
         public SortedSet<Frequency> getFreqSet()
         {
+            
             SortedSet<Frequency> toReturn = new SortedSet<Frequency>();
             lock(frequencySet)
             {
@@ -107,6 +110,8 @@ namespace ivosciwork
                     toReturn.Add(f);
                 return toReturn;
             }
+            
+            
         }
 
         public bool OnStopButtonState()
@@ -127,6 +132,7 @@ namespace ivosciwork
 
         public void setFrequencies(params Frequency[] f)
         {
+            changefreq = true;
             lock (frequencySet)
             {
                 frequencySet.Clear();
@@ -135,6 +141,7 @@ namespace ivosciwork
                     frequencySet.Add(fr);
                 }
             }
+            
         }
 
         public void turnOn()
@@ -228,11 +235,14 @@ namespace ivosciwork
             int y = 1;
             Vector4D x = 1;
             azimut = X0;
+            changefreq = false;
+            double azimuttek;
             while ((running == true) & (change == false))
             {
                 SortedSet<Frequency> currentSet = getFreqSet();
                 foreach (Frequency f in currentSet)
                 {
+                    
                     var watch = Stopwatch.StartNew(); //it's for control precision of time measure
 
                     currentFreq = f;
@@ -242,24 +252,27 @@ namespace ivosciwork
                     x.set(f, x.get(f) + 1);
                     azimut.set(f, azimut.get(f) + stepX);
                     currentState.currentDirection.azimut = azimut.get(f) + stepX;
+                    azimuttek = currentState.currentDirection.azimut;
                     if (x.get(f) == NX + 1)
                     {
                         x.set(f, 1);
                         azimut.set(f, X0);
                         currentState.currentDirection.azimut = X0;
-                    }
-
-                    if (!stopPressed)
-                    {
-                        epsilon += stepY;
-                        y++;
-                        if (y == NY + 1)
+                        if (!stopPressed)
                         {
-                            y = 1;
-                            epsilon = Y0;
-                            currentState.currentDirection.epsilon = Y0;
+                            epsilon += stepY;
+                            currentState.currentDirection.epsilon += stepY/ frequencySet.Count;
+                            y++;
+                            if (y == NY + 1)
+                            {
+                                y = 1;
+                                epsilon = Y0;
+                                currentState.currentDirection.epsilon = Y0;
+                            }
                         }
                     }
+
+                    
 
                     directionChanged(currentState);
 
@@ -272,8 +285,10 @@ namespace ivosciwork
                     {
                         Console.Beep();
                     }
+                    if (changefreq) { break; }
                 }
-            }
+
+             }
         }
 
         internal Mode getCurrentMode()

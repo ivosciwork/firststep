@@ -38,6 +38,7 @@ namespace ivosciwork
             public PictureBox currentLine;
             public int leftZone;
             public int wight;
+            public bool vis;
         }
         private CurrentState current1 = new CurrentState();
         private CurrentState current2 = new CurrentState();
@@ -229,8 +230,7 @@ namespace ivosciwork
             pictureBox2.Image = Properties.Resources.sector4;
             myRpn.changeMode(RPN.Mode.off);
             //timer1.Enabled = false;
-            for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
-            for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
+            
             Epsilon = 0;
             myRpn.changeEpsilon(Epsilon);
             Segment((int)(Epsilon * 10), pictureBox29);
@@ -242,6 +242,8 @@ namespace ivosciwork
             pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox26.Image = Properties.Resources.red_button;
+            for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
+            for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
         }
 
         private void pictureBox16_MouseDown(object sender, MouseEventArgs e) /* задание Е0 */
@@ -271,8 +273,8 @@ namespace ivosciwork
                 if ((Epsilon0 + ((double)(x0 - x) / 100) >= -10) & (Epsilon0 + ((double)(x0 - x) / 100) <= 70))
                 {
                     Epsilon0 = Epsilon0 + ((double)(x0 - x) / 100);
-                    Epsilon = Epsilon0;
 
+                    beamDirection.epsilon = Epsilon0;
                 }
 
                 if (Math.Abs(x0 - x) > 10) flag = 1;
@@ -464,16 +466,16 @@ namespace ivosciwork
 
         private void Poloski(SortedSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
         {
-            for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
-            for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
+           for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
+             for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
             foreach (int f in frequency)
-            {   
-                if (f == 0) Lines1[0].Visible = true;
-                if (f == 1) Lines1[1].Visible = true;
-                if (f == 2) Lines1[2].Visible = true;
-                if (f == 3) Lines1[3].Visible = true;
-             
-            }
+             {   
+                 if (f == 0) Lines1[0].Visible = true;
+                 if (f == 1) Lines1[1].Visible = true;
+                 if (f == 2) Lines1[2].Visible = true;
+                 if (f == 3) Lines1[3].Visible = true;
+
+             }
         }
 
        
@@ -529,7 +531,12 @@ namespace ivosciwork
                     azimutgrad = beamDirection.azimut;
                     azimut = (int)(3*azimutgrad);
                     int f = (int)frequency;
-                    if (raz == 2) Lines2[f].Visible = true;
+                    current1.currentLine = Lines1[f];
+                    current2.currentLine = Lines2[f];
+                    current1.vis = true;
+                    if (raz == 2) current2.vis = true;
+                    else current2.vis = false;
+
 
 
                     if (schet == 18) schet = 1;
@@ -543,8 +550,7 @@ namespace ivosciwork
                         Lines1[f].Image = Properties.Resources.polosa105;
                         Lines2[f].Image = Properties.Resources.polosa105;
                     }
-                    current1.currentLine = Lines1[f];
-                    current2.currentLine = Lines2[f];
+                    
                     Lines1[f].SizeMode = PictureBoxSizeMode.CenterImage;
                     if (azimut < maxWidth)
                     {
@@ -579,8 +585,11 @@ namespace ivosciwork
             {
                 current1.currentLine.Width = current1.wight;
                 current1.currentLine.Left = current1.leftZone;
+                current1.currentLine.Visible = current1.vis;
                 current2.currentLine.Width = current2.wight;
                 current2.currentLine.Left = current2.leftZone;
+                current2.currentLine.Visible = current2.vis;
+
             }
             
         }
