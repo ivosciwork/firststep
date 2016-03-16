@@ -31,7 +31,6 @@ namespace ivosciwork
         int[] n = new int[4];
         int raz;
         int schet;
-        int freq;
         SortedSet<RPN.Frequency> frequencies;
 
         private struct CurrentState {
@@ -115,7 +114,6 @@ namespace ivosciwork
             myRpn.turnOn();
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            freq = 0;
             // timer1.Enabled = true;
 
         }
@@ -147,7 +145,6 @@ namespace ivosciwork
             if (myRpn.on == true)
             {
                 frequencies = myRpn.getFreqSet();
-                freq = 0;
                 Poloski(frequencies);
                 Segment((int)(Epsilon0 * 10), pictureBox29);
                 Epsilon = Epsilon0;
@@ -178,7 +175,6 @@ namespace ivosciwork
             if (myRpn.on == true)
             {
                 frequencies = myRpn.getFreqSet();
-                freq = 0;
                 Poloski(frequencies);
                 Segment((int)(Epsilon0 * 10), pictureBox29);
                 Epsilon = Epsilon0;
@@ -208,7 +204,6 @@ namespace ivosciwork
             if (myRpn.on == true)
             {
                 frequencies = myRpn.getFreqSet();
-                freq = 0;
                 Poloski(frequencies);
                 Segment((int)(Epsilon0 * 10), pictureBox29);
                 Epsilon = Epsilon0;
@@ -368,7 +363,6 @@ namespace ivosciwork
             myRpn.setFrequencies(RPN.Frequency.F4);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            freq = 0;
             for (int i = 0; i < 4; i++) n[i] = 0;
             n[3] = 1;
 
@@ -388,7 +382,6 @@ namespace ivosciwork
             if (myRpn.getCurrentMode() != RPN.Mode.IX105NP) myRpn.setFrequencies(RPN.Frequency.F3);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            freq = 0;
             for (int i = 0; i < 4; i++) n[i] = 0;
             n[2] = 1;
         }
@@ -407,7 +400,6 @@ namespace ivosciwork
             myRpn.setFrequencies(RPN.Frequency.F2);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            freq = 0;
             for (int i = 0; i < 4; i++) n[i] = 0;
             n[1] = 1;
         }
@@ -426,7 +418,6 @@ namespace ivosciwork
             myRpn.setFrequencies(RPN.Frequency.F1);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            freq = 0;
             for (int i = 0; i < 4; i++) n[i] = 0;
             n[0] = 1;
         }

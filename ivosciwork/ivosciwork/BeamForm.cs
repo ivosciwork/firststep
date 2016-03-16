@@ -21,12 +21,25 @@ namespace ivosciwork
         public BeamForm(RPN rpn)
         {
             InitializeComponent();
+
+            //RPNEvent handlers
             rpn.directionChanged += this.directionChangedHandler;
             rpn.stateChanged += this.stateChangedHandler;
             rpn.frequencyChanged += this.frequencyChangedHandler;
+
+            //resize event handler
+            this.Resize += this.onResize;
+
+            //thread for calculations
             this.myThread = new Thread(new ThreadStart( this.eventLoop ));
             myThread.IsBackground = true;
             myThread.Start();
+        }
+
+        private void onResize(object sender, EventArgs e)
+        {
+            this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition();
+            this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition();
         }
 
         private bool isFrequencyChanged = false;
