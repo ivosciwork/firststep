@@ -63,6 +63,36 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap _1x105 {
+            get {
+                object obj = ResourceManager.GetObject("_1x105", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _1x105np {
+            get {
+                object obj = ResourceManager.GetObject("_1x105np", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _4x12 {
+            get {
+                object obj = ResourceManager.GetObject("_4x12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap center_tmp {
             get {
                 object obj = ResourceManager.GetObject("center_tmp", resourceCulture);
@@ -213,6 +243,16 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap off {
+            get {
+                object obj = ResourceManager.GetObject("off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap pole {
             get {
                 object obj = ResourceManager.GetObject("pole", resourceCulture);
@@ -266,6 +306,16 @@ namespace ivosciwork.Properties {
         public static System.Drawing.Bitmap radar {
             get {
                 object obj = ResourceManager.GetObject("radar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap radar1 {
+            get {
+                object obj = ResourceManager.GetObject("radar1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

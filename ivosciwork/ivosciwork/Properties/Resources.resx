@@ -223,4 +223,19 @@
   <data name="initial_face" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\initial_face.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\off.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="radar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\radar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1x105" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1x105.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1x105np" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1x105np.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4x12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

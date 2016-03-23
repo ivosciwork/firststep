@@ -28,9 +28,8 @@ namespace ivosciwork
         int flag;
         int x0, x;
         int MetkaLeft;
-        int[] n = new int[4];
         int raz;
-        int schet;
+        int azimut = 0;
         SortedSet<RPN.Frequency> frequencies;
 
         private struct CurrentState {
@@ -61,11 +60,85 @@ namespace ivosciwork
             Lines2[2] = pictureBox21;
             Lines2[1] = pictureBox23;
             Lines2[0] = pictureBox25;
-            for (int i = 0; i < 4; i++) n[i] = 0;
-            //timer1.Interval = Constants.RPN_DELAY;
+            
             this.myThread = new Thread(new ThreadStart(this.EventZaloop));
             myThread.IsBackground = true;
             myThread.Start();
+
+        }
+
+        private void ElementLocation()
+        {
+            pictureBox29.Location = new Point((int)((this.Width - 14) * 483 / 637), (int)((this.Height - 36) * 51 / 401));
+            pictureBox29.Size = new Size((int)((this.Width - 7) * 112 / 637), (int)((this.Height - 36) * 40 / 401));
+            pictureBox28.Location = new Point((int)((this.Width - 14) * 483 / 637), (int)((this.Height - 36) * 5 / 401));
+            pictureBox28.Size = new Size((int)((this.Width - 7) * 112 / 637), (int)((this.Height - 36) * 40 / 401));
+            pictureBox27.Location = new Point((int)((this.Width - 14) * 509 / 637), (int)((this.Height - 36) * 328 / 401));
+            pictureBox27.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
+            pictureBox26.Location = new Point((int)((this.Width - 14) * 446 / 637), (int)((this.Height - 36) * 328 / 401));
+            pictureBox26.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
+            pictureBox25.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 195 / 401));
+            pictureBox25.Size = new Size((int)((this.Width - 7) * 0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox24.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 195 / 401));
+            pictureBox24.Size = new Size((int)((this.Width - 7) * 0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox23.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 152 / 401));
+            pictureBox23.Size = new Size((int)((this.Width - 7) *  0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox22.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 152 / 401));
+            pictureBox22.Size = new Size((int)((this.Width - 7) * 0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox21.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 109 / 401));
+            pictureBox21.Size = new Size((int)((this.Width - 7) * 0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox20.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 109 / 401));
+            pictureBox20.Size = new Size((int)((this.Width - 7) * 0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox19.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 66 / 401));
+            pictureBox19.Size = new Size((int)((this.Width - 7) * 0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox18.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 66 / 401));
+            pictureBox18.Size = new Size((int)((this.Width - 7) * 0 / 637), (int)((this.Height - 36) * 37 / 401));
+            pictureBox17.Location = new Point((int)((this.Width - 14) * 222 / 637), (int)((this.Height - 36) * 336 / 401));
+            pictureBox17.Size = new Size((int)((this.Width - 7) * 105 / 637), (int)((this.Height - 36) * 22 / 401));
+            pictureBox16.Location = new Point((int)((this.Width - 14) * 72 / 637), (int)((this.Height - 36) * 308 / 401));
+            pictureBox16.Size = new Size((int)((this.Width - 7) * 25 / 637), (int)((this.Height - 36) * 79 / 401));
+            pictureBox15.Location = new Point((int)((this.Width - 14) * 270 / 637), (int)((this.Height - 36) * 195 / 401));
+            pictureBox15.Size = new Size((int)((this.Width - 7) * 5 / 637), (int)((this.Height - 36) * 35 / 401));
+            pictureBox14.Location = new Point((int)((this.Width - 14) * 270 / 637), (int)((this.Height - 36) * 152 / 401));
+            pictureBox14.Size = new Size((int)((this.Width - 7) * 5 / 637), (int)((this.Height - 36) * 35 / 401));
+            pictureBox13.Location = new Point((int)((this.Width - 14) * 270 / 637), (int)((this.Height - 36) * 109 / 401));
+            pictureBox13.Size = new Size((int)((this.Width - 7) * 5 / 637), (int)((this.Height - 36) * 35 / 401));
+            pictureBox12.Location = new Point((int)((this.Width - 14) * 270 / 637), (int)((this.Height - 36) * 66 / 401));
+            pictureBox12.Size = new Size((int)((this.Width - 7) * 5 / 637), (int)((this.Height - 36) * 35 / 401));
+            pictureBox11.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 195 / 401));
+            pictureBox11.Size = new Size((int)((this.Width - 7) * 262 / 637), (int)((this.Height - 29) * 35 / 401));
+            pictureBox10.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 152 / 401));
+            pictureBox10.Size = new Size((int)((this.Width - 7) * 262 / 637), (int)((this.Height - 29) * 35 / 401));
+            pictureBox9.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 109 / 401));
+            pictureBox9.Size = new Size((int)((this.Width - 7) * 262 / 637), (int)((this.Height - 29) * 35 / 401));
+            pictureBox8.Location = new Point((int)((this.Width - 14) * 142 / 637), (int)((this.Height - 36) * 66 / 401));
+            pictureBox8.Size = new Size((int)((this.Width - 7) * 262 / 637), (int)((this.Height - 29) * 35 / 401));
+            pictureBox7.Location = new Point((int)((this.Width - 14) * 19 / 637), (int)((this.Height - 36) * 195 / 401));
+            pictureBox7.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
+            pictureBox6.Location = new Point((int)((this.Width - 14) * 19 / 637), (int)((this.Height - 36) * 152 / 401));
+            pictureBox6.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
+            pictureBox5.Location = new Point((int)((this.Width - 14) * 19 / 637), (int)((this.Height - 36) * 111 / 401));
+            pictureBox5.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
+            pictureBox4.Location = new Point((int)((this.Width - 14) * 19 / 637), (int)((this.Height - 36) * 66 / 401));
+            pictureBox4.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
+            pictureBox3.Location = new Point((int)((this.Width - 14) * 549 / 637), (int)((this.Height - 36) * 265 / 401));
+            pictureBox3.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
+            pictureBox2.Location = new Point((int)((this.Width - 14) * 553 / 637), (int)((this.Height - 36) * 200 / 401));
+            pictureBox2.Size = new Size((int)((this.Width - 7) * 27 / 637), (int)((this.Height - 36) * 32 / 401));
+            pictureBox1.Location = new Point((int)((this.Width - 14) * 498 / 637), (int)((this.Height - 36) * 183 / 401));
+            pictureBox1.Size = new Size((int)((this.Width - 7) * 40 / 637), (int)((this.Height - 36) * 20 / 401));
+            pictureBox30.Location = new Point((int)((this.Width - 14) * 509 / 637), (int)((this.Height - 36) * 162 / 401));
+            pictureBox30.Size = new Size((int)((this.Width - 7) * 40 / 637), (int)((this.Height - 36) * 20 / 401));
+            pictureBox31.Location = new Point((int)((this.Width - 14) * 549 / 637), (int)((this.Height - 36) * 155 / 401));
+            pictureBox31.Size = new Size((int)((this.Width - 7) * 40 / 637), (int)((this.Height - 36) * 20 / 401));
+            pictureBox32.Location = new Point((int)((this.Width - 14) * 585 / 637), (int)((this.Height - 36) * 169 / 401));
+            pictureBox32.Size = new Size((int)((this.Width - 7) * 40 / 637), (int)((this.Height - 36) * 20 / 401));
+        }
+        private void ControlForm_Resize(object sender, EventArgs e)
+        {
+            ElementLocation();
+            Segment((int)(Epsilon0 * 10), pictureBox29);
+            Segment((int)(Epsilon0 * 10), pictureBox28);
 
         }
         private bool isFrequencyChanged = false;
@@ -101,7 +174,6 @@ namespace ivosciwork
             {
                 Segment((int)(Epsilon * 10), pictureBox29);
                 Segment((int)(Epsilon * 10), pictureBox28);
-                schet = 1;
             }
             myRpn.on = true;
             pictureBox3.Image = Properties.Resources.GREEN_BUTTON_DOWN;
@@ -114,8 +186,6 @@ namespace ivosciwork
             myRpn.turnOn();
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            // timer1.Enabled = true;
-
         }
         private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
         {
@@ -127,16 +197,12 @@ namespace ivosciwork
             pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
             pictureBox26.Image = Properties.Resources.red_button;
         }
-
-
-        private void label1_Click(object sender, EventArgs e) /* 1*105НП */
+        private void pictureBox1_Click(object sender, EventArgs e) /* 1*105НП */
         {
             pictureBox2.Image = Properties.Resources.sector1;
             maxWidth = (int)(pictureBox8.Width * 4 / 5 - 1);
             LeftZone = pictureBox8.Left;
             RightZone = LeftZone + pictureBox8.Width;
-            for (int i = 0; i < 4; i++) n[i] = 1;
-            n[2] = 0;
             Epsilon0 = 0.3;
             myRpn.changeMode(RPN.Mode.IX105NP);
             raz = 1;
@@ -157,17 +223,14 @@ namespace ivosciwork
                 pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
                 pictureBox26.Image = Properties.Resources.red_button;
             }
-
         }
 
-
-        private void label2_Click(object sender, EventArgs e) /* 1*105 */
+        private void pictureBox30_Click(object sender, EventArgs e) /* 1*105 */
         {
             pictureBox2.Image = Properties.Resources.sector2;
             maxWidth = (int)(pictureBox8.Width * 4 / 5 - 1);
             LeftZone = pictureBox8.Left;
             RightZone = LeftZone + pictureBox8.Width;
-            for (int i = 0; i < 4; i++) n[i] = 1;
             myRpn.changeMode(RPN.Mode.IX105);
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
@@ -189,14 +252,12 @@ namespace ivosciwork
             }
         }
 
-
-        private void label3_Click(object sender, EventArgs e) /* 4*12 */
+        private void pictureBox31_Click(object sender, EventArgs e)/* 4*12 */
         {
             pictureBox2.Image = Properties.Resources.sector3;
             maxWidth = (int)(pictureBox8.Width * 10 / 105);
             LeftZone = pictureBox8.Left + (int)(pictureBox8.Width * 31 / 70);
             RightZone = LeftZone + (int)(maxWidth * 6 / 5);
-            for (int i = 0; i < 4; i++) n[i] = 1;
             myRpn.changeMode(RPN.Mode.HX12);
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
@@ -216,16 +277,12 @@ namespace ivosciwork
                 pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
                 pictureBox26.Image = Properties.Resources.red_button;
             }
-
         }
 
-
-        private void label4_Click(object sender, EventArgs e) /* ВЫКЛ */
+        private void pictureBox32_Click(object sender, EventArgs e)/* ВЫКЛ */
         {
             pictureBox2.Image = Properties.Resources.sector4;
             myRpn.changeMode(RPN.Mode.off);
-            //timer1.Enabled = false;
-            
             Epsilon = 0;
             myRpn.changeEpsilon(Epsilon);
             Segment((int)(Epsilon * 10), pictureBox29);
@@ -241,6 +298,7 @@ namespace ivosciwork
             for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
         }
 
+       
         private void pictureBox16_MouseDown(object sender, MouseEventArgs e) /* задание Е0 */
         {
             if ((myRpn.getCurrentMode() != RPN.Mode.IX105NP) && (myRpn.getCurrentMode() != RPN.Mode.off))
@@ -280,81 +338,47 @@ namespace ivosciwork
             myRpn.changeEpsilon(Epsilon);
         }
 
-        
-
-        
-     /*   private void timer1_Tick(object sender, EventArgs e)
-        {
-            
-               
-                Epsilon = myRpn.getEpsilon();
-                Segment((int)(Epsilon * 10), pictureBox28);
-                foreach (RPN.Frequency q in frequencies)
-                {
-                  double azimutgrad = myRpn.getAzimut().get(q);
-                  int azimut = (int)(azimutgrad);
-                  int f = (int)q;
-                  if (raz == 2) Lines2[f].Visible = true;
-                  if (f == freq)
-                  {
-                    schet++;
-                    if (schet == 18) schet = 1;
-                    if (myRpn.getCurrentMode() == RPN.Mode.HX12)
-                    {
-                        Lines1[f].Image = Properties.Resources.polosa12;
-                        Lines2[f].Image = Properties.Resources.polosa12;
-                    }
-                    else
-                    {
-                        Lines1[f].Image = Properties.Resources.polosa105;
-                        Lines2[f].Image = Properties.Resources.polosa105;
-                    }
-                    Lines1[f].SizeMode = PictureBoxSizeMode.CenterImage;
-                    if (azimut < maxWidth)
-                    {
-                        Lines1[f].Width = azimut;
-                        Lines1[f].Left = LeftZone;
-                        Lines2[f].Width = maxWidth - azimut;
-                        Lines2[f].Left = RightZone - Lines2[f].Width;
-                    }
-                    else
-                    {
-                        raz = 2;
-                        Lines1[f].Width = maxWidth;
-                        Lines1[f].Left = LeftZone + azimut - maxWidth;
-                        Lines2[f].Width = 0;
-                    }
-                  }
-                }
-                do
-                {
-                   freq++;
-                   if (freq == 4) freq = 0;
-                }
-                while (n[freq] == 0);
-        }
-        */
         private void pictureBox17_MouseDown(object sender, MouseEventArgs e) /* передвижение метки */
         {
-            x0 = Cursor.Position.X;
-            MetkaLeft = pictureBox12.Left;
+            if ((myRpn.getCurrentMode() != RPN.Mode.IX105NP) && (myRpn.getCurrentMode() != RPN.Mode.off))
+            {
+                flag = 1;
+            }
         }
 
-       
+        private void pictureBox17_MouseUp(object sender, MouseEventArgs e)
+        {
+            flag = 0;
+        }
         private void pictureBox17_MouseMove(object sender, MouseEventArgs e)
         {
-                x = Cursor.Position.X;
-                if (((MetkaLeft + (int)((x - x0)/10)) >= 150) & ((MetkaLeft + pictureBox12.Width + (int)((x - x0)/10 )) <= 465))
-                {
-                    
-                    MetkaLeft = MetkaLeft + (int)((x - x0)/5 );
-                   
-                }
-            pictureBox12.Left = MetkaLeft;
-            pictureBox13.Left = MetkaLeft;
-            pictureBox14.Left = MetkaLeft;
-            pictureBox15.Left = MetkaLeft;
+            if (flag == 1)
+            {
+                x0 = Cursor.Position.X;
+                MetkaLeft = pictureBox12.Left;
+                flag = 2;
+            }
             System.Threading.Thread.Sleep(1);
+            if (flag == 2)
+            {
+                x = Cursor.Position.X;
+                 
+                if (((MetkaLeft + (int)((x - x0))) >= pictureBox8.Left) & ((MetkaLeft + pictureBox12.Width + (int)((x - x0))) <= pictureBox8.Right))
+                {
+
+                    pictureBox12.Left = MetkaLeft + (int)((x - x0));
+                    pictureBox13.Left = MetkaLeft + (int)((x - x0));
+                    pictureBox14.Left = MetkaLeft + (int)((x - x0));
+                    pictureBox15.Left = MetkaLeft + (int)((x - x0));
+                }
+                
+                if (x<= pictureBox8.Left | x>=pictureBox8.Right)
+                {
+                    MetkaLeft = MetkaLeft + (int)((x - x0));
+                    flag = 1;
+                }
+                
+            }
         }
 
         private void pictureBox4_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F4 */
@@ -363,9 +387,6 @@ namespace ivosciwork
             myRpn.setFrequencies(RPN.Frequency.F4);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            for (int i = 0; i < 4; i++) n[i] = 0;
-            n[3] = 1;
-
         }
 
         private void pictureBox4_MouseUp(object sender, MouseEventArgs e)
@@ -382,8 +403,6 @@ namespace ivosciwork
             if (myRpn.getCurrentMode() != RPN.Mode.IX105NP) myRpn.setFrequencies(RPN.Frequency.F3);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            for (int i = 0; i < 4; i++) n[i] = 0;
-            n[2] = 1;
         }
 
         private void pictureBox5_MouseUp(object sender, MouseEventArgs e)
@@ -400,8 +419,6 @@ namespace ivosciwork
             myRpn.setFrequencies(RPN.Frequency.F2);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            for (int i = 0; i < 4; i++) n[i] = 0;
-            n[1] = 1;
         }
 
         private void pictureBox6_MouseUp(object sender, MouseEventArgs e)
@@ -418,8 +435,6 @@ namespace ivosciwork
             myRpn.setFrequencies(RPN.Frequency.F1);
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
-            for (int i = 0; i < 4; i++) n[i] = 0;
-            n[0] = 1;
         }
 
         private void pictureBox7_MouseUp(object sender, MouseEventArgs e)
@@ -477,27 +492,27 @@ namespace ivosciwork
             Graphics g1 = pic.CreateGraphics();
             if (myRpn.getCurrentMode() == RPN.Mode.off)
             {
-                for (int i = 0; i < 4; i++) g1.DrawImage(Properties.Resources.pusto, new Point(1 + 28 * i, 1));
+                for (int i = 0; i < 4; i++) g1.DrawImage(Properties.Resources.pusto, (int)(pic.Width/4 * i), 0,(int)(pic.Width/4),pic.Height);
             }
             else
             {
-                if (eps < 0) g1.DrawImage(Properties.Resources.minus, new Point(1, 1));
-                else g1.DrawImage(Properties.Resources.nol, new Point(1, 1));
+                if (eps < 0) g1.DrawImage(Properties.Resources.minus, 0, 0, (int)(pic.Width / 4), pic.Height);
+                else g1.DrawImage(Properties.Resources.nol, 0, 0, (int)(pic.Width / 4), pic.Height);
                 for (int i = 1; i < 4; i++)
                 {
-                    if ((Math.Abs(eps) / del) % 10 == 0) g1.DrawImage(Properties.Resources.nol, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 1) g1.DrawImage(Properties.Resources.odin, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 2) g1.DrawImage(Properties.Resources.dva, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 3) g1.DrawImage(Properties.Resources.tri, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 4) g1.DrawImage(Properties.Resources.chet, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 5) g1.DrawImage(Properties.Resources.pyt, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 6) g1.DrawImage(Properties.Resources.shest, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 7) g1.DrawImage(Properties.Resources.sem, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 8) g1.DrawImage(Properties.Resources.vos, new Point(1 + 28 * i, 1));
-                    if ((Math.Abs(eps) / del) % 10 == 9) g1.DrawImage(Properties.Resources.dev, new Point(1 + 28 * i, 1));
+                    if ((Math.Abs(eps) / del) % 10 == 0) g1.DrawImage(Properties.Resources.nol, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 1) g1.DrawImage(Properties.Resources.odin, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 2) g1.DrawImage(Properties.Resources.dva, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 3) g1.DrawImage(Properties.Resources.tri, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 4) g1.DrawImage(Properties.Resources.chet, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 5) g1.DrawImage(Properties.Resources.pyt, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 6) g1.DrawImage(Properties.Resources.shest, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 7) g1.DrawImage(Properties.Resources.sem, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 8) g1.DrawImage(Properties.Resources.vos, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
+                    if ((Math.Abs(eps) / del) % 10 == 9) g1.DrawImage(Properties.Resources.dev, (int)(pic.Width / 4 * i), 0, (int)(pic.Width / 4), pic.Height);
                     del = del / 10;
                 }
-                g1.DrawImage(Properties.Resources.tochka, new Point(81, 35));
+                g1.DrawImage(Properties.Resources.tochka, (int)(pic.Width *3/4-pic.Width/64), (int)(pic.Height*7/8), (int)(pic.Width / 32), (int)(pic.Height / 8));
             }
         }
         private void EventZaloop()
@@ -505,7 +520,6 @@ namespace ivosciwork
             while (true)
             { 
                 double azimutgrad;
-                int azimut;
                 if (isStateChanged)
                 {
                     isStateChanged = false;
@@ -520,17 +534,13 @@ namespace ivosciwork
                     Epsilon = beamDirection.epsilon;
                     Segment((int)(Epsilon * 10), pictureBox28);
                     azimutgrad = beamDirection.azimut;
-                    azimut = (int)(3*azimutgrad);
+                    azimut = (int)(pictureBox8.Width * azimutgrad/105);
                     int f = (int)frequency;
                     current1.currentLine = Lines1[f];
                     current2.currentLine = Lines2[f];
                     current1.vis = true;
                     if (raz == 2) current2.vis = true;
                     else current2.vis = false;
-
-
-
-                    if (schet == 18) schet = 1;
                     if (myRpn.getCurrentMode() == RPN.Mode.HX12)
                     {
                         Lines1[f].Image = Properties.Resources.polosa12;
@@ -564,7 +574,10 @@ namespace ivosciwork
             }
         }
 
-        delegate void updateStateCallBack(CurrentState currentPosition1, CurrentState currentPosition2);//
+       delegate void updateStateCallBack(CurrentState currentPosition1, CurrentState currentPosition2);//
+
+       
+
         private void updateState(CurrentState current1, CurrentState current2)
         {
             if (this.InvokeRequired)
