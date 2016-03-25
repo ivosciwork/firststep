@@ -49,11 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="ControlForm.cs">
+    <Compile Include="..\..\..\ControlForm.cs">
       <SubType>Form</SubType>
+      <Link>ControlForm.cs</Link>
     </Compile>
-    <Compile Include="ControlForm.Designer.cs">
+    <Compile Include="..\..\..\ControlForm.Designer.cs">
       <DependentUpon>ControlForm.cs</DependentUpon>
+      <Link>ControlForm.Designer.cs</Link>
     </Compile>
     <Compile Include="Diagramm.cs">
       <SubType>Form</SubType>
@@ -75,8 +77,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ControlForm.resx">
+    <EmbeddedResource Include="..\..\..\ControlForm.resx">
       <DependentUpon>ControlForm.cs</DependentUpon>
+      <Link>ControlForm.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="Diagramm.resx">
       <DependentUpon>Diagramm.cs</DependentUpon>
@@ -212,6 +215,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\off.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\polleft.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\polright.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

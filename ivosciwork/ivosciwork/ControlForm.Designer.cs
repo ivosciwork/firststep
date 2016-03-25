@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlForm));
             this.pictureBox29 = new System.Windows.Forms.PictureBox();
-            this.pictureBox28 = new System.Windows.Forms.PictureBox();
             this.pictureBox27 = new System.Windows.Forms.PictureBox();
             this.pictureBox26 = new System.Windows.Forms.PictureBox();
             this.pictureBox25 = new System.Windows.Forms.PictureBox();
@@ -61,8 +60,8 @@
             this.pictureBox30 = new System.Windows.Forms.PictureBox();
             this.pictureBox31 = new System.Windows.Forms.PictureBox();
             this.pictureBox32 = new System.Windows.Forms.PictureBox();
+            this.pictureBox28 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).BeginInit();
@@ -93,25 +92,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox29
             // 
             this.pictureBox29.Image = global::ivosciwork.Properties.Resources.initial_face;
-            this.pictureBox29.Location = new System.Drawing.Point(483, 51);
+            this.pictureBox29.Location = new System.Drawing.Point(509, 58);
             this.pictureBox29.Name = "pictureBox29";
-            this.pictureBox29.Size = new System.Drawing.Size(112, 40);
+            this.pictureBox29.Size = new System.Drawing.Size(88, 31);
+            this.pictureBox29.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox29.TabIndex = 22;
             this.pictureBox29.TabStop = false;
-            // 
-            // pictureBox28
-            // 
-            this.pictureBox28.Image = global::ivosciwork.Properties.Resources.initial_face;
-            this.pictureBox28.Location = new System.Drawing.Point(483, 5);
-            this.pictureBox28.Name = "pictureBox28";
-            this.pictureBox28.Size = new System.Drawing.Size(112, 40);
-            this.pictureBox28.TabIndex = 22;
-            this.pictureBox28.TabStop = false;
             // 
             // pictureBox27
             // 
@@ -139,7 +131,7 @@
             // 
             // pictureBox25
             // 
-            this.pictureBox25.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox25.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox25.Location = new System.Drawing.Point(142, 195);
             this.pictureBox25.Name = "pictureBox25";
             this.pictureBox25.Size = new System.Drawing.Size(0, 35);
@@ -148,7 +140,7 @@
             // 
             // pictureBox24
             // 
-            this.pictureBox24.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox24.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox24.Location = new System.Drawing.Point(142, 195);
             this.pictureBox24.Name = "pictureBox24";
             this.pictureBox24.Size = new System.Drawing.Size(0, 35);
@@ -157,7 +149,7 @@
             // 
             // pictureBox23
             // 
-            this.pictureBox23.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox23.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox23.Location = new System.Drawing.Point(142, 152);
             this.pictureBox23.Name = "pictureBox23";
             this.pictureBox23.Size = new System.Drawing.Size(0, 35);
@@ -166,7 +158,7 @@
             // 
             // pictureBox22
             // 
-            this.pictureBox22.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox22.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox22.Location = new System.Drawing.Point(142, 152);
             this.pictureBox22.Name = "pictureBox22";
             this.pictureBox22.Size = new System.Drawing.Size(0, 35);
@@ -175,7 +167,7 @@
             // 
             // pictureBox21
             // 
-            this.pictureBox21.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox21.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox21.Location = new System.Drawing.Point(142, 109);
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.Size = new System.Drawing.Size(0, 35);
@@ -184,7 +176,7 @@
             // 
             // pictureBox20
             // 
-            this.pictureBox20.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox20.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox20.Location = new System.Drawing.Point(142, 109);
             this.pictureBox20.Name = "pictureBox20";
             this.pictureBox20.Size = new System.Drawing.Size(0, 35);
@@ -193,7 +185,7 @@
             // 
             // pictureBox19
             // 
-            this.pictureBox19.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox19.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox19.Location = new System.Drawing.Point(142, 66);
             this.pictureBox19.Name = "pictureBox19";
             this.pictureBox19.Size = new System.Drawing.Size(0, 35);
@@ -202,7 +194,7 @@
             // 
             // pictureBox18
             // 
-            this.pictureBox18.BackColor = System.Drawing.Color.MidnightBlue;
+            this.pictureBox18.BackColor = System.Drawing.Color.CornflowerBlue;
             this.pictureBox18.Location = new System.Drawing.Point(142, 66);
             this.pictureBox18.Name = "pictureBox18";
             this.pictureBox18.Size = new System.Drawing.Size(0, 35);
@@ -423,6 +415,16 @@
             this.pictureBox32.TabStop = false;
             this.pictureBox32.Click += new System.EventHandler(this.pictureBox32_Click);
             // 
+            // pictureBox28
+            // 
+            this.pictureBox28.Image = global::ivosciwork.Properties.Resources.initial_face;
+            this.pictureBox28.Location = new System.Drawing.Point(509, 12);
+            this.pictureBox28.Name = "pictureBox28";
+            this.pictureBox28.Size = new System.Drawing.Size(88, 31);
+            this.pictureBox28.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox28.TabIndex = 22;
+            this.pictureBox28.TabStop = false;
+            // 
             // ControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -468,7 +470,6 @@
             this.Text = "радар1";
             this.Resize += new System.EventHandler(this.ControlForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).EndInit();
@@ -499,6 +500,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -530,12 +532,12 @@
         private System.Windows.Forms.PictureBox pictureBox25;
         private System.Windows.Forms.PictureBox pictureBox26;
         private System.Windows.Forms.PictureBox pictureBox27;
-        private System.Windows.Forms.PictureBox pictureBox28;
         private System.Windows.Forms.PictureBox pictureBox29;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox30;
         private System.Windows.Forms.PictureBox pictureBox31;
         private System.Windows.Forms.PictureBox pictureBox32;
+        private System.Windows.Forms.PictureBox pictureBox28;
     }
 }
 

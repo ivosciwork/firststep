@@ -136,6 +136,9 @@
   <data name="pusto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pusto.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pyt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pyt.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="sector4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sector4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -145,11 +148,11 @@
   <data name="fon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="red_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\red_button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="red_button_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\red_button_down.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="vos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vos.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -159,6 +162,9 @@
   </data>
   <data name="polosa105" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\polosa105.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="radar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\radar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="chet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chet.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,8 +178,20 @@
   <data name="GREEN_BUTTON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GREEN_BUTTON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\off.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="red_button_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\red_button_on.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4x12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="polosa12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\polosa12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1x105np" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1x105np.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="shest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shest.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,8 +205,8 @@
   <data name="minus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\minus.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pyt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pyt.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GREEN_BUTTON_ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GREEN_BUTTON_ON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="koleso" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\koleso.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,17 +214,23 @@
   <data name="sem" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sem.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="initial_face" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\initial_face.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="center_tmp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\center_tmp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GREEN_BUTTON_DOWN" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GREEN_BUTTON_DOWN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_1x105" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1x105.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GREEN_BUTTON1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GREEN_BUTTON1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="red_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\red_button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tri" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tri.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -214,28 +238,10 @@
   <data name="sector3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sector3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GREEN_BUTTON_ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GREEN_BUTTON_ON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="polleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\polleft.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="red_button_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\red_button_on.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="initial_face" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\initial_face.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\off.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="radar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\radar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1x105" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1x105.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1x105np" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1x105np.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4x12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="polright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\polright.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
