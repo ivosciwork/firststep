@@ -19,16 +19,25 @@ namespace ivosciwork
         public int n = 0;
         private Thread myThread;
         private volatile bool running = true;
-        int y0 = 2;
-        int x0 = 2;
-        int x, y;
+        int x, y,y0=17,x0=22;
         private struct PictureLocation
         {
             public int x;
             public int y;
         }
+        
+        private void ElementLocation(object sender, EventArgs e)
+        {
+          x0 = (int)((this.Width) * 22 / 450);
+          y0 =(int)((this.Height) * 17 / 277);
+          x = x0 + (n % 3) *(this.Width ) * 137 / 450 + ((n % 3) / 2);
+          y = y0 + (n / 3) * (this.Height ) * 37 / 277;
+            PictureLocation loc = calcLocation(x, y);
+            updateLocation(loc);
+            pictureBox1.Size = new Size(0, (int)((this.Height ) * 42 / 277));
+        }
         private struct PictureWight
-        { 
+        {
             public int wight;
         }
         public Diagramm(RPN rpn)
@@ -65,7 +74,8 @@ namespace ivosciwork
                 {
                     isStateChanged = false;
                     updateVisibility(isRpnOn);
-                    if (!isRpnOn) {
+                    if (!isRpnOn)
+                    {
                         n = 0;
                         l = 1;
                         PictureWight wight = calcWight(0);
@@ -73,12 +83,13 @@ namespace ivosciwork
                     }
                 }
 
-                if (isFrequencyChanged) {
+                if (isFrequencyChanged)
+                {
                     isFrequencyChanged = false;
-                    pictureBox1.BackColor = Constants.getFreqColor(frequency);
+                    pictureBox1.BackgroundImage = Constants.getFreqImage(frequency);
 
-                    x = x0 + (n % 3) * 142;
-                    y = y0 + (n / 3) * 38;
+                    x = x0 + (n % 3) *(this.Width ) * 137 / 450 + ((n % 3) / 2);
+                    y = y0 + (n / 3) * (this.Height ) * 37 / 277;
                     PictureWight wight0 = calcWight(0);
                     updateWight(wight0);
                     PictureLocation loc = calcLocation(x, y);
@@ -94,47 +105,8 @@ namespace ivosciwork
                     if (n == 17) { n = 0; }
                     else { n++; }
                 }
-
-                //if (tickHappened) {
-                //    long sector = currentTick ...;
-                //}
-
-                //if (rpn.on)
-                //{
-                //    SortedSet<RPN.Frequency> frequencySet = rpn.getFreqSet();
-                //    foreach (RPN.Frequency f in frequencySet)
-                //    {
-                //        if (!rpn.on) { break; }
-                //        pictureBox1.BackColor = Constants.getFreqColor(f);
-                //        if (rpn.on) { updateVisibility(true); }
-                        
-                //        x = x0 + (n % 3) * 142;
-                //        y = y0 + (n / 3) * 38;
-                //        PictureLocation loc = calcLocation(x, y);
-                //        updateLocation(loc);
-                //        l = 1;
-                //        while (l != Constants.RPN_DELAY)
-                //        {
-                //            if (!rpn.on) { break;}
-                //            PictureWight wight = calcWight(l);
-                //            updateWight(wight);
-                //            l++;
-                //            System.Threading.Thread.Sleep(1);
-                //        }
-                //        if (n == 17 ) { n = 0; }
-                //        else { n++; }
-                //    }
-                //}
-                //else
-                //{
-                //    n = 0;
-                //    l = 1;
-                //    PictureWight wight = calcWight(0);
-                //    updateWight(wight);
-
-                //}
             }
-        }  
+        }
 
         private PictureLocation calcLocation(int x, int y)
         {
@@ -153,14 +125,14 @@ namespace ivosciwork
             }
             else
             {
-                this.pictureBox1.Location = new Point(loc.x,loc.y);
+                this.pictureBox1.Location = new Point(loc.x, loc.y);
             }
         }
 
         private PictureWight calcWight(long l)
         {
             PictureWight wight = new PictureWight();
-            wight.wight = (int)(l * 142 / Constants.RPN_DELAY);
+            wight.wight = (int)(l * (this.Width) * 137 / 450 / Constants.RPN_DELAY);
             return wight;
         }
         delegate void update1(PictureWight wight);
@@ -189,10 +161,9 @@ namespace ivosciwork
             {
                 this.pictureBox1.Visible = visible;
             }
+        }
 
-
-
-        } 
+        
     }
 }
 

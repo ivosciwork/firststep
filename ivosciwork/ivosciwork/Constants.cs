@@ -8,7 +8,7 @@ namespace ivosciwork
 {
     static class Constants
     {
-        internal static readonly int RPN_DELAY = 100; // time in milliseconds per one frequency 
+        internal static readonly int RPN_DELAY = 20000; // time in milliseconds per one frequency 
         internal static readonly double PRECISION = 0.05; //precision of time measure
 
         internal static Color getFreqColor(RPN.Frequency f)
@@ -19,6 +19,18 @@ namespace ivosciwork
                 case RPN.Frequency.F2: toRet = Color.Green; break;
                 case RPN.Frequency.F3: toRet = Color.Blue; break;
                 case RPN.Frequency.F4: toRet = Color.Yellow; break;
+            }
+            return toRet;
+        }
+        internal static Image getFreqImage(RPN.Frequency f)
+        {
+           Image toRet = Properties.Resources.f1;
+            switch (f)
+            {
+                case RPN.Frequency.F1: toRet = Properties.Resources.f1; break;
+                case RPN.Frequency.F2: toRet = Properties.Resources.f2; break;
+                case RPN.Frequency.F3: toRet = Properties.Resources.f3; break;
+                case RPN.Frequency.F4: toRet = Properties.Resources.f4; break;
             }
             return toRet;
         }
