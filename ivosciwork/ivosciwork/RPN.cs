@@ -272,19 +272,16 @@ namespace ivosciwork
                         }
                     }
 
-                    
-
                     directionChanged(currentState);
 
-                    System.Threading.Thread.Sleep(Constants.RPN_DELAY);
-
                     watch.Stop();
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    var delta = Math.Abs(elapsedMs - Constants.RPN_DELAY);
-                    if (delta > Constants.RPN_DELAY * Constants.PRECISION)
+                    long elapsedMs = watch.ElapsedMilliseconds;
+                    long delta = Constants.RPN_DELAY - elapsedMs;
+                    if (delta < 0)
                     {
                         Console.Beep();
                     }
+                    System.Threading.Thread.Sleep((int)delta);
                     if (changefreq) { break; }
                 }
 

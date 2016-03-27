@@ -48,9 +48,9 @@ namespace ivosciwork
             InitializeComponent();
 
             myRpn = rpn;
-            rpn.directionChanged += this.directionChangedHandler;
-            rpn.stateChanged += this.stateChangedHandler;
-            rpn.frequencyChanged += this.frequencyChangedHandler;
+            myRpn.directionChanged += this.directionChangedHandler;
+            myRpn.stateChanged += this.stateChangedHandler;
+            myRpn.frequencyChanged += this.frequencyChangedHandler;
             this.pictureBox12.BringToFront();
             this.pictureBox13.BringToFront();
             this.pictureBox14.BringToFront();
@@ -148,7 +148,7 @@ namespace ivosciwork
                 LeftZone = pictureBox8.Left;
                 RightZone = LeftZone + pictureBox8.Width;
             }
-            }
+        }
         private void ControlForm_Resize(object sender, EventArgs e)
         {
             ElementLocation();
@@ -192,7 +192,6 @@ namespace ivosciwork
             }
             myRpn.on = true;
             pictureBox3.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            Epsilon = myRpn.getEpsilon();
             pictureBox12.BackColor = Color.Cyan;
             pictureBox13.BackColor = Color.Cyan;
             pictureBox14.BackColor = Color.Cyan;
