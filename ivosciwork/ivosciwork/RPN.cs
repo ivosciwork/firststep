@@ -18,7 +18,6 @@ namespace ivosciwork
         private bool changefreq = false; //indicate the specific frequency settings
 
         private Vector4D azimut = 0;
-        private double epsilon = 0;
 
         public struct Vector4D
         {
@@ -67,10 +66,29 @@ namespace ivosciwork
         public void changeMode(Mode m)
         {
             currentMode = m;
-            if (m == Mode.off)
+            switch (currentMode)
             {
-                currentState.isActive = false;
-                stateChanged(currentState);
+                case Mode.IX105NP:
+                    {
+                        setFrequencies(Frequency.F1, Frequency.F2, Frequency.F4);
+                        break;
+                    }
+                case Mode.IX105:
+                    {
+                        setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
+                        break;
+                    }
+                case Mode.HX12:
+                    {
+                        setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
+                        break;
+                    }
+                case Mode.off:
+                    {
+                        currentState.isActive = false;
+                        stateChanged(currentState);
+                        break;
+                    }
             }
             change = true;
         }
@@ -79,7 +97,6 @@ namespace ivosciwork
         {
             if (currentMode != Mode.IX105NP)
             {
-                epsilon = e;
                 currentState.currentDirection.epsilon = e;
                 directionChanged(currentState);
             }
@@ -157,14 +174,14 @@ namespace ivosciwork
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
-                                turnOn(1.0 / 3.0, 0, 0, epsilon, 315, 1);
+                                turnOn(1.0 / 3.0, 0, 0, currentState.currentDirection.epsilon, 315, 1);
                                 break;
                             }
                         case Mode.HX12:
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
-                                turnOn(1.0 / 3.0, 1.0 / 3.0, 0, epsilon, 36, 12);
+                                turnOn(1.0 / 3.0, 1.0 / 3.0, 0, currentState.currentDirection.epsilon, 36, 12);
                                 break;
                             }
                         case Mode.off:
@@ -210,12 +227,15 @@ namespace ivosciwork
 
         private void turnOn(double stepX, double stepY, double X0, double Y0, int NX, int NY)
         {
-            epsilon = Y0;
-            int y = 1;
-            Vector4D x = 1;
-            azimut = X0;
+            int y = stepY == 0 ? 1 : (int)((currentState.currentDirection.epsilon - Y0)/stepY + 1);
+            Vector4D x = stepX == 0 ? 1 : (int)((currentState.currentDirection.azimut - X0) / stepX + 1);
+            if (currentMode == Mode.HX12) {
+                currentState.currentDirection.azimut = 0;
+                y = 1;
+                x = 1;
+            }
+            azimut = currentState.currentDirection.azimut;
             changefreq = false;
-            double azimuttek;
             while ((currentState.isActive == true) & (change == false))
             {
                 SortedSet<Frequency> currentSet = getFreqSet();
@@ -230,7 +250,6 @@ namespace ivosciwork
                     x.set(f, x.get(f) + 1);
                     azimut.set(f, azimut.get(f) + stepX);
                     currentState.currentDirection.azimut = azimut.get(f) + stepX;
-                    azimuttek = currentState.currentDirection.azimut;
                     if (x.get(f) == NX + 1)
                     {
                         x.set(f, 1);
@@ -238,13 +257,11 @@ namespace ivosciwork
                         currentState.currentDirection.azimut = X0;
                         if (!stopPressed)
                         {
-                            epsilon += stepY;
                             currentState.currentDirection.epsilon += stepY/ frequencySet.Count;
                             y++;
                             if (y == NY + 1)
                             {
                                 y = 1;
-                                epsilon = Y0;
                                 currentState.currentDirection.epsilon = Y0;
                             }
                         }

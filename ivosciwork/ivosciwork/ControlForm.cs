@@ -222,8 +222,6 @@ namespace ivosciwork
             myRpn.changeEpsilon(Epsilon0);
             myRpn.changeMode(RPN.Mode.IX105NP);
             raz = 1;
-            for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
-            for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
             if (isRpnOn == true)
             {   
                 raz = 1;
@@ -488,19 +486,10 @@ namespace ivosciwork
 
         private void Poloski(SortedSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
         {
-           for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
-             for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
-            foreach (int f in frequency)
-             {   
-                 if (f == 0) Lines1[0].Visible = true;
-                 if (f == 1) Lines1[1].Visible = true;
-                 if (f == 2) Lines1[2].Visible = true;
-                 if (f == 3) Lines1[3].Visible = true;
-
-             }
+            for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
+            for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
+            foreach (int f in frequency) Lines1[ (int)f ].Visible = true;
         }
-
-       
 
         private void Segment (int eps, PictureBox pic) /* вывод эпсилон на экран */ 
         {
