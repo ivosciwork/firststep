@@ -93,22 +93,26 @@ namespace ivosciwork
             Lines2[4] = pictureBox17;
             Lines2[5] = pictureBox18;
             Lines2[6] = pictureBox19;
-
+            Rectangle rectAll = this.RectangleToClient(this.Bounds);
+            Rectangle rectClient = this.ClientRectangle;
+            int Top = rectClient.Top - rectAll.Top;
+            int Left = rectClient.Left - rectAll.Left;
+            int Right = rectAll.Right - rectClient.Right;
+            int Botton = rectAll.Bottom - rectClient.Bottom;
             for (int i = 1; i <= 12; i++)
             {
                 Lines1[i].Width = 2;
-                Lines2[i].Height = this.Height;
-                Lines1[i].Location = new Point((int)(this.Width * 33 / 800 + (i - 1) * (this.Width - this.Width * 33 / 800) / 12), 0);
+                Lines1[i].Height = this.Height -Top-Bottom;
+                Lines1[i].Location = new Point((int)(this.Width * 33 / 800 + (i - 1) * (this.Width - (int)this.Width * 33 / 800) / 12),0);
 
             }
             for (int i = 1; i < 7; i++)
             {
-                Lines2[i].Width = this.Width;
+                Lines2[i].Width = this.Width;// -Right-Left;
                 Lines2[i].Height = 2;
-                Lines2[i].Location = new Point(0, (int)(this.Height * 21 / 400 + (i - 1) * (this.Height - this.Height * 42 / 800) / 6));
+                Lines2[i].Location = new Point(0, (int)(this.Height * 21 / 400 + (i - 1) * (this.Height - (int)this.Height * 42 / 800) / 6));
 
             }
-
         }
         private void eventZaloop()
         {
@@ -134,9 +138,9 @@ namespace ivosciwork
                     pictureBox1.BackgroundImage = Constants.getFreqImage(frequency);
 
                     //x = x0 + (n % 3) *(this.Width ) * 137 / 450 + ((n % 3) / 2);
-                    x = Lines1[(n % 3) + 1].Location.X;
+                    x = Lines1[(n % 3) + 1].Location.X+2;
                     //y = y0 + (n / 3) * (this.Height-36 ) * 37 / 277;
-                    y = Lines2[(n / 3) + 1].Location.Y;
+                    y = Lines2[(n / 3) + 1].Location.Y+2;
                     PictureWight wight0 = calcWight(0);
                     updateWight(wight0);
                     PictureLocation loc = calcLocation(x, y);
@@ -193,6 +197,8 @@ namespace ivosciwork
             else
             {
                 this.pictureBox1.Width = wight.wight;
+                this.pictureBox1.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
+
             }
         }
         delegate void updateVisibilityCallBack(bool visible);
