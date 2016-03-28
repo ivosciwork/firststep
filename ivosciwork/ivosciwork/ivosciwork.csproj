@@ -52,7 +52,9 @@
     <Compile Include="ControlForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ControlForm.Designer.cs" />
+    <Compile Include="ControlForm.designer.cs">
+      <DependentUpon>ControlForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Diagramm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,7 +75,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ControlForm.resx" />
+    <EmbeddedResource Include="ControlForm.resx">
+      <DependentUpon>ControlForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Diagramm.resx">
       <DependentUpon>Diagramm.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,6 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\polright.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\f1.jpg" />
+    <Content Include="Resources\f2.jpg" />
+    <Content Include="Resources\f3.jpg" />
+    <Content Include="Resources\f4.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
