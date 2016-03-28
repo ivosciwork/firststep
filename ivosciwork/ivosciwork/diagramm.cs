@@ -19,7 +19,7 @@ namespace ivosciwork
         public int n = 0;
         private Thread myThread;
         private volatile bool running = true;
-        int x, y,y0=17,x0=22;
+        int x, y;
         PictureBox[] Lines1 = new PictureBox[13];
         PictureBox[] Lines2 = new PictureBox[7];
            private struct PictureLocation
@@ -37,7 +37,7 @@ namespace ivosciwork
             calcdiagram();
             PictureLocation loc = calcLocation(x, y);
             updateLocation(loc);
-            pictureBox1.Size = new Size(0, (int)((this.Height ) * 38 / 277));
+            pictureBox1.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
         }
         private void Diagram_Resize(object sender, EventArgs e)
         {
@@ -52,6 +52,7 @@ namespace ivosciwork
             InitializeComponent();
             rpn.frequencyChanged += frequencyChangedHandler;
             rpn.stateChanged += stateChangedHandler;
+            this.pictureBox1.BringToFront();
             this.myThread = new Thread(new ThreadStart(this.eventZaloop));
             myThread.IsBackground = true;
             myThread.Start();
@@ -76,14 +77,14 @@ namespace ivosciwork
         private void calcdiagram()
         {
             Lines1[1] = pictureBox2;
-            Lines1[2] = pictureBox6;
-            Lines1[3] = pictureBox10;
+            Lines1[2] = pictureBox3;
+            Lines1[3] = pictureBox4;
             Lines1[4] = pictureBox5;
-            Lines1[5] = pictureBox3;
+            Lines1[5] = pictureBox6;
             Lines1[6] = pictureBox7;
             Lines1[7] = pictureBox8;
             Lines1[8] = pictureBox9;
-            Lines1[9] = pictureBox4;
+            Lines1[9] = pictureBox10;
             Lines1[10] = pictureBox11;
             Lines1[11] = pictureBox12;
             Lines1[12] = pictureBox13;
@@ -93,24 +94,26 @@ namespace ivosciwork
             Lines2[4] = pictureBox17;
             Lines2[5] = pictureBox18;
             Lines2[6] = pictureBox19;
-            Rectangle rectAll = this.RectangleToClient(this.Bounds);
+
+           /* Rectangle rectAll = this.RectangleToClient(this.Bounds);
             Rectangle rectClient = this.ClientRectangle;
             int Top = rectClient.Top - rectAll.Top;
             int Left = rectClient.Left - rectAll.Left;
             int Right = rectAll.Right - rectClient.Right;
-            int Botton = rectAll.Bottom - rectClient.Bottom;
+            int Botton = rectAll.Bottom - rectClient.Bottom;*/
+
             for (int i = 1; i <= 12; i++)
             {
                 Lines1[i].Width = 2;
-                Lines1[i].Height = this.Height -Top-Bottom;
-                Lines1[i].Location = new Point((int)(this.Width * 33 / 800 + (i - 1) * (this.Width - (int)this.Width * 33 / 800) / 12),0);
+                Lines1[i].Height = this.Height-42;
+                Lines1[i].Location = new Point((int)((this.Width-19) * 33 / 800 + (i - 1) * ((this.Width-19) - (int)(this.Width -19)* 33 / 800) / 12),0);
 
             }
             for (int i = 1; i < 7; i++)
             {
-                Lines2[i].Width = this.Width;// -Right-Left;
+                Lines2[i].Width = this.Width - 19;
                 Lines2[i].Height = 2;
-                Lines2[i].Location = new Point(0, (int)(this.Height * 21 / 400 + (i - 1) * (this.Height - (int)this.Height * 42 / 800) / 6));
+                Lines2[i].Location = new Point(0, (int)((this.Height-42) * 21 / 400 + (i - 1) * ((this.Height-42) - (int)(this.Height -42)* 42 / 800) / 6));
 
             }
         }
@@ -137,8 +140,8 @@ namespace ivosciwork
                     isFrequencyChanged = false;
                     pictureBox1.BackgroundImage = Constants.getFreqImage(frequency);
 
-                    //x = x0 + (n % 3) *(this.Width ) * 137 / 450 + ((n % 3) / 2);
-                    x = Lines1[(n % 3) + 1].Location.X+2;
+                    //x = x0 + (n % 3)  * 137 ;
+                    x = Lines1[4*(n % 3)+1 ].Location.X+2;
                     //y = y0 + (n / 3) * (this.Height-36 ) * 37 / 277;
                     y = Lines2[(n / 3) + 1].Location.Y+2;
                     PictureWight wight0 = calcWight(0);
@@ -183,7 +186,7 @@ namespace ivosciwork
         private PictureWight calcWight(long l)
         {
             PictureWight wight = new PictureWight();
-            wight.wight = (int)(l * (Lines1[1].Location.X+2- Lines1[2].Location.X) / Constants.RPN_DELAY);
+            wight.wight = (int)(l * (((this.Width - 19) - (int)(this.Width - 19) * 33 / 800) /3) / Constants.RPN_DELAY);
             return wight;
         }
         delegate void update1(PictureWight wight);
