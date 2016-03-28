@@ -20,21 +20,28 @@ namespace ivosciwork
         private Thread myThread;
         private volatile bool running = true;
         int x, y,y0=17,x0=22;
-        private struct PictureLocation
+        PictureBox[] Lines1 = new PictureBox[13];
+        PictureBox[] Lines2 = new PictureBox[7];
+           private struct PictureLocation
         {
             public int x;
             public int y;
         }
         
-        private void ElementLocation(object sender, EventArgs e)
+        private void ElementLocation()
         {
-          x0 = (int)((this.Width) * 22 / 450);
-          y0 =(int)((this.Height) * 17 / 277);
-          x = x0 + (n % 3) *(this.Width ) * 137 / 450 + ((n % 3) / 2);
-          y = y0 + (n / 3) * (this.Height ) * 37 / 277;
+            /* x0 = (int)((this.Width) * 22 / 450);
+             y0 =(int)((this.Height) * 17 / 277);
+             x = x0 + (n % 3) *(this.Width ) * 140 / 450 + ((n % 3) / 2);
+             y = y0 + (n / 3) * (this.Height ) * 37 / 277;*/
+            calcdiagram();
             PictureLocation loc = calcLocation(x, y);
             updateLocation(loc);
-            pictureBox1.Size = new Size(0, (int)((this.Height ) * 42 / 277));
+            pictureBox1.Size = new Size(0, (int)((this.Height ) * 38 / 277));
+        }
+        private void Diagram_Resize(object sender, EventArgs e)
+        {
+            ElementLocation();
         }
         private struct PictureWight
         {
@@ -66,8 +73,46 @@ namespace ivosciwork
             frequency = currentState.currentFrequency;
         }
 
+        private void calcdiagram()
+        {
+            Lines1[1] = pictureBox2;
+            Lines1[2] = pictureBox6;
+            Lines1[3] = pictureBox10;
+            Lines1[4] = pictureBox5;
+            Lines1[5] = pictureBox3;
+            Lines1[6] = pictureBox7;
+            Lines1[7] = pictureBox8;
+            Lines1[8] = pictureBox9;
+            Lines1[9] = pictureBox4;
+            Lines1[10] = pictureBox11;
+            Lines1[11] = pictureBox12;
+            Lines1[12] = pictureBox13;
+            Lines2[1] = pictureBox14;
+            Lines2[2] = pictureBox15;
+            Lines2[3] = pictureBox16;
+            Lines2[4] = pictureBox17;
+            Lines2[5] = pictureBox18;
+            Lines2[6] = pictureBox19;
+
+            for (int i = 1; i <= 12; i++)
+            {
+                Lines1[i].Width = 2;
+                Lines2[i].Height = this.Height;
+                Lines1[i].Location = new Point((int)(this.Width * 33 / 800 + (i - 1) * (this.Width - this.Width * 33 / 800) / 12), 0);
+
+            }
+            for (int i = 1; i < 7; i++)
+            {
+                Lines2[i].Width = this.Width;
+                Lines2[i].Height = 2;
+                Lines2[i].Location = new Point(0, (int)(this.Height * 21 / 400 + (i - 1) * (this.Height - this.Height * 42 / 800) / 6));
+
+            }
+
+        }
         private void eventZaloop()
         {
+            calcdiagram();
             while (running)
             {
                 if (isStateChanged)
@@ -88,8 +133,10 @@ namespace ivosciwork
                     isFrequencyChanged = false;
                     pictureBox1.BackgroundImage = Constants.getFreqImage(frequency);
 
-                    x = x0 + (n % 3) *(this.Width ) * 137 / 450 + ((n % 3) / 2);
-                    y = y0 + (n / 3) * (this.Height ) * 37 / 277;
+                    //x = x0 + (n % 3) *(this.Width ) * 137 / 450 + ((n % 3) / 2);
+                    x = Lines1[(n % 3) + 1].Location.X;
+                    //y = y0 + (n / 3) * (this.Height-36 ) * 37 / 277;
+                    y = Lines2[(n / 3) + 1].Location.Y;
                     PictureWight wight0 = calcWight(0);
                     updateWight(wight0);
                     PictureLocation loc = calcLocation(x, y);
@@ -132,7 +179,7 @@ namespace ivosciwork
         private PictureWight calcWight(long l)
         {
             PictureWight wight = new PictureWight();
-            wight.wight = (int)(l * (this.Width) * 137 / 450 / Constants.RPN_DELAY);
+            wight.wight = (int)(l * (Lines1[1].Location.X+2- Lines1[2].Location.X) / Constants.RPN_DELAY);
             return wight;
         }
         delegate void update1(PictureWight wight);
