@@ -185,18 +185,16 @@ namespace ivosciwork
             myRpn.changeEpsilon(Epsilon);
             Segment((int)(Epsilon0 * 10), pictureBox29);
 
-            if (myRpn.on == false)
+            if (isRpnOn == false)
             {
                 Segment((int)(Epsilon * 10), pictureBox29);
                 Segment((int)(Epsilon * 10), pictureBox28);
             }
-            myRpn.on = true;
             pictureBox3.Image = Properties.Resources.GREEN_BUTTON_DOWN;
             pictureBox12.BackColor = Color.Cyan;
             pictureBox13.BackColor = Color.Cyan;
             pictureBox14.BackColor = Color.Cyan;
             pictureBox15.BackColor = Color.Cyan;
-            myRpn.turnOff();
             myRpn.turnOn();
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
@@ -226,7 +224,7 @@ namespace ivosciwork
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
-            if (myRpn.on == true)
+            if (isRpnOn == true)
             {   
                 raz = 1;
                 frequencies = myRpn.getFreqSet();
@@ -255,7 +253,7 @@ namespace ivosciwork
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0; 
-            if (myRpn.on == true)
+            if (isRpnOn == true)
             {
                 raz = 1;
                 frequencies = myRpn.getFreqSet();
@@ -286,7 +284,7 @@ namespace ivosciwork
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
-            if (myRpn.on == true)
+            if (isRpnOn == true)
             {
                 raz = 1;
                 frequencies = myRpn.getFreqSet();

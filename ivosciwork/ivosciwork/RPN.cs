@@ -10,15 +10,12 @@ namespace ivosciwork
         public enum Mode { IX105NP, IX105, HX12, off };
         public enum Frequency { F1, F2, F3, F4 };
         private Mode currentMode = Mode.off;
-        private Frequency currentFreq;
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
 
-        private bool running = false;
-        private bool change = false;
+        private bool change = false; //indicate that something was changed and turnOn() should be relaunched
         private bool stopPressed = false;
-        public bool on = false;
 
-        private bool changefreq = false;
+        private bool changefreq = false; //indicate the specific frequency settings
 
         private Vector4D azimut = 0;
         private double epsilon = 0;
@@ -72,8 +69,6 @@ namespace ivosciwork
             currentMode = m;
             if (m == Mode.off)
             {
-                running = false;
-                on = false;
                 currentState.isActive = false;
                 stateChanged(currentState);
             }
@@ -90,19 +85,8 @@ namespace ivosciwork
             }
         }
 
-        public double getEpsilon()
-        {
-            return epsilon;
-        }
-
-        public Vector4D getAzimut()
-        {
-            return azimut;
-        }
-
         public SortedSet<Frequency> getFreqSet()
         {
-            
             SortedSet<Frequency> toReturn = new SortedSet<Frequency>();
             lock(frequencySet)
             {
@@ -110,8 +94,6 @@ namespace ivosciwork
                     toReturn.Add(f);
                 return toReturn;
             }
-            
-            
         }
 
         public bool OnStopButtonState()
@@ -146,23 +128,21 @@ namespace ivosciwork
 
         public void turnOn()
         {
-            running = true;
-            on = true;
             change = true;
             currentState.isActive = true;
             stateChanged(currentState);
         }
         public void turnOff()
         {
-            running = false;
-            on = false;
+            currentState.isActive = false;
+            stateChanged(currentState);
         }
 
         public void eventLoop()
         {
             while (true)
             {
-                if (running == true)
+                if (currentState.isActive == true)
                 {
                     switch (currentMode)
                     {
@@ -189,7 +169,7 @@ namespace ivosciwork
                             }
                         case Mode.off:
                             {
-                                running = false;
+                                currentState.isActive = false;
                                 break;
                             }
                     }
@@ -227,7 +207,6 @@ namespace ivosciwork
         public event RPNEvent stateChanged;
         public event RPNEvent frequencyChanged;
         public event RPNEvent directionChanged;
-        public event RPNEvent tick;
 
         private void turnOn(double stepX, double stepY, double X0, double Y0, int NX, int NY)
         {
@@ -237,7 +216,7 @@ namespace ivosciwork
             azimut = X0;
             changefreq = false;
             double azimuttek;
-            while ((running == true) & (change == false))
+            while ((currentState.isActive == true) & (change == false))
             {
                 SortedSet<Frequency> currentSet = getFreqSet();
                 foreach (Frequency f in currentSet)
@@ -245,7 +224,6 @@ namespace ivosciwork
                     
                     var watch = Stopwatch.StartNew(); //it's for control precision of time measure
 
-                    currentFreq = f;
                     currentState.currentFrequency = f;
                     frequencyChanged(currentState);
 
@@ -291,12 +269,6 @@ namespace ivosciwork
         internal Mode getCurrentMode()
         {
             Mode toRet = currentMode;
-            return toRet;
-        }
-
-        internal Frequency getCurrentFreq()
-        {
-            Frequency toRet = currentFreq;
             return toRet;
         }
     }
