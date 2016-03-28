@@ -10,18 +10,14 @@ namespace ivosciwork
         public enum Mode { IX105NP, IX105, HX12, off };
         public enum Frequency { F1, F2, F3, F4 };
         private Mode currentMode = Mode.off;
-        private Frequency currentFreq;
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
 
-        private bool running = false;
-        private bool change = false;
+        private bool change = false; //indicate that something was changed and turnOn() should be relaunched
         private bool stopPressed = false;
-        public bool on = false;
 
-        private bool changefreq = false;
+        private bool changefreq = false; //indicate the specific frequency settings
 
         private Vector4D azimut = 0;
-        private double epsilon = 0;
 
         public struct Vector4D
         {
@@ -70,12 +66,29 @@ namespace ivosciwork
         public void changeMode(Mode m)
         {
             currentMode = m;
-            if (m == Mode.off)
+            switch (currentMode)
             {
-                running = false;
-                on = false;
-                currentState.isActive = false;
-                stateChanged(currentState);
+                case Mode.IX105NP:
+                    {
+                        setFrequencies(Frequency.F1, Frequency.F2, Frequency.F4);
+                        break;
+                    }
+                case Mode.IX105:
+                    {
+                        setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
+                        break;
+                    }
+                case Mode.HX12:
+                    {
+                        setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
+                        break;
+                    }
+                case Mode.off:
+                    {
+                        currentState.isActive = false;
+                        stateChanged(currentState);
+                        break;
+                    }
             }
             change = true;
         }
@@ -84,25 +97,13 @@ namespace ivosciwork
         {
             if (currentMode != Mode.IX105NP)
             {
-                epsilon = e;
                 currentState.currentDirection.epsilon = e;
                 directionChanged(currentState);
             }
         }
 
-        public double getEpsilon()
-        {
-            return epsilon;
-        }
-
-        public Vector4D getAzimut()
-        {
-            return azimut;
-        }
-
         public SortedSet<Frequency> getFreqSet()
         {
-            
             SortedSet<Frequency> toReturn = new SortedSet<Frequency>();
             lock(frequencySet)
             {
@@ -110,8 +111,6 @@ namespace ivosciwork
                     toReturn.Add(f);
                 return toReturn;
             }
-            
-            
         }
 
         public bool OnStopButtonState()
@@ -146,23 +145,21 @@ namespace ivosciwork
 
         public void turnOn()
         {
-            running = true;
-            on = true;
             change = true;
             currentState.isActive = true;
             stateChanged(currentState);
         }
         public void turnOff()
         {
-            running = false;
-            on = false;
+            currentState.isActive = false;
+            stateChanged(currentState);
         }
 
         public void eventLoop()
         {
             while (true)
             {
-                if (running == true)
+                if (currentState.isActive == true)
                 {
                     switch (currentMode)
                     {
@@ -177,19 +174,19 @@ namespace ivosciwork
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
-                                turnOn(1.0 / 3.0, 0, 0, epsilon, 315, 1);
+                                turnOn(1.0 / 3.0, 0, 0, currentState.currentDirection.epsilon, 315, 1);
                                 break;
                             }
                         case Mode.HX12:
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
-                                turnOn(1.0 / 3.0, 1.0 / 3.0, 0, epsilon, 36, 12);
+                                turnOn(1.0 / 3.0, 1.0 / 3.0, 0, currentState.currentDirection.epsilon, 36, 12);
                                 break;
                             }
                         case Mode.off:
                             {
-                                running = false;
+                                currentState.isActive = false;
                                 break;
                             }
                     }
@@ -227,17 +224,19 @@ namespace ivosciwork
         public event RPNEvent stateChanged;
         public event RPNEvent frequencyChanged;
         public event RPNEvent directionChanged;
-        public event RPNEvent tick;
 
         private void turnOn(double stepX, double stepY, double X0, double Y0, int NX, int NY)
         {
-            epsilon = Y0;
-            int y = 1;
-            Vector4D x = 1;
-            azimut = X0;
+            int y = stepY == 0 ? 1 : (int)((currentState.currentDirection.epsilon - Y0)/stepY + 1);
+            Vector4D x = stepX == 0 ? 1 : (int)((currentState.currentDirection.azimut - X0) / stepX + 1);
+            if (currentMode == Mode.HX12) {
+                currentState.currentDirection.azimut = 0;
+                y = 1;
+                x = 1;
+            }
+            azimut = currentState.currentDirection.azimut;
             changefreq = false;
-            double azimuttek;
-            while ((running == true) & (change == false))
+            while ((currentState.isActive == true) & (change == false))
             {
                 SortedSet<Frequency> currentSet = getFreqSet();
                 foreach (Frequency f in currentSet)
@@ -245,14 +244,12 @@ namespace ivosciwork
                     
                     var watch = Stopwatch.StartNew(); //it's for control precision of time measure
 
-                    currentFreq = f;
                     currentState.currentFrequency = f;
                     frequencyChanged(currentState);
 
                     x.set(f, x.get(f) + 1);
                     azimut.set(f, azimut.get(f) + stepX);
                     currentState.currentDirection.azimut = azimut.get(f) + stepX;
-                    azimuttek = currentState.currentDirection.azimut;
                     if (x.get(f) == NX + 1)
                     {
                         x.set(f, 1);
@@ -260,31 +257,26 @@ namespace ivosciwork
                         currentState.currentDirection.azimut = X0;
                         if (!stopPressed)
                         {
-                            epsilon += stepY;
                             currentState.currentDirection.epsilon += stepY/ frequencySet.Count;
                             y++;
                             if (y == NY + 1)
                             {
                                 y = 1;
-                                epsilon = Y0;
                                 currentState.currentDirection.epsilon = Y0;
                             }
                         }
                     }
 
-                    
-
                     directionChanged(currentState);
 
-                    System.Threading.Thread.Sleep(Constants.RPN_DELAY);
-
                     watch.Stop();
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    var delta = Math.Abs(elapsedMs - Constants.RPN_DELAY);
-                    if (delta > Constants.RPN_DELAY * Constants.PRECISION)
+                    long elapsedMs = watch.ElapsedMilliseconds;
+                    long delta = Constants.RPN_DELAY - elapsedMs;
+                    if (delta < 0)
                     {
                         Console.Beep();
                     }
+                    System.Threading.Thread.Sleep((int)delta);
                     if (changefreq) { break; }
                 }
 
@@ -294,12 +286,6 @@ namespace ivosciwork
         internal Mode getCurrentMode()
         {
             Mode toRet = currentMode;
-            return toRet;
-        }
-
-        internal Frequency getCurrentFreq()
-        {
-            Frequency toRet = currentFreq;
             return toRet;
         }
     }

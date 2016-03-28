@@ -48,9 +48,9 @@ namespace ivosciwork
             InitializeComponent();
 
             myRpn = rpn;
-            rpn.directionChanged += this.directionChangedHandler;
-            rpn.stateChanged += this.stateChangedHandler;
-            rpn.frequencyChanged += this.frequencyChangedHandler;
+            myRpn.directionChanged += this.directionChangedHandler;
+            myRpn.stateChanged += this.stateChangedHandler;
+            myRpn.frequencyChanged += this.frequencyChangedHandler;
             this.pictureBox12.BringToFront();
             this.pictureBox13.BringToFront();
             this.pictureBox14.BringToFront();
@@ -148,7 +148,7 @@ namespace ivosciwork
                 LeftZone = pictureBox8.Left;
                 RightZone = LeftZone + pictureBox8.Width;
             }
-            }
+        }
         private void ControlForm_Resize(object sender, EventArgs e)
         {
             ElementLocation();
@@ -185,19 +185,16 @@ namespace ivosciwork
             myRpn.changeEpsilon(Epsilon);
             Segment((int)(Epsilon0 * 10), pictureBox29);
 
-            if (myRpn.on == false)
+            if (isRpnOn == false)
             {
                 Segment((int)(Epsilon * 10), pictureBox29);
                 Segment((int)(Epsilon * 10), pictureBox28);
             }
-            myRpn.on = true;
             pictureBox3.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            Epsilon = myRpn.getEpsilon();
             pictureBox12.BackColor = Color.Cyan;
             pictureBox13.BackColor = Color.Cyan;
             pictureBox14.BackColor = Color.Cyan;
             pictureBox15.BackColor = Color.Cyan;
-            myRpn.turnOff();
             myRpn.turnOn();
             frequencies = myRpn.getFreqSet();
             Poloski(frequencies);
@@ -225,9 +222,7 @@ namespace ivosciwork
             myRpn.changeEpsilon(Epsilon0);
             myRpn.changeMode(RPN.Mode.IX105NP);
             raz = 1;
-            for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
-            for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
-            if (myRpn.on == true)
+            if (isRpnOn == true)
             {   
                 raz = 1;
                 frequencies = myRpn.getFreqSet();
@@ -256,7 +251,7 @@ namespace ivosciwork
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0; 
-            if (myRpn.on == true)
+            if (isRpnOn == true)
             {
                 raz = 1;
                 frequencies = myRpn.getFreqSet();
@@ -287,7 +282,7 @@ namespace ivosciwork
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
-            if (myRpn.on == true)
+            if (isRpnOn == true)
             {
                 raz = 1;
                 frequencies = myRpn.getFreqSet();
@@ -491,19 +486,10 @@ namespace ivosciwork
 
         private void Poloski(SortedSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
         {
-           for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
-             for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
-            foreach (int f in frequency)
-             {   
-                 if (f == 0) Lines1[0].Visible = true;
-                 if (f == 1) Lines1[1].Visible = true;
-                 if (f == 2) Lines1[2].Visible = true;
-                 if (f == 3) Lines1[3].Visible = true;
-
-             }
+            for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
+            for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
+            foreach (int f in frequency) Lines1[ (int)f ].Visible = true;
         }
-
-       
 
         private void Segment (int eps, PictureBox pic) /* вывод эпсилон на экран */ 
         {
