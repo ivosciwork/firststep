@@ -174,5 +174,14 @@ namespace ivosciwork
             int y = spotLight.Y + (int)(r * (1 + (double)a / c));
             return new Point(x, y);
         }
+
+        private void BeamForm_Load(object sender, EventArgs e)
+        {
+            this.Left = 0;
+            this.Top = Screen.PrimaryScreen.Bounds.Height / 2-30;
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height / 2);
+            //this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition();
+            //this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition();
+        }
     }
 }

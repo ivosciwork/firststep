@@ -27,7 +27,13 @@ namespace ivosciwork
             public int x;
             public int y;
         }
-        
+        private void Diagramm_Load(object sender, EventArgs e)
+        {
+            this.Left = Screen.PrimaryScreen.Bounds.Width / 2;
+            this.Top = 0;
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2-30);
+            ElementLocation();
+        }
         private void ElementLocation()
         {
             /* x0 = (int)((this.Width) * 22 / 450);
@@ -205,6 +211,8 @@ namespace ivosciwork
             }
         }
         delegate void updateVisibilityCallBack(bool visible);
+
+        
 
         private void updateVisibility(bool visible)
         {

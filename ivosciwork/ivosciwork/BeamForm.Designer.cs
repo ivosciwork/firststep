@@ -96,6 +96,7 @@
             this.Controls.Add(this.shapeContainer1);
             this.Name = "BeamForm";
             this.Text = "Beam";
+            this.Load += new System.EventHandler(this.BeamForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.LittleRPN)).EndInit();
             this.ResumeLayout(false);
 
