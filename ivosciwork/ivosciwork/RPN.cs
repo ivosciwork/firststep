@@ -239,6 +239,7 @@ namespace ivosciwork
             while ((currentState.isActive == true) & (change == false))
             {
                 SortedSet<Frequency> currentSet = getFreqSet();
+                bool yChanged = false;
                 foreach (Frequency f in currentSet)
                 {
                     
@@ -255,15 +256,16 @@ namespace ivosciwork
                         x.set(f, 1);
                         azimut.set(f, X0);
                         currentState.currentDirection.azimut = X0;
-                        if (!stopPressed)
+                        if (!stopPressed && !yChanged)
                         {
-                            currentState.currentDirection.epsilon += stepY/ frequencySet.Count;
+                            currentState.currentDirection.epsilon += stepY;
                             y++;
                             if (y == NY + 1)
                             {
                                 y = 1;
                                 currentState.currentDirection.epsilon = Y0;
                             }
+                            yChanged = true;
                         }
                     }
 
