@@ -38,6 +38,7 @@ namespace ivosciwork
 
         private void onResize(object sender, EventArgs e)
         {
+            this.SpotLight.Location = calcCurrentPosition().spotLight;
             this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition();
             this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition();
         }
@@ -137,11 +138,17 @@ namespace ivosciwork
 
         //This function determines how real azimut/epsilon will be shown on screen
         private Point mapPosition(Point realBeamPosition) {
+            return simpleRectangularMap(realBeamPosition);
+        }
+
+        private Point simpleRectangularMap(Point realBeamPosition) {
             //This implements rectangular mapping
-            Rectangle myShowRectangle = new Rectangle( 30, 20, 500, 300 );
+            Size formSize = this.Size;
+            System.Windows.Rect myRelativeRectangle = new System.Windows.Rect(0.1, 0.2, 0.8, 0.5);
+            System.Windows.Rect myShowRectangle = new System.Windows.Rect(formSize.Width * myRelativeRectangle.X, formSize.Height * myRelativeRectangle.Y, formSize.Width * myRelativeRectangle.Width, formSize.Height * myRelativeRectangle.Height);
             Point screenBeamPosition = new Point();
-            screenBeamPosition.X = myShowRectangle.X + (int)(myShowRectangle.Width * realBeamPosition.X / 315.0);
-            screenBeamPosition.Y = (myShowRectangle.Y + myShowRectangle.Height) - (int)(myShowRectangle.Height * realBeamPosition.Y / 70.0);
+            screenBeamPosition.X = (int)myShowRectangle.X + (int)(myShowRectangle.Width * realBeamPosition.X / 315.0);
+            screenBeamPosition.Y = (int)(myShowRectangle.Y + myShowRectangle.Height) - (int)(myShowRectangle.Height * realBeamPosition.Y / 70.0);
 
             return screenBeamPosition;
         }
