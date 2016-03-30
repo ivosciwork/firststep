@@ -46,6 +46,7 @@ namespace ivosciwork
         public ControlForm(RPN rpn)
         {
             InitializeComponent();
+            updateSpeadInfo();
 
             myRpn = rpn;
             myRpn.directionChanged += this.directionChangedHandler;
@@ -471,6 +472,41 @@ namespace ivosciwork
         {
             pictureBox26.Image = Properties.Resources.red_button_on;
             pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.U))
+            {
+                upToolStripMenuItem_Click(null, null);
+                return true;
+            } else if (keyData == (Keys.Control | Keys.D)) {
+                downToolStripMenuItem_Click(null, null);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void updateSpeadInfo()
+        {
+            this.Speed.Text = (1.0 * Constants.RPN_MUL / Constants.RPN_DELAY).ToString("F2") + " hz";
+        }
+
+        private void upToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Constants.RPN_DELAY = (Constants.RPN_DELAY - Constants.RPN_DELTA > Constants.RPN_MIN) ? Constants.RPN_DELAY - Constants.RPN_DELTA : Constants.RPN_MIN;
+            updateSpeadInfo();
+        }
+
+        private void downToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Constants.RPN_DELAY += Constants.RPN_DELTA;
+            updateSpeadInfo();
+        }
+
+        private void Speed_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void pictureBox27_MouseDown(object sender, MouseEventArgs e) /*зеленая кнопка ПУСК ЕПСИЛОН*/

@@ -8,7 +8,10 @@ namespace ivosciwork
 {
     static class Constants
     {
-        internal static readonly int RPN_DELAY = 1000; // time in milliseconds per one frequency 
+        internal static int RPN_DELAY = 1000; // time in milliseconds per one frequency 
+        internal static readonly int RPN_DELTA = 10;
+        internal static readonly int RPN_MIN = 10;
+        internal static readonly int RPN_MUL = 1000; //10^3 for ms, 1 for seconds, ...
         internal static readonly double PRECISION = 0.05; //precision of time measure
 
         internal static Color getFreqColor(RPN.Frequency f)
