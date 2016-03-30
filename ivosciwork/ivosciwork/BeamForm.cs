@@ -39,8 +39,8 @@ namespace ivosciwork
         private void onResize(object sender, EventArgs e)
         {
             this.SpotLight.Location = calcCurrentPosition().spotLight;
-            this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition();
-            this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition();
+            this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition(this.SpotLight.Location);
+            this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition(this.SpotLight.Location);
         }
 
         private bool isFrequencyChanged = false;
@@ -130,8 +130,8 @@ namespace ivosciwork
             double currentEpsilon = beamDirection.epsilon;
             BeamPosition currentPosition = new BeamPosition();
             currentPosition.spotLight = mapPosition( new Point((int)currentAzimut, (int)currentEpsilon) );
-            currentPosition.upperBorder = calcUpperBeamBorderPosition();
-            currentPosition.lowerBorder = calcLowerBeamBorderPosition();
+            currentPosition.upperBorder = calcUpperBeamBorderPosition(currentPosition.spotLight);
+            currentPosition.lowerBorder = calcLowerBeamBorderPosition(currentPosition.spotLight);
             currentPosition.color = Constants.getFreqColor( frequency );
             return currentPosition;
         }
@@ -153,25 +153,25 @@ namespace ivosciwork
             return screenBeamPosition;
         }
 
-        private Point calcUpperBeamBorderPosition()
+        private Point calcUpperBeamBorderPosition(Point spotLight)
         {
             int r = this.SpotLight.Width / 2;
             int a = this.upperBeamBorder.X2 - this.upperBeamBorder.X1;
             int b = this.upperBeamBorder.Y2 - this.upperBeamBorder.Y1;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
-            int x = this.SpotLight.Left + (int)(r * (1 + (double)b / c));
-            int y = this.SpotLight.Top + (int)(r * (1 - (double)a / c));
+            int x = spotLight.X + (int)(r * (1 + (double)b / c));
+            int y = spotLight.Y + (int)(r * (1 - (double)a / c));
             return new Point(x,y);
         }
 
-        private Point calcLowerBeamBorderPosition()
+        private Point calcLowerBeamBorderPosition(Point spotLight)
         {
             int r = this.SpotLight.Width / 2;
             int a = this.upperBeamBorder.X2 - this.upperBeamBorder.X1;
             int b = this.upperBeamBorder.Y2 - this.upperBeamBorder.Y1;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
-            int x = this.SpotLight.Left + (int)(r * (1 - (double)b / c));
-            int y = this.SpotLight.Top + (int)(r * (1 + (double)a / c));
+            int x = spotLight.X + (int)(r * (1 - (double)b / c));
+            int y = spotLight.Y + (int)(r * (1 + (double)a / c));
             return new Point(x, y);
         }
     }
