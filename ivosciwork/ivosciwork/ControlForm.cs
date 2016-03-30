@@ -71,7 +71,14 @@ namespace ivosciwork
             myThread.Start();
 
         }
+        private void ControlForm_Load(object sender, EventArgs e)
+        {
+            this.Left = 0;
+            this.Top = 0;
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width/2, Screen.PrimaryScreen.Bounds.Height/2-30);
+            ElementLocation();
 
+        }
         private void ElementLocation()
         {
             pictureBox29.Location = new Point((int)((this.Width - 14) * 509 / 637), (int)((this.Height - 36) * 58 / 401));
@@ -529,6 +536,8 @@ namespace ivosciwork
         {
 
         }
+
+       
 
         private void pictureBox27_MouseDown(object sender, MouseEventArgs e) /*зеленая кнопка ПУСК ЕПСИЛОН*/
         {
