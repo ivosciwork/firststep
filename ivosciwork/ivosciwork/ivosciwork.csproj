@@ -200,19 +200,7 @@
     <None Include="Resources\red_button_on.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\1x105.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1x105np.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\4x12.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\radar1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\off.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\polleft.jpg" />
@@ -221,6 +209,10 @@
     <None Include="Resources\polright.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\off1.jpg" />
+    <None Include="Resources\1x1051.jpg" />
+    <None Include="Resources\1x105np1.jpg" />
+    <None Include="Resources\4x121.jpg" />
     <Content Include="Resources\f1.jpg" />
     <Content Include="Resources\f2.jpg" />
     <Content Include="Resources\f3.jpg" />

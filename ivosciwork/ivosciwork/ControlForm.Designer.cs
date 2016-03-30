@@ -378,8 +378,7 @@ namespace ivosciwork
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox1.Image = global::ivosciwork.Properties.Resources._1x105np;
+            this.pictureBox1.Image = global::ivosciwork.Properties.Resources._1x105np1;
             this.pictureBox1.Location = new System.Drawing.Point(498, 183);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(40, 20);
@@ -390,8 +389,7 @@ namespace ivosciwork
             // 
             // pictureBox30
             // 
-            this.pictureBox30.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox30.Image = global::ivosciwork.Properties.Resources._1x105;
+            this.pictureBox30.Image = global::ivosciwork.Properties.Resources._1x1051;
             this.pictureBox30.Location = new System.Drawing.Point(509, 162);
             this.pictureBox30.Name = "pictureBox30";
             this.pictureBox30.Size = new System.Drawing.Size(40, 20);
@@ -402,9 +400,8 @@ namespace ivosciwork
             // 
             // pictureBox31
             // 
-            this.pictureBox31.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox31.Image = global::ivosciwork.Properties.Resources._4x12;
-            this.pictureBox31.Location = new System.Drawing.Point(549, 155);
+            this.pictureBox31.Image = global::ivosciwork.Properties.Resources._4x121;
+            this.pictureBox31.Location = new System.Drawing.Point(549, 152);
             this.pictureBox31.Name = "pictureBox31";
             this.pictureBox31.Size = new System.Drawing.Size(40, 20);
             this.pictureBox31.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -414,9 +411,8 @@ namespace ivosciwork
             // 
             // pictureBox32
             // 
-            this.pictureBox32.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox32.Image = global::ivosciwork.Properties.Resources.off;
-            this.pictureBox32.Location = new System.Drawing.Point(585, 169);
+            this.pictureBox32.Image = global::ivosciwork.Properties.Resources.off1;
+            this.pictureBox32.Location = new System.Drawing.Point(586, 173);
             this.pictureBox32.Name = "pictureBox32";
             this.pictureBox32.Size = new System.Drawing.Size(40, 20);
             this.pictureBox32.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -459,20 +455,20 @@ namespace ivosciwork
             this.upToolStripMenuItem,
             this.downToolStripMenuItem});
             this.speedToolStripMenuItem.Name = "speedToolStripMenuItem";
-            this.speedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.speedToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.speedToolStripMenuItem.Text = "Speed";
             // 
             // upToolStripMenuItem
             // 
             this.upToolStripMenuItem.Name = "upToolStripMenuItem";
-            this.upToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.upToolStripMenuItem.Text = "Up (Ctrl+U)";
             this.upToolStripMenuItem.Click += new System.EventHandler(this.upToolStripMenuItem_Click);
             // 
             // downToolStripMenuItem
             // 
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
-            this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.downToolStripMenuItem.Text = "Down (Ctrl+D)";
             this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
             // 
@@ -496,6 +492,10 @@ namespace ivosciwork
             this.BackgroundImage = global::ivosciwork.Properties.Resources.radar1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(635, 399);
+            this.Controls.Add(this.pictureBox15);
+            this.Controls.Add(this.pictureBox14);
+            this.Controls.Add(this.pictureBox13);
+            this.Controls.Add(this.pictureBox12);
             this.Controls.Add(this.Speed);
             this.Controls.Add(this.pictureBox32);
             this.Controls.Add(this.pictureBox31);
@@ -515,10 +515,6 @@ namespace ivosciwork
             this.Controls.Add(this.pictureBox18);
             this.Controls.Add(this.pictureBox17);
             this.Controls.Add(this.pictureBox16);
-            this.Controls.Add(this.pictureBox15);
-            this.Controls.Add(this.pictureBox14);
-            this.Controls.Add(this.pictureBox13);
-            this.Controls.Add(this.pictureBox12);
             this.Controls.Add(this.pictureBox11);
             this.Controls.Add(this.pictureBox10);
             this.Controls.Add(this.pictureBox9);
