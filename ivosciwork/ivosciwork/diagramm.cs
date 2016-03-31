@@ -29,9 +29,9 @@ namespace ivosciwork
         }
         private void Diagramm_Load(object sender, EventArgs e)
         {
-            this.Left = Screen.PrimaryScreen.Bounds.Width / 2;
+            this.Left = Screen.PrimaryScreen.Bounds.Height *3/4;
             this.Top = 0;
-            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2-30);
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - Screen.PrimaryScreen.Bounds.Height*3 /4, Screen.PrimaryScreen.Bounds.Height / 2-30);
             ElementLocation();
         }
         private void ElementLocation()
@@ -111,15 +111,15 @@ namespace ivosciwork
             for (int i = 1; i <= 12; i++)
             {
                 Lines1[i].Width = 2;
-                Lines1[i].Height = this.Height-42;
-                Lines1[i].Location = new Point((int)((this.Width-19) * 33 / 800 + (i - 1) * ((this.Width-19) - (int)(this.Width -19)* 33 / 800) / 12),0);
+                Lines1[i].Height = this.Height-36;
+                Lines1[i].Location = new Point((int)((this.Width-14) * 42 / 786 + (i - 1) *(this.Width -14)* 62 / 786),0);
 
             }
-            for (int i = 1; i < 7; i++)
+            for (int i = 1; i <=6; i++)
             {
                 Lines2[i].Width = this.Width - 19;
                 Lines2[i].Height = 2;
-                Lines2[i].Location = new Point(0, (int)((this.Height-42) * 21 / 400 + (i - 1) * ((this.Height-42) - (int)(this.Height -42)* 42 / 800) / 6));
+                Lines2[i].Location = new Point(0, (int)((this.Height-36) * 22 / 364 + (i - 1) * (this.Height -36)* 57 / 364));
 
             }
         }
@@ -212,8 +212,7 @@ namespace ivosciwork
         }
         delegate void updateVisibilityCallBack(bool visible);
 
-        
-
+     
         private void updateVisibility(bool visible)
         {
             if (this.InvokeRequired)

@@ -530,7 +530,6 @@ namespace ivosciwork
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ControlForm";
-            this.Text = "радар1";
             this.Load += new System.EventHandler(this.ControlForm_Load);
             this.Resize += new System.EventHandler(this.ControlForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();

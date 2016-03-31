@@ -15,10 +15,11 @@ namespace ivosciwork
         private bool change = false; //indicate that something was changed and turnOn() should be relaunched
         private bool stopPressed = false;
 
-        private bool changefreq = false; //indicate the specific frequency settings
+        public bool changefreq = false; //indicate the specific frequency settings
 
         private Vector4D azimut = 0;
 
+        
         public struct Vector4D
         {
             private double F1;
@@ -92,12 +93,19 @@ namespace ivosciwork
             }
             change = true;
         }
-
+        double Epsilon0 = 0;
         public void changeEpsilon(double e)
         {
             if (currentMode != Mode.IX105NP)
             {
                 currentState.currentDirection.epsilon = e;
+                Epsilon0 = e;
+                directionChanged(currentState);
+            }
+            else
+            {
+                currentState.currentDirection.epsilon = 0.3;
+                Epsilon0 = 0.3;
                 directionChanged(currentState);
             }
         }
@@ -167,7 +175,7 @@ namespace ivosciwork
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F4);
-                                turnOn(1.0 / 3.0, 0, 0, 0.3, 315, 1);
+                                turnOn(1.0 / 3.0, 0, 0, currentState.currentDirection.epsilon, 315, 1);
                                 break;
                             }
                         case Mode.IX105:
@@ -242,8 +250,9 @@ namespace ivosciwork
                 bool yChanged = false;
                 foreach (Frequency f in currentSet)
                 {
+                    Y0 = Epsilon0;
                     
-                    var watch = Stopwatch.StartNew(); //it's for control precision of time measure
+                        var watch = Stopwatch.StartNew(); //it's for control precision of time measure
 
                     currentState.currentFrequency = f;
                     frequencyChanged(currentState);

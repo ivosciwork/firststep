@@ -75,7 +75,7 @@ namespace ivosciwork
         {
             this.Left = 0;
             this.Top = 0;
-            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width/2, Screen.PrimaryScreen.Bounds.Height/2-30);
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Height *3/4 , Screen.PrimaryScreen.Bounds.Height/2-30);
             ElementLocation();
 
         }
@@ -558,9 +558,16 @@ namespace ivosciwork
 
         private void Poloski(SortedSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
         {
-            for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
-            for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
-            foreach (int f in frequency) Lines1[ (int)f ].Visible = true;
+            for (int i = 0; i < 4; i++)
+            {
+                Lines1[i].Visible = false;
+                Lines2[i].Visible = false;
+            }
+                foreach (int f in frequency)
+                {
+                    Lines1[(int)f].Visible = true;
+                    Lines1[(int)f].Location = new Point(LeftZone, Lines1[(int)f].Location.Y);
+                }
         }
 
         private void Segment (int eps, PictureBox pic) /* вывод эпсилон на экран */ 
@@ -605,12 +612,36 @@ namespace ivosciwork
 
                 if (isDirectionChanged || isFrequencyChanged)
                 {
+                    if (myRpn.changefreq==true)
+                    {
+                        myRpn.changefreq = false;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            current1.currentLine = Lines1[i];
+                            current2.currentLine = Lines2[i];
+                            current1.vis = false;
+                            current1.vis = false;
+                            updateState(current1, current2);
+                        }
+                        if (myRpn.getCurrentMode() != RPN.Mode.off)
+                        {
+                            foreach (int g in frequencies)
+                            {
+                                current1.currentLine = Lines1[g];
+                                current1.vis = true;
+                                updateState(current1, current2);
+                            }
+                        }
+                    }
                     isDirectionChanged = false;
                     isFrequencyChanged = false;
 
                     Epsilon = beamDirection.epsilon;
-                    Segment((int)(Epsilon * 10), pictureBox28);
-                    Segment((int)(Epsilon0 * 10), pictureBox29);
+                    if (myRpn.getCurrentMode() != RPN.Mode.IX105NP)
+                    {
+                        Segment((int)(Epsilon * 10), pictureBox28);
+                        Segment((int)(Epsilon0 * 10), pictureBox29);
+                    }
                     azimutgrad = beamDirection.azimut;
                     double azimutatolon = 262 * azimutgrad / 105;
                     azimut = (int)((this.Width - 7) * azimutatolon / 637);

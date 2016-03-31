@@ -279,7 +279,7 @@
             this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 20;
             this.label2.Text = "ТИ 1";
-            // 
+          // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -437,7 +437,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(784, 362);

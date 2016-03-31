@@ -209,6 +209,7 @@
     <None Include="Resources\polright.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\rpn.jpg" />
     <None Include="Resources\off1.jpg" />
     <None Include="Resources\1x1051.jpg" />
     <None Include="Resources\1x105np1.jpg" />
