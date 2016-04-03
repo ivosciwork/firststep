@@ -104,6 +104,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(30, 37);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // label1
             // 
@@ -456,6 +457,7 @@
             this.pictureBox21.Size = new System.Drawing.Size(10, 45);
             this.pictureBox21.TabIndex = 51;
             this.pictureBox21.TabStop = false;
+            this.pictureBox21.Visible = false;
             // 
             // pictureBox22
             // 
@@ -465,6 +467,7 @@
             this.pictureBox22.Size = new System.Drawing.Size(10, 45);
             this.pictureBox22.TabIndex = 52;
             this.pictureBox22.TabStop = false;
+            this.pictureBox22.Visible = false;
             // 
             // Diagramm
             // 
