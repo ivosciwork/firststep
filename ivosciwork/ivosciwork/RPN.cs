@@ -7,6 +7,7 @@ namespace ivosciwork
 {
     public class RPN
     {
+      
         public enum Mode { IX105NP, IX105, HX12, off };
         public enum Frequency { F1, F2, F3, F4 };
         private Mode currentMode = Mode.off;

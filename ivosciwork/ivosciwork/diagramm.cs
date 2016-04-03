@@ -15,14 +15,17 @@ namespace ivosciwork
 
     public partial class Diagramm : Form
     {
-        public int l = 1;
+        
+public int l = 1;
         public int n = 0;
         private Thread myThread;
         private volatile bool running = true;
         int x, y;
         PictureBox[] Lines1 = new PictureBox[13];
         PictureBox[] Lines2 = new PictureBox[7];
-           private struct PictureLocation
+        Label[] tex1 = new Label[13];
+        Label[] tex2 = new Label[7];
+        private struct PictureLocation
         {
             public int x;
             public int y;
@@ -35,6 +38,8 @@ namespace ivosciwork
              x = x0 + (n % 3) *(this.Width ) * 140 / 450 + ((n % 3) / 2);
              y = y0 + (n / 3) * (this.Height ) * 37 / 277;*/
             calcdiagram();
+            x = Lines1[4 * (n % 3) + 1].Location.X + 2;
+            y = Lines2[(n / 3) + 1].Location.Y + 2;
             PictureLocation loc = calcLocation(x, y);
             updateLocation(loc);
             pictureBox1.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
@@ -94,27 +99,44 @@ namespace ivosciwork
             Lines2[4] = pictureBox17;
             Lines2[5] = pictureBox18;
             Lines2[6] = pictureBox19;
-
-           /* Rectangle rectAll = this.RectangleToClient(this.Bounds);
-            Rectangle rectClient = this.ClientRectangle;
-            int Top = rectClient.Top - rectAll.Top;
-            int Left = rectClient.Left - rectAll.Left;
-            int Right = rectAll.Right - rectClient.Right;
-            int Botton = rectAll.Bottom - rectClient.Bottom;*/
+            tex1[1] = label2;
+            tex1[2] = label8;
+            tex1[3] = label9;
+            tex1[4] = label10;
+            tex1[5] = label11;
+            tex1[6] = label12;
+            tex1[7] = label13;
+            tex1[8] = label15;
+            tex1[9] = label16;
+            tex1[10] = label17;
+            tex1[11] = label18;
+            tex1[12] = label19;
+            tex2[1] = label14;
+            tex2[2] = label3;
+            tex2[3] = label4;
+            tex2[4] = label5;
+            tex2[5] = label6;
+            tex2[6] = label7;
+            /* Rectangle rectAll = this.RectangleToClient(this.Bounds);
+             Rectangle rectClient = this.ClientRectangle;
+             int Top = rectClient.Top - rectAll.Top;
+             int Left = rectClient.Left - rectAll.Left;
+             int Right = rectAll.Right - rectClient.Right;
+             int Botton = rectAll.Bottom - rectClient.Bottom;*/
 
             for (int i = 1; i <= 12; i++)
             {
                 Lines1[i].Width = 2;
                 Lines1[i].Height = this.Height-42;
                 Lines1[i].Location = new Point((int)((this.Width-19) * 33 / 800 + (i - 1) * ((this.Width-19) - (int)(this.Width -19)* 33 / 800) / 12),0);
-
+                tex1[i].Location = new Point(Lines1[i].Location.X + 10, 1);
             }
             for (int i = 1; i < 7; i++)
             {
                 Lines2[i].Width = this.Width - 19;
                 Lines2[i].Height = 2;
                 Lines2[i].Location = new Point(0, (int)((this.Height-42) * 21 / 400 + (i - 1) * ((this.Height-42) - (int)(this.Height -42)* 42 / 800) / 6));
-
+                tex2[i].Location = new Point(1 ,Lines2[i].Location.Y + 10 );
             }
         }
         private void eventZaloop()
