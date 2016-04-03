@@ -63,9 +63,9 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap _1x105 {
+        public static System.Drawing.Bitmap _1x1051 {
             get {
-                object obj = ResourceManager.GetObject("_1x105", resourceCulture);
+                object obj = ResourceManager.GetObject("1x1051", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap _1x105np {
+        public static System.Drawing.Bitmap _1x105np1 {
             get {
-                object obj = ResourceManager.GetObject("_1x105np", resourceCulture);
+                object obj = ResourceManager.GetObject("1x105np1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap _4x12 {
+        public static System.Drawing.Bitmap _4x121 {
             get {
-                object obj = ResourceManager.GetObject("_4x12", resourceCulture);
+                object obj = ResourceManager.GetObject("4x121", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -283,9 +283,9 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap off {
+        public static System.Drawing.Bitmap off1 {
             get {
-                object obj = ResourceManager.GetObject("off", resourceCulture);
+                object obj = ResourceManager.GetObject("off1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -416,6 +416,16 @@ namespace ivosciwork.Properties {
         public static System.Drawing.Bitmap right {
             get {
                 object obj = ResourceManager.GetObject("right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap rpn {
+            get {
+                object obj = ResourceManager.GetObject("rpn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

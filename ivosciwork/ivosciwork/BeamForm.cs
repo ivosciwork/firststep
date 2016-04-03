@@ -38,8 +38,9 @@ namespace ivosciwork
 
         private void onResize(object sender, EventArgs e)
         {
-            this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition();
-            this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition();
+            this.SpotLight.Location = calcCurrentPosition().spotLight;
+            this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition(this.SpotLight.Location);
+            this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition(this.SpotLight.Location);
         }
 
         private bool isFrequencyChanged = false;
@@ -129,43 +130,58 @@ namespace ivosciwork
             double currentEpsilon = beamDirection.epsilon;
             BeamPosition currentPosition = new BeamPosition();
             currentPosition.spotLight = mapPosition( new Point((int)currentAzimut, (int)currentEpsilon) );
-            currentPosition.upperBorder = calcUpperBeamBorderPosition();
-            currentPosition.lowerBorder = calcLowerBeamBorderPosition();
+            currentPosition.upperBorder = calcUpperBeamBorderPosition(currentPosition.spotLight);
+            currentPosition.lowerBorder = calcLowerBeamBorderPosition(currentPosition.spotLight);
             currentPosition.color = Constants.getFreqColor( frequency );
             return currentPosition;
         }
 
         //This function determines how real azimut/epsilon will be shown on screen
         private Point mapPosition(Point realBeamPosition) {
+            return simpleRectangularMap(realBeamPosition);
+        }
+
+        private Point simpleRectangularMap(Point realBeamPosition) {
             //This implements rectangular mapping
-            Rectangle myShowRectangle = new Rectangle( 30, 20, 500, 300 );
+            Size formSize = this.Size;
+            System.Windows.Rect myRelativeRectangle = new System.Windows.Rect(0.1, 0.2, 0.8, 0.5);
+            System.Windows.Rect myShowRectangle = new System.Windows.Rect(formSize.Width * myRelativeRectangle.X, formSize.Height * myRelativeRectangle.Y, formSize.Width * myRelativeRectangle.Width, formSize.Height * myRelativeRectangle.Height);
             Point screenBeamPosition = new Point();
-            screenBeamPosition.X = myShowRectangle.X + (int)(myShowRectangle.Width * realBeamPosition.X / 315.0);
-            screenBeamPosition.Y = (myShowRectangle.Y + myShowRectangle.Height) - (int)(myShowRectangle.Height * realBeamPosition.Y / 70.0);
+            screenBeamPosition.X = (int)myShowRectangle.X + (int)(myShowRectangle.Width * realBeamPosition.X / 315.0);
+            screenBeamPosition.Y = (int)(myShowRectangle.Y + myShowRectangle.Height) - (int)(myShowRectangle.Height * realBeamPosition.Y / 70.0);
 
             return screenBeamPosition;
         }
 
-        private Point calcUpperBeamBorderPosition()
+        private Point calcUpperBeamBorderPosition(Point spotLight)
         {
             int r = this.SpotLight.Width / 2;
             int a = this.upperBeamBorder.X2 - this.upperBeamBorder.X1;
             int b = this.upperBeamBorder.Y2 - this.upperBeamBorder.Y1;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
-            int x = this.SpotLight.Left + (int)(r * (1 + (double)b / c));
-            int y = this.SpotLight.Top + (int)(r * (1 - (double)a / c));
+            int x = spotLight.X + (int)(r * (1 + (double)b / c));
+            int y = spotLight.Y + (int)(r * (1 - (double)a / c));
             return new Point(x,y);
         }
 
-        private Point calcLowerBeamBorderPosition()
+        private Point calcLowerBeamBorderPosition(Point spotLight)
         {
             int r = this.SpotLight.Width / 2;
             int a = this.upperBeamBorder.X2 - this.upperBeamBorder.X1;
             int b = this.upperBeamBorder.Y2 - this.upperBeamBorder.Y1;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
-            int x = this.SpotLight.Left + (int)(r * (1 - (double)b / c));
-            int y = this.SpotLight.Top + (int)(r * (1 + (double)a / c));
+            int x = spotLight.X + (int)(r * (1 - (double)b / c));
+            int y = spotLight.Y + (int)(r * (1 + (double)a / c));
             return new Point(x, y);
+        }
+
+        private void BeamForm_Load(object sender, EventArgs e)
+        {
+            this.Left = 0;
+            this.Top = Screen.PrimaryScreen.Bounds.Height / 2-30;
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height / 2);
+            //this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition();
+            //this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition();
         }
     }
 }

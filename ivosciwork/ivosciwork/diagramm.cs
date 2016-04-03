@@ -15,8 +15,7 @@ namespace ivosciwork
 
     public partial class Diagramm : Form
     {
-        
-public int l = 1;
+        public int l = 1;
         public int n = 0;
         private Thread myThread;
         private volatile bool running = true;
@@ -30,19 +29,21 @@ public int l = 1;
             public int x;
             public int y;
         }
-        
+        private void Diagramm_Load(object sender, EventArgs e)
+        {
+            this.Left = Screen.PrimaryScreen.Bounds.Height * 3 / 4;
+            this.Top = 0;
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - Screen.PrimaryScreen.Bounds.Height * 3 / 4, Screen.PrimaryScreen.Bounds.Height / 2 - 30);
+            ElementLocation();
+        }
         private void ElementLocation()
         {
-            /* x0 = (int)((this.Width) * 22 / 450);
-             y0 =(int)((this.Height) * 17 / 277);
-             x = x0 + (n % 3) *(this.Width ) * 140 / 450 + ((n % 3) / 2);
-             y = y0 + (n / 3) * (this.Height ) * 37 / 277;*/
             calcdiagram();
-            x = Lines1[4 * (n % 3) + 1].Location.X + 2;
-            y = Lines2[(n / 3) + 1].Location.Y + 2;
             PictureLocation loc = calcLocation(x, y);
             updateLocation(loc);
             pictureBox1.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
+            pictureBox21.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
+            pictureBox22.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
         }
         private void Diagram_Resize(object sender, EventArgs e)
         {
@@ -98,8 +99,7 @@ public int l = 1;
             Lines2[3] = pictureBox16;
             Lines2[4] = pictureBox17;
             Lines2[5] = pictureBox18;
-            Lines2[6] = pictureBox19;
-            tex1[1] = label2;
+            Lines2[6] = pictureBox19; tex1[1] = label2;
             tex1[2] = label8;
             tex1[3] = label9;
             tex1[4] = label10;
@@ -117,6 +117,7 @@ public int l = 1;
             tex2[4] = label5;
             tex2[5] = label6;
             tex2[6] = label7;
+
             /* Rectangle rectAll = this.RectangleToClient(this.Bounds);
              Rectangle rectClient = this.ClientRectangle;
              int Top = rectClient.Top - rectAll.Top;
@@ -127,17 +128,22 @@ public int l = 1;
             for (int i = 1; i <= 12; i++)
             {
                 Lines1[i].Width = 2;
-                Lines1[i].Height = this.Height-42;
-                Lines1[i].Location = new Point((int)((this.Width-19) * 33 / 800 + (i - 1) * ((this.Width-19) - (int)(this.Width -19)* 33 / 800) / 12),0);
+                Lines1[i].Height = this.Height - 36;
+                Lines1[i].Location = new Point((int)((this.Width - 14) * 42 / 786 + (i - 1) * (this.Width - 14) * 62 / 786), 0);
                 tex1[i].Location = new Point(Lines1[i].Location.X + 10, 1);
             }
-            for (int i = 1; i < 7; i++)
+            for (int i = 1; i <= 6; i++)
             {
                 Lines2[i].Width = this.Width - 19;
                 Lines2[i].Height = 2;
-                Lines2[i].Location = new Point(0, (int)((this.Height-42) * 21 / 400 + (i - 1) * ((this.Height-42) - (int)(this.Height -42)* 42 / 800) / 6));
-                tex2[i].Location = new Point(1 ,Lines2[i].Location.Y + 10 );
+                Lines2[i].Location = new Point(0, (int)((this.Height - 36) * 22 / 364 + (i - 1) * (this.Height - 36) * 57 / 364));
+                tex2[i].Location = new Point(1, Lines2[i].Location.Y + 10);
+
             }
+            pictureBox20.Location = new Point(pictureBox2.Location.X + 2, pictureBox14.Location.Y + 2);
+            pictureBox20.Width = this.Width - 19 - pictureBox2.Location.X - 2;
+            pictureBox20.Height = this.Height - 36 - pictureBox14.Location.Y - 2;
+            
         }
         private void eventZaloop()
         {
@@ -152,7 +158,7 @@ public int l = 1;
                     {
                         n = 0;
                         l = 1;
-                        PictureWight wight = calcWight(0);
+                        long wight = calcWight(0);
                         updateWight(wight);
                     }
                 }
@@ -160,22 +166,34 @@ public int l = 1;
                 if (isFrequencyChanged)
                 {
                     isFrequencyChanged = false;
-                    pictureBox1.BackgroundImage = Constants.getFreqImage(frequency);
 
-                    //x = x0 + (n % 3)  * 137 ;
-                    x = Lines1[4*(n % 3)+1 ].Location.X+2;
-                    //y = y0 + (n / 3) * (this.Height-36 ) * 37 / 277;
-                    y = Lines2[(n / 3) + 1].Location.Y+2;
-                    PictureWight wight0 = calcWight(0);
+
+                    x = Lines1[4 * (n % 3) + 1].Location.X + 2;
+                    y = Lines2[(n / 3) + 1].Location.Y + 2;
+                    long a = ((this.Width - 19) - (int)((this.Width - 19) * 33 / 800)) / 3;
+                    long wight0 = calcWight(0);
                     updateWight(wight0);
+                    updateWight2(wight0);
+                    updateWight3(wight0);
                     PictureLocation loc = calcLocation(x, y);
                     updateLocation(loc);
                     var watch = Stopwatch.StartNew(); //it's for control precision of time measure
                     while (watch.ElapsedMilliseconds <= Constants.RPN_DELAY)
                     {
                         if (isFrequencyChanged || isStateChanged) { break; }
-                        PictureWight wight = calcWight(watch.ElapsedMilliseconds);
-                        updateWight(wight);
+                        long wight = calcWight(watch.ElapsedMilliseconds);
+                        if (wight > a*0.45/5.8)
+                        {
+                            updateWight(wight);
+                        }
+                        if ((wight < a * 0.45 / 5.8)&&(wight < a *0.25/5.8))
+                        {
+                            updateWight2(wight);
+                        }
+                        if (wight < a * 0.25 / 5.8)
+                        {
+                            updateWight3(wight);
+                        }
                     }
                     watch.Stop();
                     if (n == 17) { n = 0; }
@@ -201,18 +219,22 @@ public int l = 1;
             }
             else
             {
-                this.pictureBox1.Location = new Point(loc.x, loc.y);
+                long a = ((this.Width - 19) - (int)((this.Width - 19) * 33 / 800)) / 3;
+                this.pictureBox1.Location = new Point(loc.x + (int)(a * 0.45 / 5.8), loc.y);
+                this.pictureBox21.Location = new Point(loc.x, loc.y);
+                this.pictureBox22.Location = new Point(loc.x + (int)(a * 0.25 / 5.8), loc.y);
             }
         }
 
-        private PictureWight calcWight(long l)
+        private long calcWight(long l)
         {
-            PictureWight wight = new PictureWight();
-            wight.wight = (int)(l * (((this.Width - 19) - (int)(this.Width - 19) * 33 / 800) /3) / Constants.RPN_DELAY);
+            long wight ;
+            wight = (int)(l*(5.35/5.8) * (((this.Width - 19) - (int)(this.Width - 19) * 33 / 800) / 3) /Constants.RPN_DELAY);
+            pictureBox1.BackgroundImage = Constants.getFreqImage(frequency);
             return wight;
         }
-        delegate void update1(PictureWight wight);
-        private void updateWight(PictureWight wight)
+        delegate void update1(long wight);
+        private void updateWight(long wight)
         {
             if (this.InvokeRequired)
             {
@@ -221,12 +243,14 @@ public int l = 1;
             }
             else
             {
-                this.pictureBox1.Width = wight.wight;
+                this.pictureBox1.Width = (int)wight;
                 this.pictureBox1.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
 
             }
+
         }
         delegate void updateVisibilityCallBack(bool visible);
+
 
         private void updateVisibility(bool visible)
         {
@@ -238,10 +262,41 @@ public int l = 1;
             else
             {
                 this.pictureBox1.Visible = visible;
+                this.pictureBox21.Visible = visible;
+                this.pictureBox22.Visible = visible;
             }
         }
 
-        
+        delegate void update2(long wight);
+        private void updateWight2(long wight)
+        {
+            if (this.InvokeRequired)
+            {
+                update2 d = new update2(updateWight);
+                this.Invoke(d, new object[] { wight });
+            }
+            else
+            {
+                this.pictureBox21.Width = (int)wight;
+                this.pictureBox21.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
+
+            }
+        }
+        delegate void update3(long wight);
+        private void updateWight3(long wight)
+        {
+            if (this.InvokeRequired)
+            {
+                update3 d = new update3(updateWight3);
+                this.Invoke(d, new object[] { wight });
+            }
+            else
+            {
+                this.pictureBox22.Width = (int)wight;
+                this.pictureBox22.Height = Lines2[2].Location.Y - Lines2[1].Location.Y;
+
+            }
+        }
     }
 }
 

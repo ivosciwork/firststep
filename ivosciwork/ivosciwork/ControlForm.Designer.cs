@@ -1,4 +1,6 @@
-﻿namespace ivosciwork
+﻿using System;
+
+namespace ivosciwork
 {
     partial class ControlForm
     {
@@ -61,6 +63,12 @@
             this.pictureBox31 = new System.Windows.Forms.PictureBox();
             this.pictureBox32 = new System.Windows.Forms.PictureBox();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.speedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.upToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Speed = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
@@ -93,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox29
@@ -369,8 +378,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox1.Image = global::ivosciwork.Properties.Resources._1x105np;
+            this.pictureBox1.Image = global::ivosciwork.Properties.Resources._1x105np1;
             this.pictureBox1.Location = new System.Drawing.Point(498, 183);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(40, 20);
@@ -381,8 +389,7 @@
             // 
             // pictureBox30
             // 
-            this.pictureBox30.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox30.Image = global::ivosciwork.Properties.Resources._1x105;
+            this.pictureBox30.Image = global::ivosciwork.Properties.Resources._1x1051;
             this.pictureBox30.Location = new System.Drawing.Point(509, 162);
             this.pictureBox30.Name = "pictureBox30";
             this.pictureBox30.Size = new System.Drawing.Size(40, 20);
@@ -393,9 +400,8 @@
             // 
             // pictureBox31
             // 
-            this.pictureBox31.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox31.Image = global::ivosciwork.Properties.Resources._4x12;
-            this.pictureBox31.Location = new System.Drawing.Point(549, 155);
+            this.pictureBox31.Image = global::ivosciwork.Properties.Resources._4x121;
+            this.pictureBox31.Location = new System.Drawing.Point(549, 152);
             this.pictureBox31.Name = "pictureBox31";
             this.pictureBox31.Size = new System.Drawing.Size(40, 20);
             this.pictureBox31.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -405,9 +411,8 @@
             // 
             // pictureBox32
             // 
-            this.pictureBox32.BackgroundImage = global::ivosciwork.Properties.Resources._1x105np;
-            this.pictureBox32.Image = global::ivosciwork.Properties.Resources.off;
-            this.pictureBox32.Location = new System.Drawing.Point(585, 169);
+            this.pictureBox32.Image = global::ivosciwork.Properties.Resources.off1;
+            this.pictureBox32.Location = new System.Drawing.Point(586, 173);
             this.pictureBox32.Name = "pictureBox32";
             this.pictureBox32.Size = new System.Drawing.Size(40, 20);
             this.pictureBox32.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -425,6 +430,60 @@
             this.pictureBox28.TabIndex = 22;
             this.pictureBox28.TabStop = false;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(635, 24);
+            this.menuStrip1.TabIndex = 24;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.speedToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // speedToolStripMenuItem
+            // 
+            this.speedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.upToolStripMenuItem,
+            this.downToolStripMenuItem});
+            this.speedToolStripMenuItem.Name = "speedToolStripMenuItem";
+            this.speedToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.speedToolStripMenuItem.Text = "Speed";
+            // 
+            // upToolStripMenuItem
+            // 
+            this.upToolStripMenuItem.Name = "upToolStripMenuItem";
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.upToolStripMenuItem.Text = "Up (Ctrl+U)";
+            this.upToolStripMenuItem.Click += new System.EventHandler(this.upToolStripMenuItem_Click);
+            // 
+            // downToolStripMenuItem
+            // 
+            this.downToolStripMenuItem.Name = "downToolStripMenuItem";
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.downToolStripMenuItem.Text = "Down (Ctrl+D)";
+            this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
+            // 
+            // Speed
+            // 
+            this.Speed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Speed.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Speed.Enabled = false;
+            this.Speed.Location = new System.Drawing.Point(575, 379);
+            this.Speed.Name = "Speed";
+            this.Speed.Size = new System.Drawing.Size(60, 20);
+            this.Speed.TabIndex = 25;
+            this.Speed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.Speed.TextChanged += new System.EventHandler(this.Speed_TextChanged);
+            // 
             // ControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,6 +492,11 @@
             this.BackgroundImage = global::ivosciwork.Properties.Resources.radar1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(635, 399);
+            this.Controls.Add(this.pictureBox15);
+            this.Controls.Add(this.pictureBox14);
+            this.Controls.Add(this.pictureBox13);
+            this.Controls.Add(this.pictureBox12);
+            this.Controls.Add(this.Speed);
             this.Controls.Add(this.pictureBox32);
             this.Controls.Add(this.pictureBox31);
             this.Controls.Add(this.pictureBox30);
@@ -451,10 +515,6 @@
             this.Controls.Add(this.pictureBox18);
             this.Controls.Add(this.pictureBox17);
             this.Controls.Add(this.pictureBox16);
-            this.Controls.Add(this.pictureBox15);
-            this.Controls.Add(this.pictureBox14);
-            this.Controls.Add(this.pictureBox13);
-            this.Controls.Add(this.pictureBox12);
             this.Controls.Add(this.pictureBox11);
             this.Controls.Add(this.pictureBox10);
             this.Controls.Add(this.pictureBox9);
@@ -465,9 +525,12 @@
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
+            this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "ControlForm";
-            this.Text = "радар1";
+            this.Load += new System.EventHandler(this.ControlForm_Load);
             this.Resize += new System.EventHandler(this.ControlForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
@@ -501,7 +564,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -538,6 +604,12 @@
         private System.Windows.Forms.PictureBox pictureBox31;
         private System.Windows.Forms.PictureBox pictureBox32;
         private System.Windows.Forms.PictureBox pictureBox28;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem speedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem upToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downToolStripMenuItem;
+        private System.Windows.Forms.TextBox Speed;
     }
 }
 

@@ -31,7 +31,8 @@ namespace ivosciwork
         int raz;
         int azimut;
         int widthpolosa1 = 0, widthpolosa2 = 0, leftzonpolosa1 = 142, leftzonpolosa2 = 142;
-        
+        double EpsilonTek;
+        int MetkaTek;
         int width1 = 0;
         SortedSet<RPN.Frequency> frequencies;
 
@@ -46,12 +47,13 @@ namespace ivosciwork
         public ControlForm(RPN rpn)
         {
             InitializeComponent();
+            updateSpeadInfo();
 
             myRpn = rpn;
             myRpn.directionChanged += this.directionChangedHandler;
             myRpn.stateChanged += this.stateChangedHandler;
             myRpn.frequencyChanged += this.frequencyChangedHandler;
-            this.pictureBox12.BringToFront();
+          this.pictureBox12.BringToFront();
             this.pictureBox13.BringToFront();
             this.pictureBox14.BringToFront();
             this.pictureBox15.BringToFront();
@@ -69,7 +71,14 @@ namespace ivosciwork
             myThread.Start();
 
         }
+        private void ControlForm_Load(object sender, EventArgs e)
+        {
+            this.Left = 0;
+            this.Top = 0;
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Height *3/4 , Screen.PrimaryScreen.Bounds.Height/2-30);
+            ElementLocation();
 
+        }
         private void ElementLocation()
         {
             pictureBox29.Location = new Point((int)((this.Width - 14) * 509 / 637), (int)((this.Height - 36) * 58 / 401));
@@ -181,9 +190,10 @@ namespace ivosciwork
         }
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {
-            Epsilon = Epsilon0;
-            myRpn.changeEpsilon(Epsilon);
+            myRpn.changeEpsilon(Epsilon0);
+            Epsilon = beamDirection.epsilon;
             Segment((int)(Epsilon0 * 10), pictureBox29);
+            Segment((int)(Epsilon * 10), pictureBox28);
 
             if (isRpnOn == false)
             {
@@ -219,7 +229,7 @@ namespace ivosciwork
             LeftZoneatalon = 142;
             RightZoneatalon = 404;
             Epsilon0 = 0.3;
-            myRpn.changeEpsilon(Epsilon0);
+          //  myRpn.changeEpsilon(Epsilon0);
             myRpn.changeMode(RPN.Mode.IX105NP);
             raz = 1;
             if (isRpnOn == true)
@@ -331,9 +341,12 @@ namespace ivosciwork
 
         private void pictureBox16_MouseUp(object sender, MouseEventArgs e)
         {
-            Epsilon0 =  Epsilon0 + (double)(x0 - x) / 10;
-            myRpn.changeEpsilon(Epsilon0);
-            flag = 0;
+            if ((myRpn.getCurrentMode() != RPN.Mode.IX105NP) && (myRpn.getCurrentMode() != RPN.Mode.off))
+            {
+                Epsilon0 = EpsilonTek;
+                myRpn.changeEpsilon(Epsilon0);
+                flag = 0;
+            }
 
         }
 
@@ -347,11 +360,13 @@ namespace ivosciwork
             if (flag == 2)
             {
                 x = Cursor.Position.Y;
-                if ((Epsilon0 + ((double)(x0 - x) / 10) >= -10) & (Epsilon0 + ((double)(x0 - x) / 10) <= 70))
-                {
-                    Segment((int)((Epsilon0 + ((double)(x0 - x) / 10)) * 10), pictureBox28);
-                    Segment((int)((Epsilon0 + ((double)(x0 - x) / 10)) * 10), pictureBox29);
-                }
+                
+                    if ((Epsilon0 + ((double)(x0 - x) / 10) >= -10) & (Epsilon0 + ((double)(x0 - x) / 10) <= 70))
+                    {
+                        Segment((int)((Epsilon0 + ((double)(x0 - x) / 10)) * 10), pictureBox28);
+                        Segment((int)((Epsilon0 + ((double)(x0 - x) / 10)) * 10), pictureBox29);
+                        EpsilonTek = Epsilon0 + (double)(x0 - x) / 10;
+                    }
                 
 
             }
@@ -367,7 +382,7 @@ namespace ivosciwork
 
         private void pictureBox17_MouseUp(object sender, MouseEventArgs e)
         {
-            MetkaLeft = MetkaLeft + (int)((x - x0));
+            MetkaLeft = MetkaTek;
             flag = 0;
         }
         private void pictureBox17_MouseMove(object sender, MouseEventArgs e)
@@ -382,15 +397,17 @@ namespace ivosciwork
             {
                 x = Cursor.Position.X;
                 
+
                     if (((MetkaLeft + (int)((x - x0))) >= pictureBox8.Left) & ((MetkaLeft + pictureBox12.Width + (int)((x - x0))) <= pictureBox8.Right))
-                {
+                    {
 
-                    pictureBox12.Left = MetkaLeft + (int)((x - x0));
-                    pictureBox13.Left = MetkaLeft + (int)((x - x0));
-                    pictureBox14.Left = MetkaLeft + (int)((x - x0));
-                    pictureBox15.Left = MetkaLeft + (int)((x - x0));
-                }
-
+                        pictureBox12.Left = MetkaLeft + (int)((x - x0));
+                        pictureBox13.Left = MetkaLeft + (int)((x - x0));
+                        pictureBox14.Left = MetkaLeft + (int)((x - x0));
+                        pictureBox15.Left = MetkaLeft + (int)((x - x0));
+                        MetkaTek = MetkaLeft + (int)((x - x0));
+                    }
+                
                 
             }
         }
@@ -413,18 +430,24 @@ namespace ivosciwork
 
         private void pictureBox5_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F3 */
         {
-            pictureBox5.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            if (myRpn.getCurrentMode() != RPN.Mode.IX105NP) myRpn.setFrequencies(RPN.Frequency.F3);
-            frequencies = myRpn.getFreqSet();
-            Poloski(frequencies);
+            if (myRpn.getCurrentMode() != RPN.Mode.IX105NP)
+            {
+                pictureBox5.Image = Properties.Resources.GREEN_BUTTON_DOWN;
+                myRpn.setFrequencies(RPN.Frequency.F3);
+                frequencies = myRpn.getFreqSet();
+                Poloski(frequencies);
+            }
         }
 
         private void pictureBox5_MouseUp(object sender, MouseEventArgs e)
         {
-            pictureBox4.Image = Properties.Resources.GREEN_BUTTON;
-            pictureBox5.Image = Properties.Resources.GREEN_BUTTON_ON;
-            pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
-            pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
+            if (myRpn.getCurrentMode() != RPN.Mode.IX105NP)
+            {
+                pictureBox4.Image = Properties.Resources.GREEN_BUTTON;
+                pictureBox5.Image = Properties.Resources.GREEN_BUTTON_ON;
+                pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
+                pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
+            }
         }
 
         private void pictureBox6_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F2 */
@@ -463,32 +486,88 @@ namespace ivosciwork
 
         private void pictureBox26_MouseDown(object sender, MouseEventArgs e) /*красная кнопка СТОП ЕПСИЛОН*/
         {
-            pictureBox26.Image = Properties.Resources.red_button_down;
-            myRpn.OnStopButtonState();
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
+            {
+                pictureBox26.Image = Properties.Resources.red_button_down;
+                myRpn.OnStopButtonState();
+            }
         }
 
         private void pictureBox26_MouseUp(object sender, MouseEventArgs e)
         {
-            pictureBox26.Image = Properties.Resources.red_button_on;
-            pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
+            {
+                pictureBox26.Image = Properties.Resources.red_button_on;
+                pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
+            }
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.U))
+            {
+                upToolStripMenuItem_Click(null, null);
+                return true;
+            } else if (keyData == (Keys.Control | Keys.D)) {
+                downToolStripMenuItem_Click(null, null);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void updateSpeadInfo()
+        {
+            this.Speed.Text = (1.0 * Constants.RPN_MUL / Constants.RPN_DELAY).ToString("F2") + " hz";
+        }
+
+        private void upToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Constants.RPN_DELAY = (Constants.RPN_DELAY - Constants.RPN_DELTA > Constants.RPN_MIN) ? Constants.RPN_DELAY - Constants.RPN_DELTA : Constants.RPN_MIN;
+            updateSpeadInfo();
+        }
+
+        private void downToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Constants.RPN_DELAY += Constants.RPN_DELTA;
+            updateSpeadInfo();
+        }
+
+        private void Speed_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+       
 
         private void pictureBox27_MouseDown(object sender, MouseEventArgs e) /*зеленая кнопка ПУСК ЕПСИЛОН*/
         {
-            pictureBox27.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            myRpn.OffStopButtonState();
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
+            {
+                pictureBox27.Image = Properties.Resources.GREEN_BUTTON_DOWN;
+                myRpn.OffStopButtonState();
+            }
         }
         private void pictureBox27_MouseUp(object sender, MouseEventArgs e)
         {
-            pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
-            pictureBox26.Image = Properties.Resources.red_button;
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
+            {
+                pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
+                pictureBox26.Image = Properties.Resources.red_button;
+            }
         }
 
         private void Poloski(SortedSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
         {
-            for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
-            for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
-            foreach (int f in frequency) Lines1[ (int)f ].Visible = true;
+            for (int i = 0; i < 4; i++)
+            {
+                Lines1[i].Visible = false;
+                Lines2[i].Visible = false;
+            }
+                foreach (int f in frequency)
+                {
+                    Lines1[(int)f].Visible = true;
+                    Lines1[(int)f].Location = new Point(LeftZone, Lines1[(int)f].Location.Y);
+                }
         }
 
         private void Segment (int eps, PictureBox pic) /* вывод эпсилон на экран */ 
@@ -533,12 +612,36 @@ namespace ivosciwork
 
                 if (isDirectionChanged || isFrequencyChanged)
                 {
+                    if (myRpn.changefreq==true)
+                    {
+                        myRpn.changefreq = false;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            current1.currentLine = Lines1[i];
+                            current2.currentLine = Lines2[i];
+                            current1.vis = false;
+                            current1.vis = false;
+                            updateState(current1, current2);
+                        }
+                        if (myRpn.getCurrentMode() != RPN.Mode.off)
+                        {
+                            foreach (int g in frequencies)
+                            {
+                                current1.currentLine = Lines1[g];
+                                current1.vis = true;
+                                updateState(current1, current2);
+                            }
+                        }
+                    }
                     isDirectionChanged = false;
                     isFrequencyChanged = false;
 
                     Epsilon = beamDirection.epsilon;
-                    Segment((int)(Epsilon * 10), pictureBox28);
-                    Segment((int)(Epsilon0 * 10), pictureBox29);
+                    if (myRpn.getCurrentMode() != RPN.Mode.IX105NP)
+                    {
+                        Segment((int)(Epsilon * 10), pictureBox28);
+                        Segment((int)(Epsilon0 * 10), pictureBox29);
+                    }
                     azimutgrad = beamDirection.azimut;
                     double azimutatolon = 262 * azimutgrad / 105;
                     azimut = (int)((this.Width - 7) * azimutatolon / 637);
@@ -548,20 +651,7 @@ namespace ivosciwork
                     current1.vis = true;
                     if (raz == 2) current2.vis = true;
                     else current2.vis = false;
-                   /* 
-                   if (myRpn.getCurrentMode() == RPN.Mode.HX12)
-                    {
-                        Lines1[f].Image = Properties.Resources.polosa12;
-                        Lines2[f].Image = Properties.Resources.polosa12;
-                    }
-                    else
-                    {
-                        Lines1[f].Image = Properties.Resources.polosa105;
-                        Lines2[f].Image = Properties.Resources.polosa105;
-                    }
-                    */
-                   // Lines1[f].SizeMode = PictureBoxSizeMode.CenterImage;
-                    if (azimut < maxWidth)
+                   if (azimut < maxWidth)
                     {
                         
                         current1.leftZone = LeftZone;
@@ -608,18 +698,18 @@ namespace ivosciwork
             {
                 current2.currentLine.Visible = current2.vis;
                 Graphics g1 = current1.currentLine.CreateGraphics();
-                if (current1.wight <= (int)(maxWidth / 15)) g1.DrawImage(Properties.Resources.polright, 0, 0, current1.wight, current1.currentLine.Height);
+                if (current1.wight <= (int)(pictureBox8.Width / 105)) g1.DrawImage(Properties.Resources.polright, 0, 0, current1.wight, current1.currentLine.Height);
                 else
                 {
-                    g1.DrawImage(Properties.Resources.polright, (current1.wight - (int)(maxWidth / 10) + 1), 0, (int)(maxWidth / 15), current1.currentLine.Height);
-                    g1.DrawImage(Properties.Resources.polleft, 0, 0, (current1.wight - (int)(maxWidth / 15)), current1.currentLine.Height);
+                    g1.DrawImage(Properties.Resources.polright, (current1.wight - (int)(pictureBox8.Width / 105)), 0, (int)(pictureBox8.Width / 105), current1.currentLine.Height);
+                    g1.DrawImage(Properties.Resources.polleft, 0, 0, (current1.wight - (int)(pictureBox8.Width / 105)), current1.currentLine.Height);
                 }
                 g1 = current2.currentLine.CreateGraphics();
-                if (current2.wight <= (int)(maxWidth * 14 / 15)) g1.DrawImage(Properties.Resources.polleft, 0, 0, current2.wight + 1, current2.currentLine.Height);
+                if (current2.wight <= (int)(maxWidth - pictureBox8.Width / 105)) g1.DrawImage(Properties.Resources.polleft, 0, 0, current2.wight, current2.currentLine.Height);
                 else
                 {
-                    g1.DrawImage(Properties.Resources.polright, (int)(maxWidth * 14 / 15) + 1, 0, current2.wight - (int)(maxWidth *14 / 15), current2.currentLine.Height);
-                    g1.DrawImage(Properties.Resources.polleft, 0, 0, (int)(maxWidth * 14 / 15), current2.currentLine.Height);
+                    g1.DrawImage(Properties.Resources.polright, (int)(maxWidth - pictureBox8.Width / 105), 0, current2.wight - (int)(maxWidth - pictureBox8.Width / 105), current2.currentLine.Height);
+                    g1.DrawImage(Properties.Resources.polleft, 0, 0, (int)(maxWidth - pictureBox8.Width / 105), current2.currentLine.Height);
                 }
                 current1.currentLine.Left = current1.leftZone;
                 current1.currentLine.Width = current1.wight;
@@ -629,17 +719,6 @@ namespace ivosciwork
                 
 
             }
-            
-        }
-       
-        
+        } 
     }
 }
-
-
-
-
-
-
-
-

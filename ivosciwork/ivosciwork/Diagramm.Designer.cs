@@ -66,6 +66,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.pictureBox20 = new System.Windows.Forms.PictureBox();
+            this.pictureBox21 = new System.Windows.Forms.PictureBox();
+            this.pictureBox22 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -85,6 +88,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -433,14 +439,42 @@
             this.label19.TabIndex = 49;
             this.label19.Text = "ТИ 12";
             // 
+            // pictureBox20
+            // 
+            this.pictureBox20.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox20.Location = new System.Drawing.Point(35, 21);
+            this.pictureBox20.Name = "pictureBox20";
+            this.pictureBox20.Size = new System.Drawing.Size(749, 341);
+            this.pictureBox20.TabIndex = 50;
+            this.pictureBox20.TabStop = false;
+            // 
+            // pictureBox21
+            // 
+            this.pictureBox21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.pictureBox21.Location = new System.Drawing.Point(35, 21);
+            this.pictureBox21.Name = "pictureBox21";
+            this.pictureBox21.Size = new System.Drawing.Size(10, 45);
+            this.pictureBox21.TabIndex = 51;
+            this.pictureBox21.TabStop = false;
+            // 
+            // pictureBox22
+            // 
+            this.pictureBox22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.pictureBox22.Location = new System.Drawing.Point(45, 21);
+            this.pictureBox22.Name = "pictureBox22";
+            this.pictureBox22.Size = new System.Drawing.Size(10, 45);
+            this.pictureBox22.TabIndex = 52;
+            this.pictureBox22.TabStop = false;
+            // 
             // Diagramm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(784, 362);
+            this.Controls.Add(this.pictureBox22);
+            this.Controls.Add(this.pictureBox21);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
@@ -479,10 +513,12 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox20);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "Diagramm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Load += new System.EventHandler(this.Diagramm_Load);
             this.Resize += new System.EventHandler(this.Diagram_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -503,6 +539,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -548,5 +587,8 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.PictureBox pictureBox20;
+        private System.Windows.Forms.PictureBox pictureBox21;
+        private System.Windows.Forms.PictureBox pictureBox22;
     }
 }

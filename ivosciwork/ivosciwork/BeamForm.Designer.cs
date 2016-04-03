@@ -80,10 +80,12 @@
             // LittleRPN
             // 
             this.LittleRPN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LittleRPN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.LittleRPN.BackColor = System.Drawing.Color.White;
+            this.LittleRPN.Image = global::ivosciwork.Properties.Resources.rpn;
             this.LittleRPN.Location = new System.Drawing.Point(800, 450);
             this.LittleRPN.Name = "LittleRPN";
-            this.LittleRPN.Size = new System.Drawing.Size(20, 10);
+            this.LittleRPN.Size = new System.Drawing.Size(20, 20);
+            this.LittleRPN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.LittleRPN.TabIndex = 5;
             this.LittleRPN.TabStop = false;
             // 
@@ -91,11 +93,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(836, 469);
             this.Controls.Add(this.LittleRPN);
             this.Controls.Add(this.shapeContainer1);
             this.Name = "BeamForm";
             this.Text = "Beam";
+            this.Load += new System.EventHandler(this.BeamForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.LittleRPN)).EndInit();
             this.ResumeLayout(false);
 
