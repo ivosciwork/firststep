@@ -195,7 +195,7 @@ namespace ivosciwork
                             }
                         case Mode.off:
                             {
-                                currentState.isActive = false;
+                                turnOff();
                                 break;
                             }
                     }
@@ -288,8 +288,9 @@ namespace ivosciwork
                     {
                         Console.Beep();
                     }
+                    if (!currentState.isActive) break; 
                     System.Threading.Thread.Sleep((int)delta);
-                    if (changefreq) { break; }
+                    if (changefreq || !currentState.isActive) break; 
                 }
 
              }

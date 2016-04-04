@@ -19,9 +19,9 @@ namespace ivosciwork
             Color toRet = new Color();
             switch (f) {
                 case RPN.Frequency.F1: toRet = Color.Red; break;
-                case RPN.Frequency.F2: toRet = Color.Green; break;
-                case RPN.Frequency.F3: toRet = Color.Blue; break;
-                case RPN.Frequency.F4: toRet = Color.Yellow; break;
+                case RPN.Frequency.F2: toRet = Color.Blue; break;
+                case RPN.Frequency.F3: toRet = Color.Yellow; break;
+                case RPN.Frequency.F4: toRet = Color.Green; break;
             }
             return toRet;
         }

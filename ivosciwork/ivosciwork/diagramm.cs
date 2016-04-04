@@ -49,10 +49,6 @@ namespace ivosciwork
         {
             ElementLocation();
         }
-        private struct PictureWight
-        {
-            public int wight;
-        }
         public Diagramm(RPN rpn)
         {
             InitializeComponent();

@@ -29,8 +29,6 @@ namespace ivosciwork
             
             Diagramm timediagramm = new Diagramm(rpn);
             timediagramm.Show();
-            
-
 
             ControlForm controlForm = new ControlForm(rpn);
 

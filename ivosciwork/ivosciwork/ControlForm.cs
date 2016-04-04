@@ -607,7 +607,7 @@ namespace ivosciwork
                 if (isStateChanged)
                 {
                     isStateChanged = false;
-                
+                    
                 }
 
                 if (isDirectionChanged || isFrequencyChanged)
@@ -677,8 +677,12 @@ namespace ivosciwork
                     azimut = current1.leftZone;
                     width1 = current1.wight;
 
+                    if (myRpn.getCurrentMode() == RPN.Mode.off) {
+                        current1.vis = false;
+                        current2.vis = false;
+                    }
+
                     updateState(current1, current2);
-                    
                 }
             }
         }
