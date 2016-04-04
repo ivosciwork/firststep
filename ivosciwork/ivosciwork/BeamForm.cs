@@ -98,7 +98,7 @@ namespace ivosciwork
         delegate void updatePositionCallBack( BeamPosition currentPosition);//
 
         private void updatePosition(BeamPosition currentPosition) {
-            if (this.shapeContainer1.InvokeRequired) {
+            if (this.InvokeRequired) {
                 updatePositionCallBack d = new updatePositionCallBack(updatePosition);
                 this.Invoke(d, new object[] { currentPosition });
             } else {
@@ -180,8 +180,6 @@ namespace ivosciwork
             this.Left = 0;
             this.Top = Screen.PrimaryScreen.Bounds.Height / 2-30;
             this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height / 2);
-            //this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition();
-            //this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition();
         }
     }
 }

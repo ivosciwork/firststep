@@ -54,7 +54,7 @@
             this.SpotLight.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid;
             this.SpotLight.Location = new System.Drawing.Point(30, 37);
             this.SpotLight.Name = "SpotLight";
-            this.SpotLight.Size = new System.Drawing.Size(30, 30);
+            this.SpotLight.Size = new System.Drawing.Size(10, 10);
             this.SpotLight.Visible = false;
             // 
             // lowerBeamBorder

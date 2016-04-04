@@ -195,6 +195,7 @@ namespace ivosciwork
                             }
                         case Mode.off:
                             {
+                                currentState.currentDirection.azimut = 0;
                                 turnOff();
                                 break;
                             }
@@ -237,13 +238,8 @@ namespace ivosciwork
         private void turnOn(double stepX, double stepY, double X0, double Y0, int NX, int NY)
         {
             int y = stepY == 0 ? 1 : (int)((currentState.currentDirection.epsilon - Y0)/stepY + 1);
-            Vector4D x = stepX == 0 ? 1 : (int)((currentState.currentDirection.azimut - X0) / stepX + 1);
-            if (currentMode == Mode.HX12) {
-                currentState.currentDirection.azimut = 0;
-                y = 1;
-                x = 1;
-            }
-            azimut = currentState.currentDirection.azimut;
+            Vector4D x = 1;
+            azimut = 0;
             changefreq = false;
             while ((currentState.isActive == true) & (change == false))
             {
@@ -253,7 +249,7 @@ namespace ivosciwork
                 {
                     Y0 = Epsilon0;
                     
-                        var watch = Stopwatch.StartNew(); //it's for control precision of time measure
+                    var watch = Stopwatch.StartNew(); //it's for control precision of time measure
 
                     currentState.currentFrequency = f;
                     frequencyChanged(currentState);
@@ -293,7 +289,11 @@ namespace ivosciwork
                     if (changefreq || !currentState.isActive) break; 
                 }
 
-             }
+                if (changefreq) {
+                    azimut = currentState.currentDirection.azimut;
+                    x = stepX == 0 ? 1 : (int)((currentState.currentDirection.azimut - X0) / stepX + 1);
+                }
+            }
         }
 
         internal Mode getCurrentMode()
