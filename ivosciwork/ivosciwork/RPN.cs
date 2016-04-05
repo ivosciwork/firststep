@@ -94,7 +94,7 @@ namespace ivosciwork
             }
             change = true;
         }
-        double Epsilon0 = 0;
+        private double Epsilon0 = 0;
         public void changeEpsilon(double e)
         {
             if (currentMode != Mode.IX105NP)
@@ -190,7 +190,7 @@ namespace ivosciwork
                             {
                                 change = false;
                                 setFrequencies(Frequency.F1, Frequency.F2, Frequency.F3, Frequency.F4);
-                                turnOn(1.0 / 3.0, 1.0 / 3.0, 0, currentState.currentDirection.epsilon, 36, 12);
+                                turnOn(1.0 / 3.0, 1.0 / 3.0, 46, currentState.currentDirection.epsilon, 36, 12);
                                 break;
                             }
                         case Mode.off:
@@ -239,7 +239,7 @@ namespace ivosciwork
         {
             int y = stepY == 0 ? 1 : (int)((currentState.currentDirection.epsilon - Y0)/stepY + 1);
             Vector4D x = 1;
-            azimut = 0;
+            azimut = X0;
             changefreq = false;
             while ((currentState.isActive == true) & (change == false))
             {
@@ -286,7 +286,7 @@ namespace ivosciwork
                     }
                     if (!currentState.isActive) break; 
                     System.Threading.Thread.Sleep((int)delta);
-                    if (changefreq || !currentState.isActive) break; 
+                    if (changefreq || change || !currentState.isActive) break; 
                 }
 
                 if (changefreq) {

@@ -651,9 +651,11 @@ namespace ivosciwork
                     current1.vis = true;
                     if (raz == 2) current2.vis = true;
                     else current2.vis = false;
-                   if (azimut < maxWidth)
+
+                    int Delta4X12 = myRpn.getCurrentMode() == RPN.Mode.HX12 ? (int)(pictureBox8.Width * 31 / 70) : 0;
+                    azimut -= Delta4X12;
+                    if (azimut < maxWidth)
                     {
-                        
                         current1.leftZone = LeftZone;
                         current1.wight = azimut;
                         current2.wight = maxWidth - azimut;
