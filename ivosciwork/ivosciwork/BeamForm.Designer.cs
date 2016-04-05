@@ -33,6 +33,7 @@
             this.lowerBeamBorder = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.upperBeamBorder = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.LittleRPN = new System.Windows.Forms.PictureBox();
+            this.sector = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.LittleRPN)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,6 +43,7 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.sector,
             this.SpotLight,
             this.lowerBeamBorder,
             this.upperBeamBorder});
@@ -89,6 +91,18 @@
             this.LittleRPN.TabIndex = 5;
             this.LittleRPN.TabStop = false;
             // 
+            // sector
+            // 
+            this.sector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.sector.BackColor = System.Drawing.Color.Transparent;
+            this.sector.BackgroundImage = global::ivosciwork.Properties.Resources.Sector;
+            this.sector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.sector.BorderColor = System.Drawing.Color.Transparent;
+            this.sector.Location = new System.Drawing.Point(22, 27);
+            this.sector.Name = "sector";
+            this.sector.Size = new System.Drawing.Size(786, 414);
+            // 
             // BeamForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -111,5 +125,6 @@
         private Microsoft.VisualBasic.PowerPacks.LineShape lowerBeamBorder;
         private System.Windows.Forms.PictureBox LittleRPN;
         private Microsoft.VisualBasic.PowerPacks.OvalShape SpotLight;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape sector;
     }
 }

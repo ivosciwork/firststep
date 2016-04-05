@@ -8,7 +8,7 @@ namespace ivosciwork
 {
     static class Constants
     {
-        internal static int RPN_DELAY = 1000; // time in milliseconds per one frequency 
+        internal static int RPN_DELAY = 50; // time in milliseconds per one frequency 
         internal static readonly int RPN_DELTA = 10;
         internal static readonly int RPN_MIN = 50;
         internal static readonly int RPN_MUL = 1000; //10^3 for ms, 1 for seconds, ...

@@ -22,6 +22,12 @@ namespace ivosciwork
         {
             InitializeComponent();
 
+            this.sector.Width = this.Width / 2;
+            sector.SendToBack();
+            SpotLight.BringToFront();
+            upperBeamBorder.BringToFront();
+            lowerBeamBorder.BringToFront();
+
             //RPNEvent handlers
             rpn.directionChanged += this.directionChangedHandler;
             rpn.stateChanged += this.stateChangedHandler;
@@ -38,6 +44,7 @@ namespace ivosciwork
 
         private void onResize(object sender, EventArgs e)
         {
+            this.sector.Width = this.Width / 2;
             this.SpotLight.Location = calcCurrentPosition().spotLight;
             this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition(this.SpotLight.Location);
             this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition(this.SpotLight.Location);
@@ -138,7 +145,7 @@ namespace ivosciwork
 
         //This function determines how real azimut/epsilon will be shown on screen
         private Point mapPosition(Point realBeamPosition) {
-            return simpleRectangularMap(realBeamPosition);
+            return parallelogramMap(realBeamPosition);
         }
 
         private Point simpleRectangularMap(Point realBeamPosition) {
@@ -149,6 +156,16 @@ namespace ivosciwork
             Point screenBeamPosition = new Point();
             screenBeamPosition.X = (int)myShowRectangle.X + (int)(myShowRectangle.Width * realBeamPosition.X / 315.0);
             screenBeamPosition.Y = (int)(myShowRectangle.Y + myShowRectangle.Height) - (int)(myShowRectangle.Height * realBeamPosition.Y / 70.0);
+
+            return screenBeamPosition;
+        }
+
+        private Point parallelogramMap(Point realBeamPosition)
+        {
+            //This implements parallelogram mapping
+            Point screenBeamPosition = new Point();
+            screenBeamPosition.X = (int)(sector.Location.X + sector.Width * realBeamPosition.X / 105.0);
+            screenBeamPosition.Y = (int)(sector.Location.Y + 0.92 * sector.Height - sector.Height * 0.5 * ( realBeamPosition.X / 105.0 + realBeamPosition.Y / 80.0) );
 
             return screenBeamPosition;
         }
