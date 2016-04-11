@@ -292,6 +292,7 @@ namespace ivosciwork
                 if (changefreq) {
                     azimut = currentState.currentDirection.azimut;
                     x = stepX == 0 ? 1 : (int)((currentState.currentDirection.azimut - X0) / stepX + 1);
+                    changefreq = false;
                 }
             }
         }
