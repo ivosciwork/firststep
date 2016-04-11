@@ -453,6 +453,16 @@ namespace ivosciwork.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Sector1x105 {
+            get {
+                object obj = ResourceManager.GetObject("Sector1x105", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap sector2 {
             get {
                 object obj = ResourceManager.GetObject("sector2", resourceCulture);
@@ -476,6 +486,16 @@ namespace ivosciwork.Properties {
         public static System.Drawing.Bitmap sector4 {
             get {
                 object obj = ResourceManager.GetObject("sector4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Sector4x12 {
+            get {
+                object obj = ResourceManager.GetObject("Sector4x12", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

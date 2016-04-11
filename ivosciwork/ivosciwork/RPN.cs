@@ -10,7 +10,6 @@ namespace ivosciwork
       
         public enum Mode { IX105NP, IX105, HX12, off };
         public enum Frequency { F1, F2, F3, F4 };
-        private Mode currentMode = Mode.off;
         private HashSet<Frequency> frequencySet = new HashSet<Frequency>();
 
         private bool change = false; //indicate that something was changed and turnOn() should be relaunched
@@ -67,8 +66,8 @@ namespace ivosciwork
 
         public void changeMode(Mode m)
         {
-            currentMode = m;
-            switch (currentMode)
+            currentState.currentMode = m;
+            switch (m)
             {
                 case Mode.IX105NP:
                     {
@@ -92,12 +91,13 @@ namespace ivosciwork
                         break;
                     }
             }
+            modeChanged(currentState);
             change = true;
         }
         private double Epsilon0 = 0;
         public void changeEpsilon(double e)
         {
-            if (currentMode != Mode.IX105NP)
+            if (currentState.currentMode != Mode.IX105NP)
             {
                 currentState.currentDirection.epsilon = e;
                 Epsilon0 = e;
@@ -170,7 +170,7 @@ namespace ivosciwork
             {
                 if (currentState.isActive == true)
                 {
-                    switch (currentMode)
+                    switch (currentState.currentMode)
                     {
                         case Mode.IX105NP:
                             {
@@ -204,15 +204,17 @@ namespace ivosciwork
             }
         }
 
-        private CompleteRPNState currentState = new CompleteRPNState(false, Frequency.F1, new ScanningDirection(0, 0));
+        private CompleteRPNState currentState = new CompleteRPNState(false, Mode.off, Frequency.F1, new ScanningDirection(0, 0));
 
         public struct CompleteRPNState {
             internal bool isActive;
+            internal Mode currentMode;
             internal Frequency currentFrequency;
             internal ScanningDirection currentDirection;
 
-            public CompleteRPNState(bool state, Frequency f, ScanningDirection d) {
+            public CompleteRPNState(bool state, Mode m, Frequency f, ScanningDirection d) {
                 this.isActive = state;
+                this.currentMode = m;
                 this.currentFrequency = f;
                 this.currentDirection = d;
             }
@@ -232,6 +234,7 @@ namespace ivosciwork
         public delegate void RPNEvent(CompleteRPNState currentState);
 
         public event RPNEvent stateChanged;
+        public event RPNEvent modeChanged;
         public event RPNEvent frequencyChanged;
         public event RPNEvent directionChanged;
 
@@ -299,7 +302,7 @@ namespace ivosciwork
 
         internal Mode getCurrentMode()
         {
-            Mode toRet = currentMode;
+            Mode toRet = currentState.currentMode;
             return toRet;
         }
     }

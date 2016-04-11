@@ -21,7 +21,7 @@ namespace ivosciwork
         PictureBox[] Lines1 = new PictureBox[4];
         PictureBox[] Lines2 = new PictureBox[4];
         double Epsilon = 0;
-        double Epsilon0 = 0;
+        static double Epsilon0 = 0;
         int maxWidth, mawWidthatalon;
         int LeftZone, LeftZoneatalon;          
         int RightZone, RightZoneatalon;
@@ -36,6 +36,10 @@ namespace ivosciwork
         int width1 = 0;
         bool change = false;
         SortedSet<RPN.Frequency> frequencies;
+
+        internal static double getEpsilon0() {
+            return Epsilon0;
+        } 
 
         private struct CurrentState {
             public PictureBox currentLine;

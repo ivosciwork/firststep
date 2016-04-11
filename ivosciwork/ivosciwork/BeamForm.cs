@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Collections.Generic;
 using System;
+using Microsoft.VisualBasic.PowerPacks;
 
 namespace ivosciwork
 {
@@ -18,12 +19,20 @@ namespace ivosciwork
             public Point lowerBorder;
         }
 
+        private struct CurrentState {
+            public BeamPosition currentPosition;
+            public RectangleShape sector;
+            public Rectangle secPos;
+        }
+
+        private CurrentState state = new CurrentState();
         public BeamForm(RPN rpn)
         {
             InitializeComponent();
 
             this.sector.Width = this.Width / 2;
             sector.SendToBack();
+            sector.Visible = false;
             SpotLight.BringToFront();
             upperBeamBorder.BringToFront();
             lowerBeamBorder.BringToFront();
@@ -31,15 +40,26 @@ namespace ivosciwork
             //RPNEvent handlers
             rpn.directionChanged += this.directionChangedHandler;
             rpn.stateChanged += this.stateChangedHandler;
+            rpn.modeChanged += this.modeChangedHandler;
             rpn.frequencyChanged += this.frequencyChangedHandler;
 
             //resize event handler
             this.Resize += this.onResize;
 
+            state.sector = Sector1x105;
+
             //thread for calculations
             this.myThread = new Thread(new ThreadStart( this.eventLoop ));
             myThread.IsBackground = true;
             myThread.Start();
+        }
+
+        private bool isModeChanged = false;
+        private RPN.Mode mode = RPN.Mode.off;
+        private void modeChangedHandler(RPN.CompleteRPNState currentState)
+        {
+            isModeChanged = true;
+            mode = currentState.currentMode;
         }
 
         private void onResize(object sender, EventArgs e)
@@ -74,7 +94,6 @@ namespace ivosciwork
             beamDirection = currentState.currentDirection;
         }
 
-        private BeamPosition currentPosition = new BeamPosition();
         public void eventLoop() {
             while (running)
             {
@@ -83,36 +102,79 @@ namespace ivosciwork
                     updateVisibility(isRpnOn);
                 }
 
+                if (isModeChanged) {
+                    isModeChanged = false;
+                    if (mode != RPN.Mode.off)
+                    {
+                        if (mode == RPN.Mode.HX12)
+                        {
+                            state.sector = this.Sector4x12;
+                        }
+                        else
+                        {
+                            state.sector = this.Sector1x105;
+                        }
+                        updateVisibility(isRpnOn);
+                    }
+                }
+
                 if (isDirectionChanged || isFrequencyChanged)
                 {
                     if (isDirectionChanged)
                     {
                         isDirectionChanged = false;
                         isFrequencyChanged = false;
-                        currentPosition = calcCurrentPosition();
+                        state.currentPosition = calcCurrentPosition();
+                        state.secPos = calcSectorPosition();
                     }
                     else
                     {
                         isFrequencyChanged = false;
-                        currentPosition.color = Constants.getFreqColor(frequency);
+                        state.currentPosition.color = Constants.getFreqColor(frequency);
                     }
 
-                    updatePosition(currentPosition);
+                    updatePosition(state);
                 }
             }
         }
 
-        delegate void updatePositionCallBack( BeamPosition currentPosition);//
+        private Rectangle calcSectorPosition()
+        {
+            if (state.sector == this.Sector4x12)
+            {
+                double Epsilon0 = 0.3;// ControlForm.getEpsilon0();// Нехорошо так делать!!!
+                Rectangle secPos = new Rectangle();
+                secPos.Height = sector.Height * 4 / (2 * 80);
+                secPos.Width = sector.Width * 12 / 105;
+                secPos.X = sector.Location.X + sector.Width * 46 / 105;
+                secPos.Y = (int)(sector.Location.Y + 0.92 * sector.Width - secPos.Height - Epsilon0 * 0.5 * sector.Height / 80 );
+                return secPos;
+            }
+            else
+            {
+                Rectangle secPos = new Rectangle();
+                secPos.Height = sector.Height / 2;
+                secPos.Width = sector.Width;
+                secPos.X = sector.Location.X;
+                secPos.Y = (int)( sector.Location.Y + 0.91 * sector.Width - beamDirection.epsilon * 0.5 * sector.Height / 80 );
+                return secPos;
+            }
+        }
 
-        private void updatePosition(BeamPosition currentPosition) {
+        delegate void updatePositionCallBack( CurrentState state);//
+
+        private void updatePosition(CurrentState state) {
             if (this.InvokeRequired) {
                 updatePositionCallBack d = new updatePositionCallBack(updatePosition);
-                this.Invoke(d, new object[] { currentPosition });
+                this.Invoke(d, new object[] { state });
             } else {
-                this.SpotLight.Location = currentPosition.spotLight;
-                this.SpotLight.FillColor = currentPosition.color;
-                this.upperBeamBorder.StartPoint = currentPosition.upperBorder;
-                this.lowerBeamBorder.StartPoint = currentPosition.lowerBorder;
+                this.SpotLight.Location = state.currentPosition.spotLight;
+                this.SpotLight.FillColor = state.currentPosition.color;
+                this.upperBeamBorder.StartPoint = state.currentPosition.upperBorder;
+                this.lowerBeamBorder.StartPoint = state.currentPosition.lowerBorder;
+                state.sector.Height = state.secPos.Height;
+                state.sector.Width = state.secPos.Width;
+                state.sector.Location = new Point(state.secPos.X, state.secPos.Y);
             }
         }
 
@@ -129,6 +191,23 @@ namespace ivosciwork
                 this.SpotLight.Visible = visible;
                 this.upperBeamBorder.Visible = visible;
                 this.lowerBeamBorder.Visible = visible;
+                if (visible)
+                {
+                    if (state.sector == this.Sector4x12)
+                    {
+                        this.Sector4x12.Visible = true;
+                        this.Sector1x105.Visible = false;
+                    }
+                    else
+                    {
+                        this.Sector4x12.Visible = false;
+                        this.Sector1x105.Visible = true;
+                    }
+                }
+                else {
+                    this.Sector4x12.Visible = false;
+                    this.Sector1x105.Visible = false;
+                }
             }
         }
 

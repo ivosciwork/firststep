@@ -33,6 +33,8 @@
             this.lowerBeamBorder = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.upperBeamBorder = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.LittleRPN = new System.Windows.Forms.PictureBox();
+            this.Sector4x12 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.Sector1x105 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.sector = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.LittleRPN)).BeginInit();
             this.SuspendLayout();
@@ -43,6 +45,8 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.Sector4x12,
+            this.Sector1x105,
             this.sector,
             this.SpotLight,
             this.lowerBeamBorder,
@@ -91,6 +95,24 @@
             this.LittleRPN.TabIndex = 5;
             this.LittleRPN.TabStop = false;
             // 
+            // Sector4x12
+            // 
+            this.Sector4x12.BackgroundImage = global::ivosciwork.Properties.Resources.Sector4x12;
+            this.Sector4x12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Sector4x12.Location = new System.Drawing.Point(377, 243);
+            this.Sector4x12.Name = "Sector4x12";
+            this.Sector4x12.Size = new System.Drawing.Size(76, 45);
+            this.Sector4x12.Visible = false;
+            // 
+            // Sector1x105
+            // 
+            this.Sector1x105.BackgroundImage = global::ivosciwork.Properties.Resources.Sector1x105;
+            this.Sector1x105.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Sector1x105.Location = new System.Drawing.Point(25, 200);
+            this.Sector1x105.Name = "Sector1x105";
+            this.Sector1x105.Size = new System.Drawing.Size(780, 215);
+            this.Sector1x105.Visible = false;
+            // 
             // sector
             // 
             this.sector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -126,5 +148,7 @@
         private System.Windows.Forms.PictureBox LittleRPN;
         private Microsoft.VisualBasic.PowerPacks.OvalShape SpotLight;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape sector;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape Sector1x105;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape Sector4x12;
     }
 }
