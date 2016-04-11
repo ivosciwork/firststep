@@ -518,11 +518,11 @@ namespace ivosciwork
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.Control | Keys.U))
+            if (keyData == (Keys.Control | Keys.U) || keyData == Keys.Up)
             {
                 upToolStripMenuItem_Click(null, null);
                 return true;
-            } else if (keyData == (Keys.Control | Keys.D)) {
+            } else if (keyData == (Keys.Control | Keys.D) || keyData == Keys.Down) {
                 downToolStripMenuItem_Click(null, null);
                 return true;
             }
@@ -551,7 +551,11 @@ namespace ivosciwork
 
         }
 
-       
+        private void maxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Constants.RPN_DELAY = Constants.RPN_MIN;
+            updateSpeadInfo();
+        }
 
         private void pictureBox27_MouseDown(object sender, MouseEventArgs e) /*зеленая кнопка ПУСК ЕПСИЛОН*/
         {

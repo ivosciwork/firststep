@@ -67,6 +67,7 @@ namespace ivosciwork
         public void changeMode(Mode m)
         {
             currentState.currentMode = m;
+            modeChanged(currentState);
             switch (m)
             {
                 case Mode.IX105NP:
@@ -91,7 +92,6 @@ namespace ivosciwork
                         break;
                     }
             }
-            modeChanged(currentState);
             change = true;
         }
         private double Epsilon0 = 0;

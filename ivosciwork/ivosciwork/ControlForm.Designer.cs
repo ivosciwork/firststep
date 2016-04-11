@@ -69,6 +69,7 @@ namespace ivosciwork
             this.upToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Speed = new System.Windows.Forms.TextBox();
+            this.maxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
@@ -453,22 +454,23 @@ namespace ivosciwork
             // 
             this.speedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.upToolStripMenuItem,
-            this.downToolStripMenuItem});
+            this.downToolStripMenuItem,
+            this.maxToolStripMenuItem});
             this.speedToolStripMenuItem.Name = "speedToolStripMenuItem";
-            this.speedToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.speedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.speedToolStripMenuItem.Text = "Speed";
             // 
             // upToolStripMenuItem
             // 
             this.upToolStripMenuItem.Name = "upToolStripMenuItem";
-            this.upToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.upToolStripMenuItem.Text = "Up (Ctrl+U)";
             this.upToolStripMenuItem.Click += new System.EventHandler(this.upToolStripMenuItem_Click);
             // 
             // downToolStripMenuItem
             // 
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
-            this.downToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.downToolStripMenuItem.Text = "Down (Ctrl+D)";
             this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
             // 
@@ -483,6 +485,13 @@ namespace ivosciwork
             this.Speed.TabIndex = 25;
             this.Speed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.Speed.TextChanged += new System.EventHandler(this.Speed_TextChanged);
+            // 
+            // maxToolStripMenuItem
+            // 
+            this.maxToolStripMenuItem.Name = "maxToolStripMenuItem";
+            this.maxToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.maxToolStripMenuItem.Text = "Max";
+            this.maxToolStripMenuItem.Click += new System.EventHandler(this.maxToolStripMenuItem_Click);
             // 
             // ControlForm
             // 
@@ -610,6 +619,7 @@ namespace ivosciwork
         private System.Windows.Forms.ToolStripMenuItem upToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downToolStripMenuItem;
         private System.Windows.Forms.TextBox Speed;
+        private System.Windows.Forms.ToolStripMenuItem maxToolStripMenuItem;
     }
 }
 

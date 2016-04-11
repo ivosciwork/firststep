@@ -148,8 +148,8 @@ namespace ivosciwork
             {
                 double Epsilon0 = ControlForm.getEpsilon0();// Нехорошо так делать!!!
                 Rectangle secPos = new Rectangle();
-                secPos.Height = sector.Height / 11;
-                secPos.Width = (int)(sector.Width * 0.12);
+                secPos.Height = sector.Height / 9;
+                secPos.Width = (int)(sector.Width * 0.13);
                 secPos.X = sector.Location.X + sector.Width * 47 / 105;
                 secPos.Y = (int)(sector.Location.Y + 0.78 * sector.Height - secPos.Height - Epsilon0 * 0.5 * sector.Height / 80 );
                 return secPos;
