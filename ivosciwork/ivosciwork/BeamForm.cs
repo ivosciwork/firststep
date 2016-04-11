@@ -30,7 +30,7 @@ namespace ivosciwork
         {
             InitializeComponent();
 
-            this.sector.Width = this.Width / 2;
+            this.sector.Width = this.Width / 6;
             sector.SendToBack();
             sector.Visible = false;
             SpotLight.BringToFront();
@@ -47,6 +47,8 @@ namespace ivosciwork
             this.Resize += this.onResize;
 
             state.sector = Sector1x105;
+            state.sector.Visible = false;
+            state.secPos = new Rectangle();
 
             //thread for calculations
             this.myThread = new Thread(new ThreadStart( this.eventLoop ));
@@ -64,7 +66,7 @@ namespace ivosciwork
 
         private void onResize(object sender, EventArgs e)
         {
-            this.sector.Width = this.Width / 2;
+            this.sector.Width = this.Width / 6;
             this.SpotLight.Location = calcCurrentPosition().spotLight;
             this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition(this.SpotLight.Location);
             this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition(this.SpotLight.Location);
@@ -97,10 +99,6 @@ namespace ivosciwork
         public void eventLoop() {
             while (running)
             {
-                if (isStateChanged) {
-                    isStateChanged = false;
-                    updateVisibility(isRpnOn);
-                }
 
                 if (isModeChanged) {
                     isModeChanged = false;
@@ -116,6 +114,12 @@ namespace ivosciwork
                         }
                         updateVisibility(isRpnOn);
                     }
+                }
+
+                if (isStateChanged)
+                {
+                    isStateChanged = false;
+                    updateVisibility(isRpnOn);
                 }
 
                 if (isDirectionChanged || isFrequencyChanged)
@@ -142,39 +146,40 @@ namespace ivosciwork
         {
             if (state.sector == this.Sector4x12)
             {
-                double Epsilon0 = 0.3;// ControlForm.getEpsilon0();// Нехорошо так делать!!!
+                double Epsilon0 = ControlForm.getEpsilon0();// Нехорошо так делать!!!
                 Rectangle secPos = new Rectangle();
-                secPos.Height = sector.Height * 4 / (2 * 80);
-                secPos.Width = sector.Width * 12 / 105;
-                secPos.X = sector.Location.X + sector.Width * 46 / 105;
-                secPos.Y = (int)(sector.Location.Y + 0.92 * sector.Width - secPos.Height - Epsilon0 * 0.5 * sector.Height / 80 );
+                secPos.Height = sector.Height / 11;
+                secPos.Width = (int)(sector.Width * 0.12);
+                secPos.X = sector.Location.X + sector.Width * 47 / 105;
+                secPos.Y = (int)(sector.Location.Y + 0.78 * sector.Height - secPos.Height - Epsilon0 * 0.5 * sector.Height / 80 );
                 return secPos;
             }
             else
             {
                 Rectangle secPos = new Rectangle();
-                secPos.Height = sector.Height / 2;
+                secPos.Height =(int)( 0.41 * sector.Height );
                 secPos.Width = sector.Width;
                 secPos.X = sector.Location.X;
-                secPos.Y = (int)( sector.Location.Y + 0.91 * sector.Width - beamDirection.epsilon * 0.5 * sector.Height / 80 );
+                secPos.Y = (int)( sector.Location.Y + 0.54 * sector.Height - beamDirection.epsilon * 0.5 * sector.Height / 80 );
                 return secPos;
             }
         }
 
-        delegate void updatePositionCallBack( CurrentState state);//
+        delegate void updatePositionCallBack( CurrentState s);//
 
-        private void updatePosition(CurrentState state) {
+        private void updatePosition(CurrentState s) {
             if (this.InvokeRequired) {
                 updatePositionCallBack d = new updatePositionCallBack(updatePosition);
-                this.Invoke(d, new object[] { state });
+                this.Invoke(d, new object[] { s });
             } else {
-                this.SpotLight.Location = state.currentPosition.spotLight;
-                this.SpotLight.FillColor = state.currentPosition.color;
-                this.upperBeamBorder.StartPoint = state.currentPosition.upperBorder;
-                this.lowerBeamBorder.StartPoint = state.currentPosition.lowerBorder;
-                state.sector.Height = state.secPos.Height;
-                state.sector.Width = state.secPos.Width;
-                state.sector.Location = new Point(state.secPos.X, state.secPos.Y);
+                this.SpotLight.Location = s.currentPosition.spotLight;
+                this.SpotLight.FillColor = s.currentPosition.color;
+                this.upperBeamBorder.StartPoint = s.currentPosition.upperBorder;
+                this.lowerBeamBorder.StartPoint = s.currentPosition.lowerBorder;
+
+                s.sector.Height = s.secPos.Height;
+                s.sector.Width = s.secPos.Width;
+                s.sector.Location = new Point(s.secPos.X,s.secPos.Y);
             }
         }
 
@@ -244,7 +249,7 @@ namespace ivosciwork
             //This implements parallelogram mapping
             Point screenBeamPosition = new Point();
             screenBeamPosition.X = (int)(sector.Location.X + sector.Width * realBeamPosition.X / 105.0);
-            screenBeamPosition.Y = (int)(sector.Location.Y + 0.92 * sector.Height - sector.Height * 0.5 * ( realBeamPosition.X / 105.0 + realBeamPosition.Y / 80.0) );
+            screenBeamPosition.Y = (int)(sector.Location.Y + 0.92 * sector.Height - sector.Height * 0.5 * realBeamPosition.Y / 80.0 - sector.Height * 0.39 * realBeamPosition.X / 105.0);
 
             return screenBeamPosition;
         }

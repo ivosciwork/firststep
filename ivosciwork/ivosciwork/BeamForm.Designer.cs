@@ -99,15 +99,17 @@
             // 
             this.Sector4x12.BackgroundImage = global::ivosciwork.Properties.Resources.Sector4x12;
             this.Sector4x12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Sector4x12.BorderColor = System.Drawing.Color.Transparent;
             this.Sector4x12.Location = new System.Drawing.Point(377, 243);
             this.Sector4x12.Name = "Sector4x12";
-            this.Sector4x12.Size = new System.Drawing.Size(76, 45);
+            this.Sector4x12.Size = new System.Drawing.Size(84, 47);
             this.Sector4x12.Visible = false;
             // 
             // Sector1x105
             // 
             this.Sector1x105.BackgroundImage = global::ivosciwork.Properties.Resources.Sector1x105;
             this.Sector1x105.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Sector1x105.BorderColor = System.Drawing.Color.Transparent;
             this.Sector1x105.Location = new System.Drawing.Point(25, 200);
             this.Sector1x105.Name = "Sector1x105";
             this.Sector1x105.Size = new System.Drawing.Size(780, 215);
