@@ -180,11 +180,17 @@ namespace ivosciwork
                         long wight = calcWight(watch.ElapsedMilliseconds);
                         if (wight > a*0.45/5.8)
                         {
+                            updateWight3((long)(a * 0.25 / 5.8));
+                            updateWight2((long)(a * 0.45 / 5.8));
+                           
                             updateWight(wight);
+                           
                         }
                         if ((wight < a * 0.45 / 5.8)&&(wight < a *0.25/5.8))
                         {
+                            updateWight3((long)(a * 0.25 / 5.8));
                             updateWight2(wight);
+                           
                         }
                         if (wight < a * 0.25 / 5.8)
                         {

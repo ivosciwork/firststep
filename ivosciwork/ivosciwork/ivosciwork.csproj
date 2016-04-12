@@ -224,6 +224,10 @@
     <None Include="Resources\polright.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\sector4.jpg" />
+    <None Include="Resources\sector3.jpg" />
+    <None Include="Resources\sector2.jpg" />
+    <None Include="Resources\sector1.jpg" />
     <None Include="Resources\Sector4x12.png" />
     <None Include="Resources\Sector1x105.png" />
     <None Include="Resources\Sector.png" />

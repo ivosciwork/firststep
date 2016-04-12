@@ -140,8 +140,8 @@ namespace ivosciwork
             pictureBox4.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
             pictureBox3.Location = new Point((int)((this.Width - 14) * 549 / 637), (int)((this.Height - 36) * 265 / 401));
             pictureBox3.Size = new Size((int)((this.Width - 7) * 29 / 637), (int)((this.Height - 36) * 30 / 401));
-            pictureBox2.Location = new Point((int)((this.Width - 14) * 553 / 637), (int)((this.Height - 36) * 200 / 401));
-            pictureBox2.Size = new Size((int)((this.Width - 7) * 27 / 637), (int)((this.Height - 36) * 32 / 401));
+            pictureBox2.Location = new Point((int)((this.Width - 14) * 548 / 637), (int)((this.Height - 36) * 200 / 401));
+            pictureBox2.Size = new Size((int)((this.Width - 7) * 25 / 637), (int)((this.Height - 36) * 25 / 401));
             pictureBox1.Location = new Point((int)((this.Width - 14) * 498 / 637), (int)((this.Height - 36) * 183 / 401));
             pictureBox1.Size = new Size((int)((this.Width - 7) * 40 / 637), (int)((this.Height - 36) * 20 / 401));
             pictureBox30.Location = new Point((int)((this.Width - 14) * 509 / 637), (int)((this.Height - 36) * 162 / 401));
@@ -152,13 +152,13 @@ namespace ivosciwork
             pictureBox32.Size = new Size((int)((this.Width - 7) * 40 / 637), (int)((this.Height - 36) * 20 / 401));
             if (myRpn.getCurrentMode() == RPN.Mode.HX12)
             {
-                maxWidth = (int)(pictureBox8.Width * 10 / 105);
+                maxWidth = (int)(pictureBox8.Width * 8 / 105);
                 LeftZone = pictureBox8.Left + (int)(pictureBox8.Width * 31 / 70);
                 RightZone = LeftZone + (int)(maxWidth * 6 / 5);
             }
             if (myRpn.getCurrentMode() == RPN.Mode.IX105 | myRpn.getCurrentMode() == RPN.Mode.IX105NP )
             {
-                maxWidth = (int)(pictureBox8.Width * 4 / 5 - 1);
+                maxWidth = (int)(pictureBox8.Width * 4 / 6 - 1);
                 LeftZone = pictureBox8.Left;
                 RightZone = LeftZone + pictureBox8.Width;
             }
@@ -221,14 +221,15 @@ namespace ivosciwork
             pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
-            pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12) pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
+            else pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox26.Image = Properties.Resources.red_button;
         }
         private void pictureBox1_Click(object sender, EventArgs e) /* 1*105НП */
         {
             change = true;
-            pictureBox2.Image = Properties.Resources.sector1;
-            maxWidth = (int)(pictureBox8.Width * 4 / 5 - 1);
+            pictureBox2.Image = Properties.Resources.sector11;
+            maxWidth = (int)(pictureBox8.Width * 4 / 6 - 1);
             LeftZone = pictureBox8.Left;
             RightZone = LeftZone + pictureBox8.Width;
             mawWidthatalon = 209;
@@ -239,7 +240,9 @@ namespace ivosciwork
             myRpn.changeEpsilon(Epsilon0);
             myRpn.changeMode(RPN.Mode.IX105NP);
             raz = 1;
-            if (isRpnOn == true)
+            for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
+            for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
+           if(isRpnOn==true)
             {   
                 raz = 1;
                 frequencies = myRpn.getFreqSet();
@@ -248,7 +251,7 @@ namespace ivosciwork
                 pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
-                pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
+                pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox26.Image = Properties.Resources.red_button;
                 Segment((int)(Epsilon0 * 10), pictureBox28);
                 Segment((int)(Epsilon0 * 10), pictureBox29);
@@ -258,8 +261,8 @@ namespace ivosciwork
         private void pictureBox30_Click(object sender, EventArgs e) /* 1*105 */
         {
             change = true;
-            pictureBox2.Image = Properties.Resources.sector2;
-            maxWidth = (int)(pictureBox8.Width * 4 / 5 - 1);
+            pictureBox2.Image = Properties.Resources.sector21;
+            maxWidth = (int)(pictureBox8.Width * 4 / 6 - 1);
             LeftZone = pictureBox8.Left;
             RightZone = LeftZone + pictureBox8.Width;
             mawWidthatalon = 209;
@@ -282,7 +285,7 @@ namespace ivosciwork
                 pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
-                pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
+                pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox26.Image = Properties.Resources.red_button;
             }
         }
@@ -290,8 +293,8 @@ namespace ivosciwork
         private void pictureBox31_Click(object sender, EventArgs e)/* 4*12 */
         {
             change = true;
-            pictureBox2.Image = Properties.Resources.sector3;
-            maxWidth = (int)(pictureBox8.Width * 10 / 105);
+            pictureBox2.Image = Properties.Resources.sector31;
+            maxWidth = (int)(pictureBox8.Width * 8 / 105);
             LeftZone = pictureBox8.Left + (int)(pictureBox8.Width * 31 / 70);
             RightZone = LeftZone + (int)(maxWidth * 6 / 5);
             mawWidthatalon = 25;
@@ -322,7 +325,7 @@ namespace ivosciwork
         private void pictureBox32_Click(object sender, EventArgs e)/* ВЫКЛ */
         {
             change = true;
-            pictureBox2.Image = Properties.Resources.sector4;
+            pictureBox2.Image = Properties.Resources.sector41;
             myRpn.changeMode(RPN.Mode.off);
             Epsilon0 = 0;
             myRpn.changeEpsilon(Epsilon0);

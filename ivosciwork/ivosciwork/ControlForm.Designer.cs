@@ -68,8 +68,8 @@ namespace ivosciwork
             this.speedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.upToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Speed = new System.Windows.Forms.TextBox();
             this.maxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Speed = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
@@ -369,7 +369,7 @@ namespace ivosciwork
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::ivosciwork.Properties.Resources.sector4;
+            this.pictureBox2.Image = global::ivosciwork.Properties.Resources.sector41;
             this.pictureBox2.Location = new System.Drawing.Point(553, 198);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(27, 32);
@@ -444,10 +444,12 @@ namespace ivosciwork
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.speedToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // speedToolStripMenuItem
@@ -457,22 +459,29 @@ namespace ivosciwork
             this.downToolStripMenuItem,
             this.maxToolStripMenuItem});
             this.speedToolStripMenuItem.Name = "speedToolStripMenuItem";
-            this.speedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.speedToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.speedToolStripMenuItem.Text = "Speed";
             // 
             // upToolStripMenuItem
             // 
             this.upToolStripMenuItem.Name = "upToolStripMenuItem";
-            this.upToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.upToolStripMenuItem.Text = "Up (Ctrl+U)";
             this.upToolStripMenuItem.Click += new System.EventHandler(this.upToolStripMenuItem_Click);
             // 
             // downToolStripMenuItem
             // 
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
-            this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.downToolStripMenuItem.Text = "Down (Ctrl+D)";
             this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
+            // 
+            // maxToolStripMenuItem
+            // 
+            this.maxToolStripMenuItem.Name = "maxToolStripMenuItem";
+            this.maxToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.maxToolStripMenuItem.Text = "Max";
+            this.maxToolStripMenuItem.Click += new System.EventHandler(this.maxToolStripMenuItem_Click);
             // 
             // Speed
             // 
@@ -485,13 +494,6 @@ namespace ivosciwork
             this.Speed.TabIndex = 25;
             this.Speed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.Speed.TextChanged += new System.EventHandler(this.Speed_TextChanged);
-            // 
-            // maxToolStripMenuItem
-            // 
-            this.maxToolStripMenuItem.Name = "maxToolStripMenuItem";
-            this.maxToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.maxToolStripMenuItem.Text = "Max";
-            this.maxToolStripMenuItem.Click += new System.EventHandler(this.maxToolStripMenuItem_Click);
             // 
             // ControlForm
             // 
