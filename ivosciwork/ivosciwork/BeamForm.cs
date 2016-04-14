@@ -11,18 +11,20 @@ namespace ivosciwork
     {
         private Thread myThread;
         private volatile bool running = true;
+        private Image sector1x105 = new Bitmap(ivosciwork.Properties.Resources.Sector1x105);
+        private Image sector4x12 = new Bitmap(ivosciwork.Properties.Resources.Sector4x12);
+        private Graphics g;
 
-        private struct BeamPosition {
-            public Color color; 
+        private struct CurrentState {
+            public Color color;
             public Point spotLight;
             public Point upperBorder;
             public Point lowerBorder;
-        }
 
-        private struct CurrentState {
-            public BeamPosition currentPosition;
-            public RectangleShape sector;
-            public Rectangle secPos;
+            public Image sector;
+            public Point leftUpper;
+            public Point leftDown;
+            public Point rightUpper;
         }
 
         private CurrentState state = new CurrentState();
@@ -30,12 +32,14 @@ namespace ivosciwork
         {
             InitializeComponent();
 
-            this.sector.Width = this.Width / 6;
-            sector.SendToBack();
-            sector.Visible = false;
+            //this.sector.Width = this.Width / 6;
+            //sector.SendToBack();
+            //sector.Visible = false;
             SpotLight.BringToFront();
-            upperBeamBorder.BringToFront();
-            lowerBeamBorder.BringToFront();
+
+            state.sector = this.sector1x105;
+
+            this.SpotLight.Size = new System.Drawing.Size(20, 20);
 
             //RPNEvent handlers
             rpn.directionChanged += this.directionChangedHandler;
@@ -46,9 +50,9 @@ namespace ivosciwork
             //resize event handler
             this.Resize += this.onResize;
 
-            state.sector = Sector1x105;
-            state.sector.Visible = false;
-            state.secPos = new Rectangle();
+            //state.sector = Sector1x105;
+            //state.sector.Visible = false;
+            //state.secPos = new Rectangle();
 
             //thread for calculations
             this.myThread = new Thread(new ThreadStart( this.eventLoop ));
@@ -60,16 +64,35 @@ namespace ivosciwork
         private RPN.Mode mode = RPN.Mode.off;
         private void modeChangedHandler(RPN.CompleteRPNState currentState)
         {
-            isModeChanged = true;
             mode = currentState.currentMode;
+            isRpnOn = mode == RPN.Mode.off ? false : isRpnOn;
+            isModeChanged = true;
         }
+
+        private double upperLimit;
+        private double downLimit;
+        private double leftLimit;
+        private double rightLimit;
+        private double delta;
+
+        private double degreeHeight;
+        private double degree;
 
         private void onResize(object sender, EventArgs e)
         {
-            this.sector.Width = this.Width / 6;
-            this.SpotLight.Location = calcCurrentPosition().spotLight;
-            this.upperBeamBorder.StartPoint = this.calcUpperBeamBorderPosition(this.SpotLight.Location);
-            this.lowerBeamBorder.StartPoint = this.calcLowerBeamBorderPosition(this.SpotLight.Location);
+            g = this.CreateGraphics();
+            //this.sector.Width = this.Width / 6;
+            upperLimit = (int)(this.Size.Height * 0);
+            downLimit = (int)(this.Size.Height * 0.8);
+            leftLimit = (int)(this.Size.Width * 0.1);
+            rightLimit = (int)(this.Size.Width * 0.5);
+            delta = (int)(this.Size.Height * 0.3);
+
+            degreeHeight = (int)((downLimit - delta - upperLimit) / 30.0);
+            degree = (int)((downLimit - delta - upperLimit) / 81.0);
+
+            this.SpotLight.Size = new System.Drawing.Size((int)degreeHeight, (int)degreeHeight);
+            this.SpotLight.Location = getCurrentState().spotLight;
         }
 
         private bool isFrequencyChanged = false;
@@ -106,11 +129,11 @@ namespace ivosciwork
                     {
                         if (mode == RPN.Mode.HX12)
                         {
-                            state.sector = this.Sector4x12;
+                            state.sector = this.sector4x12;
                         }
                         else
                         {
-                            state.sector = this.Sector1x105;
+                            state.sector = this.sector1x105;
                         }
                         updateVisibility(isRpnOn);
                     }
@@ -128,13 +151,12 @@ namespace ivosciwork
                     {
                         isDirectionChanged = false;
                         isFrequencyChanged = false;
-                        state.currentPosition = calcCurrentPosition();
-                        state.secPos = calcSectorPosition();
+                        state = getCurrentState();
                     }
                     else
                     {
                         isFrequencyChanged = false;
-                        state.currentPosition.color = Constants.getFreqColor(frequency);
+                        state.color = Constants.getFreqColor(frequency);
                     }
 
                     updatePosition(state);
@@ -142,28 +164,28 @@ namespace ivosciwork
             }
         }
 
-        private Rectangle calcSectorPosition()
-        {
-            if (state.sector == this.Sector4x12)
-            {
-                double Epsilon0 = ControlForm.getEpsilon0();// Нехорошо так делать!!!
-                Rectangle secPos = new Rectangle();
-                secPos.Height = sector.Height / 9;
-                secPos.Width = (int)(sector.Width * 0.13);
-                secPos.X = sector.Location.X + sector.Width * 47 / 105;
-                secPos.Y = (int)(sector.Location.Y + 0.78 * sector.Height - secPos.Height - Epsilon0 * 0.5 * sector.Height / 80 );
-                return secPos;
-            }
-            else
-            {
-                Rectangle secPos = new Rectangle();
-                secPos.Height =(int)( 0.41 * sector.Height );
-                secPos.Width = sector.Width;
-                secPos.X = sector.Location.X;
-                secPos.Y = (int)( sector.Location.Y + 0.54 * sector.Height - beamDirection.epsilon * 0.5 * sector.Height / 80 );
-                return secPos;
-            }
-        }
+        //private Rectangle calcSectorPosition()
+        //{
+        //    if (state.sector == this.Sector4x12)
+        //    {
+        //        double Epsilon0 = ControlForm.getEpsilon0();// Нехорошо так делать!!!
+        //        Rectangle secPos = new Rectangle();
+        //        secPos.Height = sector.Height / 9;
+        //        secPos.Width = (int)(sector.Width * 0.13);
+        //        secPos.X = sector.Location.X + sector.Width * 47 / 105;
+        //        secPos.Y = (int)(sector.Location.Y + 0.78 * sector.Height - secPos.Height - Epsilon0 * 0.5 * sector.Height / 80 );
+        //        return secPos;
+        //    }
+        //    else
+        //    {
+        //        Rectangle secPos = new Rectangle();
+        //        secPos.Height =(int)( 0.41 * sector.Height );
+        //        secPos.Width = sector.Width;
+        //        secPos.X = sector.Location.X;
+        //        secPos.Y = (int)( sector.Location.Y + 0.54 * sector.Height - beamDirection.epsilon * 0.5 * sector.Height / 80 );
+        //        return secPos;
+        //    }
+        //}
 
         delegate void updatePositionCallBack( CurrentState s);//
 
@@ -172,14 +194,30 @@ namespace ivosciwork
                 updatePositionCallBack d = new updatePositionCallBack(updatePosition);
                 this.Invoke(d, new object[] { s });
             } else {
-                this.SpotLight.Location = s.currentPosition.spotLight;
-                this.SpotLight.FillColor = s.currentPosition.color;
-                this.upperBeamBorder.StartPoint = s.currentPosition.upperBorder;
-                this.lowerBeamBorder.StartPoint = s.currentPosition.lowerBorder;
 
-                s.sector.Height = s.secPos.Height;
-                s.sector.Width = s.secPos.Width;
-                s.sector.Location = new Point(s.secPos.X,s.secPos.Y);
+                Point[] destinationPoints = {
+                state.leftUpper,   // destination for upper-left point of original
+                state.rightUpper,  // destination for upper-right point of original
+                state.leftDown};  // destination for lower-left point of original
+
+                // Draw the image mapped to the parallelogram.
+                if (isRpnOn)
+                {
+                    g.Clear(BackColor);
+                    g.DrawImage(state.sector, destinationPoints);
+                    g.DrawLine(new Pen(Color.Black, 1), LittleRPN.Location, s.upperBorder);
+                    g.DrawLine(new Pen(Color.Black, 1), LittleRPN.Location, s.lowerBorder);
+                    System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(s.color);
+
+                    g.FillEllipse(myBrush, new Rectangle(s.spotLight, new System.Drawing.Size((int)degreeHeight, (int)degreeHeight)));
+                }
+
+                //this.SpotLight.Location = s.spotLight;
+                //this.SpotLight.FillColor = s.color;
+
+                //s.sector.Height = s.secPos.Height;
+                //s.sector.Width = s.secPos.Width;
+                //s.sector.Location = new Point(s.secPos.X,s.secPos.Y);
             }
         }
 
@@ -194,42 +232,60 @@ namespace ivosciwork
             else
             {
                 this.SpotLight.Visible = visible;
-                this.upperBeamBorder.Visible = visible;
-                this.lowerBeamBorder.Visible = visible;
-                if (visible)
-                {
-                    if (state.sector == this.Sector4x12)
-                    {
-                        this.Sector4x12.Visible = true;
-                        this.Sector1x105.Visible = false;
-                    }
-                    else
-                    {
-                        this.Sector4x12.Visible = false;
-                        this.Sector1x105.Visible = true;
-                    }
-                }
-                else {
-                    this.Sector4x12.Visible = false;
-                    this.Sector1x105.Visible = false;
+
+                if (!visible) {
+                    g.Clear(this.BackColor);
                 }
             }
         }
 
-        private BeamPosition calcCurrentPosition() {
+        private CurrentState getCurrentState() {
             double currentAzimut = beamDirection.azimut;
             double currentEpsilon = beamDirection.epsilon;
-            BeamPosition currentPosition = new BeamPosition();
-            currentPosition.spotLight = mapPosition( new Point((int)currentAzimut, (int)currentEpsilon) );
+            CurrentState currentPosition = new CurrentState();
+
+            currentPosition.sector = state.sector;
+            Point[] sectorPos = mapSectorPosition(currentEpsilon);
+
+            currentPosition.leftUpper = sectorPos[0];
+            currentPosition.rightUpper = sectorPos[1];
+            currentPosition.leftDown = sectorPos[2];
+
+            currentPosition.spotLight = mapPosition( currentAzimut, currentEpsilon);
             currentPosition.upperBorder = calcUpperBeamBorderPosition(currentPosition.spotLight);
             currentPosition.lowerBorder = calcLowerBeamBorderPosition(currentPosition.spotLight);
             currentPosition.color = Constants.getFreqColor( frequency );
             return currentPosition;
         }
 
+        private Point[] mapSectorPosition(double currentEpsilon)
+        {
+            Point[] secPos = new Point[3];
+
+            if (state.sector == sector1x105)
+            {
+                secPos[0].Y = (int)(downLimit - (11 + currentEpsilon) * degree);
+                secPos[1].Y = (int)(secPos[0].Y - delta);
+                secPos[2].Y = (int)(secPos[0].Y + degreeHeight);
+                secPos[0].X = (int)leftLimit;
+                secPos[1].X = (int)rightLimit;
+                secPos[2].X = (int)leftLimit;
+            }
+            else
+            {
+                secPos[2].Y = (int)((downLimit - (11 + ControlForm.getEpsilon0()) * degree) - delta * 46 / 105.0 + degreeHeight);
+                secPos[0].Y = (int)(secPos[2].Y - degree * 6.5);
+                secPos[1].Y = (int)(secPos[0].Y - delta * 14 / 105.0);
+                secPos[0].X = (int)(leftLimit + (rightLimit - leftLimit) * 46 / 105.0);
+                secPos[1].X = (int)(leftLimit + (rightLimit - leftLimit) * 60 / 105.0);
+                secPos[2].X = (int)(leftLimit + (rightLimit - leftLimit) * 46 / 105.0);
+            }
+            return secPos;
+        }
+
         //This function determines how real azimut/epsilon will be shown on screen
-        private Point mapPosition(Point realBeamPosition) {
-            return parallelogramMap(realBeamPosition);
+        private Point mapPosition(double az, double eps) {
+            return parallelogramMap(az,eps);
         }
 
         private Point simpleRectangularMap(Point realBeamPosition) {
@@ -244,12 +300,14 @@ namespace ivosciwork
             return screenBeamPosition;
         }
 
-        private Point parallelogramMap(Point realBeamPosition)
+        private Point parallelogramMap(double az, double eps)
         {
             //This implements parallelogram mapping
             Point screenBeamPosition = new Point();
-            screenBeamPosition.X = (int)(sector.Location.X + sector.Width * realBeamPosition.X / 105.0);
-            screenBeamPosition.Y = (int)(sector.Location.Y + 0.92 * sector.Height - sector.Height * 0.5 * realBeamPosition.Y / 80.0 - sector.Height * 0.39 * realBeamPosition.X / 105.0);
+            double leftY = (int)(downLimit - (11 + eps) * degree);
+            double rightY = leftY - delta;
+            screenBeamPosition.X = (int)(leftLimit + (rightLimit - leftLimit) * (az - 1) / 105.0);
+            screenBeamPosition.Y = (int)(leftY - degreeHeight * (delta / (rightLimit - leftLimit))/2 + (rightY - leftY) * (az - 1) / 105.0);
 
             return screenBeamPosition;
         }
@@ -257,8 +315,8 @@ namespace ivosciwork
         private Point calcUpperBeamBorderPosition(Point spotLight)
         {
             int r = this.SpotLight.Width / 2;
-            int a = this.upperBeamBorder.X2 - this.upperBeamBorder.X1;
-            int b = this.upperBeamBorder.Y2 - this.upperBeamBorder.Y1;
+            int a = this.LittleRPN.Location.X - this.SpotLight.Location.X;
+            int b = this.LittleRPN.Location.Y - this.SpotLight.Location.Y;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
             int x = spotLight.X + (int)(r * (1 + (double)b / c));
             int y = spotLight.Y + (int)(r * (1 - (double)a / c));
@@ -268,8 +326,8 @@ namespace ivosciwork
         private Point calcLowerBeamBorderPosition(Point spotLight)
         {
             int r = this.SpotLight.Width / 2;
-            int a = this.upperBeamBorder.X2 - this.upperBeamBorder.X1;
-            int b = this.upperBeamBorder.Y2 - this.upperBeamBorder.Y1;
+            int a = this.LittleRPN.Location.X - this.SpotLight.Location.X;
+            int b = this.LittleRPN.Location.Y - this.SpotLight.Location.Y;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
             int x = spotLight.X + (int)(r * (1 - (double)b / c));
             int y = spotLight.Y + (int)(r * (1 + (double)a / c));
