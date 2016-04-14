@@ -195,28 +195,36 @@ namespace ivosciwork
         }
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка ON*/
         {
-            myRpn.changeEpsilon(Epsilon0);
-            Epsilon = beamDirection.epsilon;
-            Segment((int)(Epsilon0 * 10), pictureBox29);
-            Segment((int)(Epsilon * 10), pictureBox28);
-
-            if (isRpnOn == false)
-            {
-                Segment((int)(Epsilon * 10), pictureBox29);
-                Segment((int)(Epsilon * 10), pictureBox28);
-            }
             pictureBox3.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-            pictureBox12.BackColor = Color.Cyan;
-            pictureBox13.BackColor = Color.Cyan;
-            pictureBox14.BackColor = Color.Cyan;
-            pictureBox15.BackColor = Color.Cyan;
-            myRpn.turnOn();
-            frequencies = myRpn.getFreqSet();
-            Poloski(frequencies);
+            if (myRpn.getCurrentMode() != RPN.Mode.off)
+            {
+                myRpn.changeEpsilon(Epsilon0);
+                Epsilon = beamDirection.epsilon;
+                Segment((int)(Epsilon0 * 10), pictureBox29);
+                Segment((int)(Epsilon * 10), pictureBox28);
+
+                if (isRpnOn == false)
+                {
+                    Segment((int)(Epsilon * 10), pictureBox29);
+                    Segment((int)(Epsilon * 10), pictureBox28);
+                    pictureBox12.Left = pictureBox8.Left + (int)(pictureBox8.Width / 2 - 2);
+                    pictureBox13.Left = pictureBox8.Left + (int)(pictureBox8.Width / 2 - 2);
+                    pictureBox14.Left = pictureBox8.Left + (int)(pictureBox8.Width / 2 - 2);
+                    pictureBox15.Left = pictureBox8.Left + (int)(pictureBox8.Width / 2 - 2);
+                    pictureBox12.BackColor = Color.Cyan;
+                    pictureBox13.BackColor = Color.Cyan;
+                    pictureBox14.BackColor = Color.Cyan;
+                    pictureBox15.BackColor = Color.Cyan;
+                }
+                myRpn.turnOn();
+                frequencies = myRpn.getFreqSet();
+                Poloski(frequencies);
+            }
         }
         private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
         {
-            pictureBox3.Image = Properties.Resources.GREEN_BUTTON_ON;
+            if (isRpnOn == true) pictureBox3.Image = Properties.Resources.GREEN_BUTTON_ON;
+            else pictureBox3.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox4.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
@@ -237,13 +245,13 @@ namespace ivosciwork
             RightZoneatalon = 404;
             Epsilon0 = 0.3;
             Epsilon = Epsilon0;
-            myRpn.changeEpsilon(Epsilon0);
             myRpn.changeMode(RPN.Mode.IX105NP);
             raz = 1;
             for (int i = 0; i < 4; i++) Lines1[i].Width = 0;
             for (int i = 0; i < 4; i++) Lines2[i].Width = 0;
            if(isRpnOn==true)
-            {   
+            {
+                myRpn.changeEpsilon(Epsilon0);
                 raz = 1;
                 frequencies = myRpn.getFreqSet();
                 Poloski(frequencies);
@@ -339,6 +347,10 @@ namespace ivosciwork
             pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox26.Image = Properties.Resources.red_button;
             raz = 1;
+            pictureBox12.BackColor = Color.Gray;
+            pictureBox13.BackColor = Color.Gray;
+            pictureBox14.BackColor = Color.Gray;
+            pictureBox15.BackColor = Color.Gray;
             for (int i = 0; i < 4; i++) Lines1[i].Visible = false;
             for (int i = 0; i < 4; i++) Lines2[i].Visible = false;
         }
@@ -436,18 +448,19 @@ namespace ivosciwork
 
         private void pictureBox4_MouseUp(object sender, MouseEventArgs e)
         {
-            pictureBox4.Image = Properties.Resources.GREEN_BUTTON_ON;
+            if (isRpnOn == true) pictureBox4.Image = Properties.Resources.GREEN_BUTTON_ON;
+            else pictureBox4.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
         }
 
         private void pictureBox5_MouseDown(object sender, MouseEventArgs e) /* зеленая кнопка F3 */
-        { 
+        {
+            pictureBox5.Image = Properties.Resources.GREEN_BUTTON_DOWN;
             change = true;
             if (myRpn.getCurrentMode() != RPN.Mode.IX105NP)
             {
-                pictureBox5.Image = Properties.Resources.GREEN_BUTTON_DOWN;
                 myRpn.setFrequencies(RPN.Frequency.F3);
                 frequencies = myRpn.getFreqSet();
                 Poloski(frequencies);
@@ -456,10 +469,12 @@ namespace ivosciwork
 
         private void pictureBox5_MouseUp(object sender, MouseEventArgs e)
         {
+            pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
             if (myRpn.getCurrentMode() != RPN.Mode.IX105NP)
             {
                 pictureBox4.Image = Properties.Resources.GREEN_BUTTON;
-                pictureBox5.Image = Properties.Resources.GREEN_BUTTON_ON;
+                if (isRpnOn == true) pictureBox5.Image = Properties.Resources.GREEN_BUTTON_ON;
+                else pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
                 pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
             }
@@ -478,7 +493,8 @@ namespace ivosciwork
         {
             pictureBox4.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
-            pictureBox6.Image = Properties.Resources.GREEN_BUTTON_ON;
+            if (isRpnOn == true) pictureBox6.Image = Properties.Resources.GREEN_BUTTON_ON;
+            else pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
         }
 
@@ -496,27 +512,23 @@ namespace ivosciwork
             pictureBox4.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox5.Image = Properties.Resources.GREEN_BUTTON;
             pictureBox6.Image = Properties.Resources.GREEN_BUTTON;
-            pictureBox7.Image = Properties.Resources.GREEN_BUTTON_ON;
+            if (isRpnOn == true) pictureBox7.Image = Properties.Resources.GREEN_BUTTON_ON;
+            else pictureBox7.Image = Properties.Resources.GREEN_BUTTON;
         }
 
         
 
         private void pictureBox26_MouseDown(object sender, MouseEventArgs e) /*красная кнопка СТОП ЕПСИЛОН*/
         {
-            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
-            {
-                pictureBox26.Image = Properties.Resources.red_button_down;
-                myRpn.OnStopButtonState();
-            }
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12 & isRpnOn == true) myRpn.OnStopButtonState();
+            pictureBox26.Image = Properties.Resources.red_button_down;
         }
 
         private void pictureBox26_MouseUp(object sender, MouseEventArgs e)
         {
-            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
-            {
-                pictureBox26.Image = Properties.Resources.red_button_on;
-                pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
-            }
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12 & isRpnOn == true) pictureBox26.Image = Properties.Resources.red_button_on;
+            else pictureBox26.Image = Properties.Resources.red_button;
+            pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -562,19 +574,14 @@ namespace ivosciwork
 
         private void pictureBox27_MouseDown(object sender, MouseEventArgs e) /*зеленая кнопка ПУСК ЕПСИЛОН*/
         {
-            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
-            {
-                pictureBox27.Image = Properties.Resources.GREEN_BUTTON_DOWN;
-                myRpn.OffStopButtonState();
-            }
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12 & isRpnOn == true) myRpn.OffStopButtonState();
+            pictureBox27.Image = Properties.Resources.GREEN_BUTTON_DOWN;
         }
         private void pictureBox27_MouseUp(object sender, MouseEventArgs e)
         {
-            if (myRpn.getCurrentMode() == RPN.Mode.HX12)
-            {
-                pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
-                pictureBox26.Image = Properties.Resources.red_button;
-            }
+            if (myRpn.getCurrentMode() == RPN.Mode.HX12 & isRpnOn == true) pictureBox27.Image = Properties.Resources.GREEN_BUTTON_ON;
+            else pictureBox27.Image = Properties.Resources.GREEN_BUTTON;
+            pictureBox26.Image = Properties.Resources.red_button;
         }
 
         private void Poloski(SortedSet<RPN.Frequency> frequency) /* показывает полосы которые бегут */
@@ -705,8 +712,6 @@ namespace ivosciwork
         }
 
        delegate void updateStateCallBack(CurrentState currentPosition1, CurrentState currentPosition2);//
-
-       
 
         private void updateState(CurrentState current1, CurrentState current2)
         {
