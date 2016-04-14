@@ -28,30 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.SpotLight = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.LittleRPN = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.LittleRPN)).BeginInit();
             this.SuspendLayout();
-            // 
-            // shapeContainer1
-            // 
-            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
-            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer1.Name = "shapeContainer1";
-            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.SpotLight});
-            this.shapeContainer1.Size = new System.Drawing.Size(836, 469);
-            this.shapeContainer1.TabIndex = 4;
-            this.shapeContainer1.TabStop = false;
-            // 
-            // SpotLight
-            // 
-            this.SpotLight.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid;
-            this.SpotLight.Location = new System.Drawing.Point(30, 37);
-            this.SpotLight.Name = "SpotLight";
-            this.SpotLight.Size = new System.Drawing.Size(10, 10);
-            this.SpotLight.Visible = false;
             // 
             // LittleRPN
             // 
@@ -72,7 +51,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(836, 469);
             this.Controls.Add(this.LittleRPN);
-            this.Controls.Add(this.shapeContainer1);
             this.Name = "BeamForm";
             this.Text = "Beam";
             this.Load += new System.EventHandler(this.BeamForm_Load);
@@ -82,8 +60,6 @@
         }
 
         #endregion
-        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private System.Windows.Forms.PictureBox LittleRPN;
-        private Microsoft.VisualBasic.PowerPacks.OvalShape SpotLight;
     }
 }

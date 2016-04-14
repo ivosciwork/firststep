@@ -32,14 +32,7 @@ namespace ivosciwork
         {
             InitializeComponent();
 
-            //this.sector.Width = this.Width / 6;
-            //sector.SendToBack();
-            //sector.Visible = false;
-            SpotLight.BringToFront();
-
             state.sector = this.sector1x105;
-
-            this.SpotLight.Size = new System.Drawing.Size(20, 20);
 
             //RPNEvent handlers
             rpn.directionChanged += this.directionChangedHandler;
@@ -49,10 +42,6 @@ namespace ivosciwork
 
             //resize event handler
             this.Resize += this.onResize;
-
-            //state.sector = Sector1x105;
-            //state.sector.Visible = false;
-            //state.secPos = new Rectangle();
 
             //thread for calculations
             this.myThread = new Thread(new ThreadStart( this.eventLoop ));
@@ -81,7 +70,6 @@ namespace ivosciwork
         private void onResize(object sender, EventArgs e)
         {
             g = this.CreateGraphics();
-            //this.sector.Width = this.Width / 6;
             upperLimit = (int)(this.Size.Height * 0);
             downLimit = (int)(this.Size.Height * 0.8);
             leftLimit = (int)(this.Size.Width * 0.1);
@@ -90,9 +78,6 @@ namespace ivosciwork
 
             degreeHeight = (int)((downLimit - delta - upperLimit) / 30.0);
             degree = (int)((downLimit - delta - upperLimit) / 81.0);
-
-            this.SpotLight.Size = new System.Drawing.Size((int)degreeHeight, (int)degreeHeight);
-            this.SpotLight.Location = getCurrentState().spotLight;
         }
 
         private bool isFrequencyChanged = false;
@@ -164,29 +149,6 @@ namespace ivosciwork
             }
         }
 
-        //private Rectangle calcSectorPosition()
-        //{
-        //    if (state.sector == this.Sector4x12)
-        //    {
-        //        double Epsilon0 = ControlForm.getEpsilon0();// Нехорошо так делать!!!
-        //        Rectangle secPos = new Rectangle();
-        //        secPos.Height = sector.Height / 9;
-        //        secPos.Width = (int)(sector.Width * 0.13);
-        //        secPos.X = sector.Location.X + sector.Width * 47 / 105;
-        //        secPos.Y = (int)(sector.Location.Y + 0.78 * sector.Height - secPos.Height - Epsilon0 * 0.5 * sector.Height / 80 );
-        //        return secPos;
-        //    }
-        //    else
-        //    {
-        //        Rectangle secPos = new Rectangle();
-        //        secPos.Height =(int)( 0.41 * sector.Height );
-        //        secPos.Width = sector.Width;
-        //        secPos.X = sector.Location.X;
-        //        secPos.Y = (int)( sector.Location.Y + 0.54 * sector.Height - beamDirection.epsilon * 0.5 * sector.Height / 80 );
-        //        return secPos;
-        //    }
-        //}
-
         delegate void updatePositionCallBack( CurrentState s);//
 
         private void updatePosition(CurrentState s) {
@@ -211,13 +173,6 @@ namespace ivosciwork
 
                     g.FillEllipse(myBrush, new Rectangle(s.spotLight, new System.Drawing.Size((int)degreeHeight, (int)degreeHeight)));
                 }
-
-                //this.SpotLight.Location = s.spotLight;
-                //this.SpotLight.FillColor = s.color;
-
-                //s.sector.Height = s.secPos.Height;
-                //s.sector.Width = s.secPos.Width;
-                //s.sector.Location = new Point(s.secPos.X,s.secPos.Y);
             }
         }
 
@@ -231,8 +186,6 @@ namespace ivosciwork
             }
             else
             {
-                this.SpotLight.Visible = visible;
-
                 if (!visible) {
                     g.Clear(this.BackColor);
                 }
@@ -273,12 +226,12 @@ namespace ivosciwork
             }
             else
             {
-                secPos[2].Y = (int)((downLimit - (11 + ControlForm.getEpsilon0()) * degree) - delta * 46 / 105.0 + degreeHeight);
-                secPos[0].Y = (int)(secPos[2].Y - degree * 6.5);
+                secPos[2].Y = (int)((downLimit - (11 + ControlForm.getEpsilon0()) * degree) - delta * 45 / 105.0 + degreeHeight);
+                secPos[0].Y = (int)(secPos[2].Y - degree * 7);
                 secPos[1].Y = (int)(secPos[0].Y - delta * 14 / 105.0);
-                secPos[0].X = (int)(leftLimit + (rightLimit - leftLimit) * 46 / 105.0);
+                secPos[0].X = (int)(leftLimit + (rightLimit - leftLimit) * 45 / 105.0);
                 secPos[1].X = (int)(leftLimit + (rightLimit - leftLimit) * 60 / 105.0);
-                secPos[2].X = (int)(leftLimit + (rightLimit - leftLimit) * 46 / 105.0);
+                secPos[2].X = (int)(leftLimit + (rightLimit - leftLimit) * 45 / 105.0);
             }
             return secPos;
         }
@@ -314,9 +267,9 @@ namespace ivosciwork
 
         private Point calcUpperBeamBorderPosition(Point spotLight)
         {
-            int r = this.SpotLight.Width / 2;
-            int a = this.LittleRPN.Location.X - this.SpotLight.Location.X;
-            int b = this.LittleRPN.Location.Y - this.SpotLight.Location.Y;
+            double r = degreeHeight/2;
+            int a = this.LittleRPN.Location.X - spotLight.X;
+            int b = this.LittleRPN.Location.Y - spotLight.Y;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
             int x = spotLight.X + (int)(r * (1 + (double)b / c));
             int y = spotLight.Y + (int)(r * (1 - (double)a / c));
@@ -325,12 +278,12 @@ namespace ivosciwork
 
         private Point calcLowerBeamBorderPosition(Point spotLight)
         {
-            int r = this.SpotLight.Width / 2;
-            int a = this.LittleRPN.Location.X - this.SpotLight.Location.X;
-            int b = this.LittleRPN.Location.Y - this.SpotLight.Location.Y;
+            double r = degreeHeight/2;
+            int a = this.LittleRPN.Location.X - spotLight.X;
+            int b = this.LittleRPN.Location.Y - spotLight.Y;
             int c = (int)System.Math.Sqrt(System.Math.Pow(a, 2) + System.Math.Pow(b, 2));
-            int x = spotLight.X + (int)(r * (1 - (double)b / c));
-            int y = spotLight.Y + (int)(r * (1 + (double)a / c));
+            int x = (int)(spotLight.X + (r * (1 - (double)b / c)));
+            int y = (int)(spotLight.Y + (r * (1 + (double)a / c)));
             return new Point(x, y);
         }
 
